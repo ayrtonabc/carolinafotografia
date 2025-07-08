@@ -1,25 +1,19 @@
 backend:
   name: git-gateway
   branch: main
-  
-# Agregar esta configuración:
-publish_mode: editorial_workflow
-webhook_url: "https://api.netlify.com/build_hooks/686d91d8a35d64188be08a33"
 
-
-
-site_url: https://carolinagfotografia.pl
-display_url: https://carolinagfotografia.pl
+site_url: https://tu-sitio.netlify.app
+display_url: https://tu-sitio.netlify.app
 logo_url: /image.png
 
-# Configuración de idioma en polaco
+# Konfiguracja języka polskiego
 locale: 'pl'
 
-# Configuración para forzar actualización de caché
+# Konfiguracja wymuszająca aktualizację cache
 public_folder: "/images"
 media_folder: "public/images"
 
-# Configuración para asegurar que los cambios se reflejen
+# Konfiguracja zapewniająca odzwierciedlenie zmian
 slug:
   encoding: "ascii"
   clean_accents: true
@@ -27,19 +21,19 @@ slug:
 
 collections:
   - name: "settings"
-    label: "⚙️ Ustawienia ogólne"
+    label: "⚙️ Konfiguracja Ogólna"
     files:
       - name: "site"
-        label: "Informacje o stronie"
+        label: "Informacje o Stronie"
         file: "src/data/site.json"
         fields:
-          - { label: "Nazwa strony", name: "title", widget: "string", required: true }
+          - { label: "Nazwa Strony", name: "title", widget: "string", required: true }
           - { label: "Opis", name: "description", widget: "text", required: true }
           - { label: "Email", name: "email", widget: "string", required: true }
           - { label: "Telefon", name: "phone", widget: "string", required: true }
           - { label: "Lokalizacja", name: "location", widget: "string", required: true }
           - { label: "Logo", name: "logo", widget: "image", required: false }
-          - label: "Media społecznościowe"
+          - label: "Media Społecznościowe"
             name: "social"
             widget: "object"
             fields:
@@ -51,54 +45,56 @@ collections:
         label: "Nawigacja"
         file: "src/data/navigation.json"
         fields:
-          - label: "Menu nawigacyjne"
+          - label: "Menu Nawigacyjne"
             name: "navbar"
             widget: "object"
             fields:
-              - { label: "Strona główna", name: "home", widget: "string", default: "Strona główna" }
-              - { label: "O mnie", name: "about", widget: "string", default: "O mnie" }
+              - { label: "Strona Główna", name: "home", widget: "string", default: "Strona Główna" }
+              - { label: "O Mnie", name: "about", widget: "string", default: "O Mnie" }
               - { label: "Usługi", name: "services", widget: "string", default: "Usługi" }
               - { label: "Galeria", name: "gallery", widget: "string", default: "Galeria" }
               - { label: "Kontakt", name: "contact", widget: "string", default: "Kontakt" }
-              - { label: "Opis alternatywny logotypu", name: "logo_alt", widget: "string", default: "Karolina Fotografia" }
-              - { label: "Menu mobilne", name: "mobile_menu_label", widget: "string", default: "Otwórz menu" }
+              - { label: "Alt Logo", name: "logo_alt", widget: "string", default: "Karolina Fotografia" }
+              - { label: "Menu Mobilne", name: "mobile_menu_label", widget: "string", default: "Otwórz menu" }
 
   - name: "hero"
-    label: "🏠 Sekcja główna"
+    label: "🏠 Sekcja Główna"
     files:
       - name: "hero"
-        label: "Sekcja główna"
+        label: "Sekcja Hero"
         file: "src/data/hero.json"
         fields:
-          - { label: "Nagłówek", name: "title", widget: "string", required: true }
-          - { label: "Wyróżnione słowo", name: "accent", widget: "string", required: true }
+          - { label: "Tytuł Główny", name: "title", widget: "string", required: true }
+          - { label: "Słowo Wyróżnione", name: "accent", widget: "string", required: true }
           - { label: "Opis", name: "description", widget: "text", required: true }
-          - { label: "Obraz główny", name: "image", widget: "image", required: true }
+          - { label: "Obraz Główny", name: "image", widget: "image", required: true }
           - label: "Przyciski"
             name: "buttons"
             widget: "object"
             fields:
-              - { label: "Tekst głównego przycisku", name: "primary_text", widget: "string", default: "Zarezerwuj sesję" }
-              - { label: "Link głównego przycisku", name: "primary_link", widget: "string", default: "#kontakt" }
-              - { label: "Tekst drugiego przycisku", name: "secondary_text", widget: "string", default: "Zobacz portfolio" }
-              - { label: "Link drugiego przycisku", name: "secondary_link", widget: "string", default: "#galeria" }
+              - { label: "Tekst Przycisku Głównego", name: "primary_text", widget: "string", default: "Zarezerwuj Sesję" }
+              - { label: "Link Przycisku Głównego", name: "primary_link", widget: "string", default: "#kontakt" }
+              - { label: "Tekst Przycisku Drugorzędnego", name: "secondary_text", widget: "string", default: "Zobacz Portfolio" }
+              - { label: "Link Przycisku Drugorzędnego", name: "secondary_link", widget: "string", default: "#galeria" }
 
   - name: "about"
-    label: "👤 O mnie"
+    label: "👤 O Mnie"
     files:
       - name: "about"
-        label: "Informacje osobiste"
+        label: "Informacje Osobiste"
         file: "src/data/about.json"
         fields:
           - { label: "Tytuł", name: "title", widget: "string", required: true }
           - { label: "Podtytuł", name: "subtitle", widget: "string", required: true }
           - { label: "Opis 1", name: "description1", widget: "text", required: true }
           - { label: "Opis 2", name: "description2", widget: "text", required: true }
-          - { label: "Lata doświadczenia", name: "experience", widget: "number", required: true }
-          - { label: "Zdjęcie", name: "image", widget: "image", required: true }
+          - { label: "Lata Doświadczenia", name: "experience", widget: "number", required: true }
+          - { label: "Obraz", name: "image", widget: "image", required: true }
           - label: "Statystyki"
             name: "stats"
             widget: "list"
+            allow_add: true
+            allow_delete: true
             fields:
               - { label: "Liczba", name: "number", widget: "string" }
               - { label: "Opis", name: "description", widget: "string" }
@@ -107,24 +103,28 @@ collections:
     label: "💼 Usługi"
     files:
       - name: "services"
-        label: "Lista usług"
+        label: "Lista Usług"
         file: "src/data/services.json"
         fields:
-          - { label: "Tytuł sekcji", name: "section_title", widget: "string", default: "Moje usługi" }
+          - { label: "Tytuł Sekcji", name: "section_title", widget: "string", default: "Moje Usługi" }
           - { label: "Podtytuł", name: "section_subtitle", widget: "text", default: "Profesjonalne usługi fotograficzne" }
           - label: "Usługi"
             name: "services"
             widget: "list"
+            allow_add: true
+            allow_delete: true
             fields:
               - { label: "Nazwa", name: "name", widget: "string", required: true }
               - { label: "Opis", name: "description", widget: "text", required: true }
               - { label: "Cena", name: "price", widget: "string", required: true }
-              - { label: "Zdjęcie", name: "image", widget: "image", required: true }
+              - { label: "Obraz", name: "image", widget: "image", required: true }
               - { label: "Wyróżnione", name: "featured", widget: "boolean", default: false }
               - { label: "Kolejność", name: "order", widget: "number", default: 1 }
               - label: "Cechy"
                 name: "features"
                 widget: "list"
+                allow_add: true
+                allow_delete: true
                 field: { label: "Cecha", name: "feature", widget: "string" }
 
   - name: "gallery"
@@ -134,19 +134,21 @@ collections:
         label: "Zdjęcia"
         file: "src/data/gallery.json"
         fields:
-          - { label: "Tytuł sekcji", name: "section_title", widget: "string", default: "Moje portfolio" }
-          - { label: "Podtytuł", name: "section_subtitle", widget: "text", default: "Moje najważniejsze prace" }
+          - { label: "Tytuł Sekcji", name: "section_title", widget: "string", default: "Moje Portfolio" }
+          - { label: "Podtytuł", name: "section_subtitle", widget: "text", default: "Moje wyróżnione prace" }
           - label: "Zdjęcia"
             name: "images"
             widget: "list"
+            allow_add: true
+            allow_delete: true
             fields:
               - { label: "Tytuł", name: "title", widget: "string", required: true }
               - { label: "Opis", name: "description", widget: "string", required: true }
-              - { label: "Obraz", name: "image", widget: "image", required: true }
+              - { label: "Zdjęcie", name: "image", widget: "image", required: true }
               - label: "Kategoria"
                 name: "category"
                 widget: "select"
-                options: ["portrety", "śluby", "rodziny", "wydarzenia", "firmowe"]
+                options: ["portrety", "śluby", "rodziny", "wydarzenia", "korporacyjne"]
               - { label: "Wyróżnione", name: "featured", widget: "boolean", default: false }
               - { label: "Kolejność", name: "order", widget: "number", default: 1 }
 
@@ -154,13 +156,15 @@ collections:
     label: "💬 Opinie"
     files:
       - name: "testimonials"
-        label: "Opinie klientów"
+        label: "Opinie Klientów"
         file: "src/data/testimonials.json"
         fields:
-          - { label: "Tytuł sekcji", name: "section_title", widget: "string", default: "Opinie" }
+          - { label: "Tytuł Sekcji", name: "section_title", widget: "string", default: "Opinie" }
           - label: "Opinie"
             name: "testimonials"
             widget: "list"
+            allow_add: true
+            allow_delete: true
             fields:
               - { label: "Imię", name: "name", widget: "string", required: true }
               - { label: "Opinia", name: "content", widget: "text", required: true }
@@ -171,14 +175,16 @@ collections:
     label: "📞 Kontakt"
     files:
       - name: "contact"
-        label: "Informacje kontaktowe"
+        label: "Informacje Kontaktowe"
         file: "src/data/contact.json"
         fields:
-          - { label: "Tytuł sekcji", name: "section_title", widget: "string", default: "Kontakt" }
+          - { label: "Tytuł Sekcji", name: "section_title", widget: "string", default: "Kontakt" }
           - { label: "Podtytuł", name: "section_subtitle", widget: "text", default: "Porozmawiajmy o Twoim projekcie" }
-          - label: "Dane kontaktowe"
+          - label: "Informacje Kontaktowe"
             name: "contact_info"
             widget: "list"
+            allow_add: true
+            allow_delete: true
             fields:
               - { label: "Typ", name: "type", widget: "select", options: ["email", "telefon", "adres", "godziny"] }
               - { label: "Etykieta", name: "label", widget: "string" }

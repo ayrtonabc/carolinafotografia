@@ -25,22 +25,10 @@
         "required": true,
         "placeholder": "Selecciona un servicio",
         "options": [
-          {
-            "value": "retratos",
-            "label": "Retratos Profesionales"
-          },
-          {
-            "value": "bodas",
-            "label": "Bodas & Eventos"
-          },
-          {
-            "value": "familias",
-            "label": "Sesiones Familiares"
-          },
-          {
-            "value": "otro",
-            "label": "Otro (especificar en mensaje)"
-          }
+          { "value": "retratos", "label": "Retratos Profesionales" },
+          { "value": "bodas", "label": "Bodas & Eventos" },
+          { "value": "familias", "label": "Sesiones Familiares" },
+          { "value": "otro", "label": "Otro (especificar en mensaje)" }
         ]
       },
       "date": {
@@ -62,7 +50,7 @@
     {
       "type": "email",
       "label": "Email",
-      "value": "kontakt@jestemprogramista.pl",
+      "value": "hola@karolinafotografia.com",
       "icon": "email"
     },
     {
