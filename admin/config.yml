@@ -1,35 +1,13 @@
-# Configuración principal para producción (GitHub + Netlify)
 backend:
   name: git-gateway
   branch: main
 
-# Configuración alternativa para desarrollo directo con GitHub
-# backend:
-#   name: github
-#   repo: tu-usuario/tu-repositorio # Cambiar por tu repositorio
-#   branch: main
-#   auth_type: pkce
-#   base_url: https://api.netlify.com
-#   auth_endpoint: auth
-
-# Configuración para desarrollo local
-local_backend: true
-
-site_url: https://tu-sitio.netlify.app # Cambiar por tu URL de Netlify
-display_url: https://tu-sitio.netlify.app # Cambiar por tu URL de Netlify
+site_url: https://tu-sitio.netlify.app
+display_url: https://tu-sitio.netlify.app
 logo_url: /image.png
 
 media_folder: "public/images"
 public_folder: "/images"
-
-# Configuración de editor
-editor:
-  preview: true
-
-# Configuración de slug
-slug:
-  encoding: "ascii"
-  clean_accents: true
 
 collections:
   - name: "settings"
@@ -41,43 +19,33 @@ collections:
         fields:
           - { label: "Nombre del Sitio", name: "title", widget: "string", required: true }
           - { label: "Descripción", name: "description", widget: "text", required: true }
-          - { label: "Email", name: "email", widget: "string", required: true, pattern: ['^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$', 'Debe ser un email válido'] }
+          - { label: "Email", name: "email", widget: "string", required: true }
           - { label: "Teléfono", name: "phone", widget: "string", required: true }
           - { label: "Ubicación", name: "location", widget: "string", required: true }
           - { label: "Logo", name: "logo", widget: "image", required: false }
           - label: "Redes Sociales"
             name: "social"
             widget: "object"
-            collapsed: true
             fields:
               - { label: "Instagram", name: "instagram", widget: "string", required: false }
               - { label: "Facebook", name: "facebook", widget: "string", required: false }
               - { label: "LinkedIn", name: "linkedin", widget: "string", required: false }
               - { label: "WhatsApp", name: "whatsapp", widget: "string", required: false }
       - name: "navigation"
-        label: "Navegación y Textos de Interfaz"
+        label: "Navegación"
         file: "src/data/navigation.json"
         fields:
           - label: "Menú de Navegación"
             name: "navbar"
             widget: "object"
             fields:
-              - { label: "Texto Inicio", name: "home", widget: "string", default: "Inicio", required: true }
-              - { label: "Texto Sobre Mí", name: "about", widget: "string", default: "Sobre Mí", required: true }
-              - { label: "Texto Servicios", name: "services", widget: "string", default: "Servicios", required: true }
-              - { label: "Texto Galería", name: "gallery", widget: "string", default: "Galería", required: true }
-              - { label: "Texto Contacto", name: "contact", widget: "string", default: "Contacto", required: true }
-              - { label: "Alt del Logo", name: "logo_alt", widget: "string", default: "Karolina Fotografía", required: true }
-              - { label: "Aria Label Menú Móvil", name: "mobile_menu_label", widget: "string", default: "Abrir menú", required: true }
-          - label: "Textos Generales"
-            name: "general"
-            widget: "object"
-            collapsed: true
-            fields:
-              - { label: "Texto Cargando", name: "loading", widget: "string", default: "Cargando...", required: false }
-              - { label: "Texto Error", name: "error", widget: "string", default: "Ha ocurrido un error", required: false }
-              - { label: "Texto Ver Más", name: "see_more", widget: "string", default: "Ver más", required: false }
-              - { label: "Texto Ver Menos", name: "see_less", widget: "string", default: "Ver menos", required: false }
+              - { label: "Inicio", name: "home", widget: "string", default: "Inicio" }
+              - { label: "Sobre Mí", name: "about", widget: "string", default: "Sobre Mí" }
+              - { label: "Servicios", name: "services", widget: "string", default: "Servicios" }
+              - { label: "Galería", name: "gallery", widget: "string", default: "Galería" }
+              - { label: "Contacto", name: "contact", widget: "string", default: "Contacto" }
+              - { label: "Alt del Logo", name: "logo_alt", widget: "string", default: "Karolina Fotografía" }
+              - { label: "Menú Móvil", name: "mobile_menu_label", widget: "string", default: "Abrir menú" }
 
   - name: "hero"
     label: "🏠 Sección Principal"
@@ -86,14 +54,13 @@ collections:
         label: "Hero Section"
         file: "src/data/hero.json"
         fields:
-          - { label: "Título Principal", name: "title", widget: "string", required: true, hint: "Texto principal que aparece en la página de inicio" }
-          - { label: "Palabra Destacada", name: "accent", widget: "string", required: true, hint: "Palabra que se resaltará con color dorado" }
-          - { label: "Descripción", name: "description", widget: "text", required: true, hint: "Descripción que aparece debajo del título" }
-          - { label: "Imagen Principal", name: "image", widget: "image", required: true, hint: "Imagen principal de la sección hero" }
-          - label: "Botones de Acción"
+          - { label: "Título Principal", name: "title", widget: "string", required: true }
+          - { label: "Palabra Destacada", name: "accent", widget: "string", required: true }
+          - { label: "Descripción", name: "description", widget: "text", required: true }
+          - { label: "Imagen Principal", name: "image", widget: "image", required: true }
+          - label: "Botones"
             name: "buttons"
             widget: "object"
-            collapsed: true
             fields:
               - { label: "Texto Botón Principal", name: "primary_text", widget: "string", default: "Reservar Sesión" }
               - { label: "Enlace Botón Principal", name: "primary_link", widget: "string", default: "#contacto" }
@@ -109,14 +76,13 @@ collections:
         fields:
           - { label: "Título", name: "title", widget: "string", required: true }
           - { label: "Subtítulo", name: "subtitle", widget: "string", required: true }
-          - { label: "Descripción 1", name: "description1", widget: "text", required: true, hint: "Primer párrafo de tu biografía" }
-          - { label: "Descripción 2", name: "description2", widget: "text", required: true, hint: "Segundo párrafo de tu biografía" }
-          - { label: "Años de Experiencia", name: "experience", widget: "number", required: true, min: 0, max: 50 }
+          - { label: "Descripción 1", name: "description1", widget: "text", required: true }
+          - { label: "Descripción 2", name: "description2", widget: "text", required: true }
+          - { label: "Años de Experiencia", name: "experience", widget: "number", required: true }
           - { label: "Imagen", name: "image", widget: "image", required: true }
           - label: "Estadísticas"
             name: "stats"
             widget: "list"
-            collapsed: true
             fields:
               - { label: "Número", name: "number", widget: "string" }
               - { label: "Descripción", name: "description", widget: "string" }
@@ -128,58 +94,32 @@ collections:
         label: "Lista de Servicios"
         file: "src/data/services.json"
         fields:
-          - label: "Título de la Sección"
-            name: "section_title"
-            widget: "string"
-            default: "Mis Servicios"
-            required: true
-          - label: "Subtítulo de la Sección"
-            name: "section_subtitle"
-            widget: "text"
-            default: "Ofrezco una amplia gama de servicios fotográficos adaptados a tus necesidades específicas"
-            required: true
+          - { label: "Título de la Sección", name: "section_title", widget: "string", default: "Mis Servicios" }
+          - { label: "Subtítulo", name: "section_subtitle", widget: "text", default: "Servicios fotográficos profesionales" }
           - label: "Servicios"
             name: "services"
             widget: "list"
             fields:
               - { label: "Nombre", name: "name", widget: "string", required: true }
               - { label: "Descripción", name: "description", widget: "text", required: true }
-              - { label: "Precio", name: "price", widget: "string", required: true, hint: "Ej: Desde €150" }
+              - { label: "Precio", name: "price", widget: "string", required: true }
               - { label: "Imagen", name: "image", widget: "image", required: true }
-              - { label: "Destacado", name: "featured", widget: "boolean", default: false, hint: "Marcar como servicio principal" }
-              - { label: "Orden", name: "order", widget: "number", default: 1, min: 1, hint: "Orden de aparición (1, 2, 3...)" }
+              - { label: "Destacado", name: "featured", widget: "boolean", default: false }
+              - { label: "Orden", name: "order", widget: "number", default: 1 }
               - label: "Características"
                 name: "features"
                 widget: "list"
                 field: { label: "Característica", name: "feature", widget: "string" }
-              - label: "Duración"
-                name: "duration"
-                widget: "string"
-                required: false
-                hint: "Ej: 2-3 horas"
-              - label: "Incluye"
-                name: "includes"
-                widget: "list"
-                required: false
-                field: { label: "Incluye", name: "item", widget: "string" }
 
   - name: "gallery"
     label: "📸 Galería"
     files:
       - name: "gallery"
-        label: "Imágenes de la Galería"
+        label: "Imágenes"
         file: "src/data/gallery.json"
         fields:
-          - label: "Título de la Sección"
-            name: "section_title"
-            widget: "string"
-            default: "Mi Portfolio"
-            required: true
-          - label: "Subtítulo de la Sección"
-            name: "section_subtitle"
-            widget: "text"
-            default: "Una selección de mis trabajos más destacados"
-            required: true
+          - { label: "Título de la Sección", name: "section_title", widget: "string", default: "Mi Portfolio" }
+          - { label: "Subtítulo", name: "section_subtitle", widget: "text", default: "Mis trabajos destacados" }
           - label: "Imágenes"
             name: "images"
             widget: "list"
@@ -191,14 +131,8 @@ collections:
                 name: "category"
                 widget: "select"
                 options: ["retratos", "bodas", "familias", "eventos", "corporativo"]
-                required: true
               - { label: "Destacada", name: "featured", widget: "boolean", default: false }
-              - { label: "Orden", name: "order", widget: "number", default: 1, min: 1 }
-              - label: "Tags"
-                name: "tags"
-                widget: "list"
-                required: false
-                field: { label: "Tag", name: "tag", widget: "string" }
+              - { label: "Orden", name: "order", widget: "number", default: 1 }
 
   - name: "testimonials"
     label: "💬 Testimonios"
@@ -207,11 +141,7 @@ collections:
         label: "Testimonios de Clientes"
         file: "src/data/testimonials.json"
         fields:
-          - label: "Título de la Sección"
-            name: "section_title"
-            widget: "string"
-            default: "Lo que dicen mis clientes"
-            required: true
+          - { label: "Título de la Sección", name: "section_title", widget: "string", default: "Testimonios" }
           - label: "Testimonios"
             name: "testimonials"
             widget: "list"
@@ -220,8 +150,6 @@ collections:
               - { label: "Testimonio", name: "content", widget: "text", required: true }
               - { label: "Calificación", name: "rating", widget: "number", min: 1, max: 5, default: 5 }
               - { label: "Foto", name: "photo", widget: "image", required: false }
-              - { label: "Servicio", name: "service", widget: "string", required: false }
-              - { label: "Fecha", name: "date", widget: "datetime", required: false }
 
   - name: "contact"
     label: "📞 Contacto"
@@ -230,22 +158,8 @@ collections:
         label: "Información de Contacto"
         file: "src/data/contact.json"
         fields:
-          - label: "Título de la Sección"
-            name: "section_title"
-            widget: "string"
-            default: "Hablemos de tu proyecto"
-            required: true
-          - label: "Subtítulo"
-            name: "section_subtitle"
-            widget: "text"
-            default: "Estoy aquí para ayudarte a capturar esos momentos especiales"
-            required: true
-          - label: "Formulario"
-            name: "form"
-            widget: "object"
-            fields:
-              - { label: "Endpoint del formulario", name: "action", widget: "string", hint: "URL donde se enviarán los datos del formulario" }
-              - { label: "Método", name: "method", widget: "select", options: ["POST", "GET"], default: "POST" }
+          - { label: "Título de la Sección", name: "section_title", widget: "string", default: "Contacto" }
+          - { label: "Subtítulo", name: "section_subtitle", widget: "text", default: "Hablemos de tu proyecto" }
           - label: "Información de Contacto"
             name: "contact_info"
             widget: "list"

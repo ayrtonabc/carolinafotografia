@@ -3,46 +3,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Panel de Administración - Karolina Fotografía</title>
-  <link rel="icon" type="image/png" href="/image.png" />
+  <title>Panel de Administración</title>
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      margin: 0;
-      background: linear-gradient(135deg, #f8f6f3 0%, #faf8f5 100%);
-    }
-    .loading {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      flex-direction: column;
-    }
-    .spinner {
-      width: 40px;
-      height: 40px;
-      border: 4px solid #f3f3f3;
-      border-top: 4px solid #d4af37;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-    }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-  </style>
 </head>
 <body>
-  <div class="loading">
-    <div class="spinner"></div>
-    <p style="margin-top: 20px; color: #666;">Cargando panel de administración...</p>
-  </div>
   <!-- Include the script that builds the page and powers Decap CMS -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   
   <script>
-    // Initialize Netlify Identity
     if (window.netlifyIdentity) {
       window.netlifyIdentity.on("init", user => {
         if (!user) {
@@ -52,19 +20,6 @@
         }
       });
     }
-    
-    // Custom styling for CMS
-    window.CMS_MANUAL_INIT = true;
-    
-    window.addEventListener('DOMContentLoaded', () => {
-      window.CMS.init({
-        config: {
-          load_config_file: true,
-          display_url: window.location.origin,
-          logo_url: '/image.png'
-        }
-      });
-    });
   </script>
 </body>
 </html>
