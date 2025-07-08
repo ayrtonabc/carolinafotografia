@@ -1,0 +1,17 @@
+{
+  "navbar": {
+    "home": "Strona główna",
+    "about": "O mnie",
+    "services": "Usługi",
+    "gallery": "Galeria",
+    "contact": "Kontakt",
+    "logo_alt": "Karolina Fotografia",
+    "mobile_menu_label": "Otwórz menu"
+  },
+  "general": {
+    "loading": "Ładowanie...",
+    "error": "Wystąpił błąd",
+    "see_more": "Zobacz więcej",
+    "see_less": "Zobacz mniej"
+  }
+}

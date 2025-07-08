@@ -1,12 +1,12 @@
 {
-  "title": "hola hola ",
-  "accent": "destacada palabra",
-  "description": "descripcion descripcion",
-  "image": "/images/og-image.jpg.jpeg",
+  "title": "Capturando momentos",
+  "accent": "únicos",
+  "description": "Fotografía profesional que cuenta historias a través de cada imagen. Especializada en crear recuerdos que perdurarán para toda la vida.",
+  "image": "https://images.pexels.com/photos/1264210/pexels-photo-1264210.jpeg?auto=compress&cs=tinysrgb&w=800",
   "buttons": {
-    "primary_text": "boton",
-    "primary_link": "google.com",
-    "secondary_text": "boton 2 ",
-    "secondary_link": "facebook.com"
+    "primary_text": "Reservar Sesión",
+    "primary_link": "#contacto",
+    "secondary_text": "Ver Portfolio",
+    "secondary_link": "#galeria"
   }
 }

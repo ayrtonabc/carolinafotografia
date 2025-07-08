@@ -1,0 +1,29 @@
+{
+  "section_title": "Lo que dicen mis clientes",
+  "testimonials": [
+    {
+      "name": "María González",
+      "content": "Karolina capturó perfectamente la esencia de nuestra boda. Cada foto cuenta una historia y refleja la emoción del momento. Su profesionalismo y creatividad superaron nuestras expectativas.",
+      "rating": 5,
+      "photo": "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=150",
+      "service": "Fotografía de Boda",
+      "date": "2024-01-15T00:00:00.000Z"
+    },
+    {
+      "name": "Carlos Ruiz",
+      "content": "Increíble sesión de retratos corporativos. Karolina me hizo sentir cómodo desde el primer momento y los resultados fueron espectaculares. Definitivamente la recomiendo.",
+      "rating": 5,
+      "photo": "https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg?auto=compress&cs=tinysrgb&w=150",
+      "service": "Retratos Profesionales",
+      "date": "2024-02-20T00:00:00.000Z"
+    },
+    {
+      "name": "Ana Martín",
+      "content": "Nuestra sesión familiar fue mágica. Karolina supo capturar la personalidad de cada uno de nosotros, incluso de nuestro perro. Las fotos son un tesoro para toda la familia.",
+      "rating": 5,
+      "photo": "https://images.pexels.com/photos/1648377/pexels-photo-1648377.jpeg?auto=compress&cs=tinysrgb&w=150",
+      "service": "Sesiones Familiares",
+      "date": "2024-03-10T00:00:00.000Z"
+    }
+  ]
+}

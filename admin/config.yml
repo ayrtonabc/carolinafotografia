@@ -6,8 +6,18 @@ site_url: https://tu-sitio.netlify.app
 display_url: https://tu-sitio.netlify.app
 logo_url: /image.png
 
-media_folder: "public/images"
+# Configuración de idioma en polaco
+locale: 'pl'
+
+# Configuración para forzar actualización de caché
 public_folder: "/images"
+media_folder: "public/images"
+
+# Configuración para asegurar que los cambios se reflejen
+slug:
+  encoding: "ascii"
+  clean_accents: true
+  sanitize_replacement: "-"
 
 collections:
   - name: "settings"
