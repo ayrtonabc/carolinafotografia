@@ -1,0 +1,4 @@
+/*    /index.html   200
+
+# Admin redirects
+/admin/*  /admin/index.html  200
