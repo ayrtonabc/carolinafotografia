@@ -1,9 +1,15 @@
 backend:
   name: git-gateway
   branch: main
+  
+# Agregar esta configuración:
+publish_mode: editorial_workflow
+webhook_url: "https://api.netlify.com/build_hooks/686d91d8a35d64188be08a33"
 
-site_url: https://tu-sitio.netlify.app
-display_url: https://tu-sitio.netlify.app
+
+
+site_url: https://carolinagfotografia.pl
+display_url: https://carolinagfotografia.pl
 logo_url: /image.png
 
 # Configuración de idioma en polaco
