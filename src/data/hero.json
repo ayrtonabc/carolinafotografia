@@ -1,0 +1,12 @@
+{
+  "title": "hola hola ",
+  "accent": "destacada palabra",
+  "description": "descripcion descripcion",
+  "image": "/images/og-image.jpg.jpeg",
+  "buttons": {
+    "primary_text": "boton",
+    "primary_link": "google.com",
+    "secondary_text": "boton 2 ",
+    "secondary_link": "facebook.com"
+  }
+}
