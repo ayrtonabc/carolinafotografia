@@ -34,7 +34,6 @@
   },
   "dependencies": {
     "astro": "^5.2.5",
-    "decap-cms-app": "^3.3.0",
     "netlify-identity-widget": "^1.9.2"
   },
   "devDependencies": {},

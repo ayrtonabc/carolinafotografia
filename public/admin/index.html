@@ -43,9 +43,46 @@
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   
   <!-- Decap CMS -->
-  <script src="https://unpkg.com/decap-cms@^3.3.0/dist/decap-cms.js"></script>
+  <script src="https://unpkg.com/decap-cms@3.1.10/dist/decap-cms.js"></script>
 
   <script>
+    // Error handling for DOM manipulation issues
+    const originalRemoveChild = Node.prototype.removeChild;
+    const originalInsertBefore = Node.prototype.insertBefore;
+    
+    Node.prototype.removeChild = function(child) {
+      try {
+        if (this.contains(child)) {
+          return originalRemoveChild.call(this, child);
+        }
+        return child;
+      } catch (error) {
+        console.warn('Suppressed removeChild error:', error.message);
+        return child;
+      }
+    };
+    
+    Node.prototype.insertBefore = function(newNode, referenceNode) {
+      try {
+        return originalInsertBefore.call(this, newNode, referenceNode);
+      } catch (error) {
+        console.warn('Suppressed insertBefore error:', error.message);
+        return this.appendChild(newNode);
+      }
+    };
+    
+    // Global error handler
+    window.addEventListener('error', function(event) {
+      if (event.error && event.error.message && 
+          (event.error.message.includes('removeChild') || 
+           event.error.message.includes('insertBefore') ||
+           event.error.message.includes('NotFoundError'))) {
+        console.warn('Suppressed DOM error:', event.error.message);
+        event.preventDefault();
+        return false;
+      }
+    });
+
     // Polish translations for Decap CMS
     const plTranslations = {
       auth: {
