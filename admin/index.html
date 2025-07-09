@@ -39,7 +39,7 @@
     <p style="margin-top: 20px; color: #666;">Ładowanie panelu administracyjnego...</p>
   </div>
   <!-- Include the script that builds the page and powers Decap CMS -->
-  <script src="https://unpkg.com/decap-cms@3.1.10/dist/decap-cms.js"></script>
+  <script src="https://unpkg.com/decap-cms@3.0.14/dist/decap-cms.js"></script>
   
   <script>
     // Initialize Netlify Identity
@@ -56,14 +56,37 @@
     // Custom styling for CMS
     window.CMS_MANUAL_INIT = true;
     
-    // Error handling for DOM manipulation issues
+    // Enhanced error handling for DOM manipulation issues
     window.addEventListener('error', function(e) {
       console.warn('CMS Error caught:', e.error);
-      if (e.error && e.error.message && e.error.message.includes('removeChild')) {
+      if (e.error && e.error.message && (e.error.message.includes('removeChild') || e.error.message.includes('Node'))) {
         console.log('DOM manipulation error detected, attempting recovery...');
-        // Prevent the error from breaking the CMS
         e.preventDefault();
         return false;
+      }
+    });
+    
+    // Override problematic DOM methods with safe versions
+    const originalRemoveChild = Node.prototype.removeChild;
+    Node.prototype.removeChild = function(child) {
+      try {
+        if (this.contains(child)) {
+          return originalRemoveChild.call(this, child);
+        } else {
+          console.warn('Attempted to remove child that is not a child of this node, skipping...');
+          return child;
+        }
+      } catch (error) {
+        console.warn('Error in removeChild, skipping:', error);
+        return child;
+      }
+    };
+    
+    // Add unhandled promise rejection handler
+    window.addEventListener('unhandledrejection', function(e) {
+      if (e.reason && e.reason.message && e.reason.message.includes('removeChild')) {
+        console.warn('Unhandled promise rejection for DOM manipulation, preventing...');
+        e.preventDefault();
       }
     });
     
