@@ -6,27 +6,103 @@
   <meta name="robots" content="noindex" />
   <title>Content Manager</title>
   <style>
-    /* Prevent visual duplication and overlay issues */
-    body {
+    /* SOLUCIÓN DEFINITIVA PARA DUPLICACIÓN DEL PANEL */
+    html, body {
       margin: 0;
       padding: 0;
-      overflow-x: hidden;
+      height: 100%;
+      overflow: hidden;
+      position: fixed;
+      width: 100%;
     }
     
     #nc-root {
-      position: relative;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       z-index: 1;
-      min-height: 100vh;
+      overflow: hidden;
     }
     
-    /* Ensure CMS content doesn't duplicate */
+    /* Forzar una sola instancia del CMS */
+    #nc-root > div:nth-child(n+2) {
+      display: none !important;
+      visibility: hidden !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
+    
+    /* Prevenir scroll en el contenedor principal */
+    #nc-root > div:first-child {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      overflow: hidden !important;
+    }
+    
+    /* Controlar el área de contenido principal */
+    [class*="cms-app"], [class*="App"], [data-testid="app"] {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      overflow: hidden !important;
+    }
+    
+    /* Sidebar fijo */
+    [class*="sidebar"], [class*="Sidebar"], [data-testid="sidebar"] {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      height: 100% !important;
+      z-index: 1000 !important;
+      overflow-y: auto !important;
+    }
+    
+    /* Área de contenido principal */
+    [class*="main"], [class*="Main"], [class*="content"], [data-testid="main"] {
+      position: fixed !important;
+      top: 0 !important;
+      right: 0 !important;
+      height: 100% !important;
+      overflow-y: auto !important;
+      overflow-x: hidden !important;
+    }
+    
+    /* Prevenir duplicación de elementos específicos */
     [data-slate-editor] {
-      position: relative;
+      position: relative !important;
     }
     
-    /* Fix potential scroll and overlay issues */
-    .css-1hwfws3 {
+    /* Ocultar elementos duplicados */
+    nav:nth-of-type(n+2), 
+    header:nth-of-type(n+2),
+    [role="navigation"]:nth-of-type(n+2) {
+      display: none !important;
+    }
+    
+    /* Prevenir scroll en elementos padre */
+    .css-1hwfws3, 
+    [class*="layout"], 
+    [class*="Layout"] {
       position: relative !important;
+      overflow: hidden !important;
+    }
+    
+    /* Asegurar que no hay elementos flotantes */
+    * {
+      box-sizing: border-box !important;
+    }
+    
+    /* Prevenir cualquier transformación que cause duplicación */
+    [class*="transform"], 
+    [style*="transform"] {
+      transform: none !important;
     }
   </style>
 </head>
@@ -162,9 +238,9 @@
       }
     };
 
-    // Enhanced CMS initialization with error handling
+    // SOLUCIÓN DEFINITIVA PARA DUPLICACIÓN - JavaScript mejorado
     document.addEventListener('DOMContentLoaded', function() {
-      // Override console.error to suppress React DOM errors
+      // Suprimir errores de React DOM
       const originalConsoleError = console.error;
       console.error = function(...args) {
         const message = args.join(' ');
@@ -172,32 +248,109 @@
             message.includes('insertBefore') || 
             message.includes('NotFoundError') ||
             message.includes('Warning: ReactDOM.render')) {
-          console.warn('Suppressed React DOM error:', message);
+          console.warn('Error React DOM suprimido:', message);
           return;
         }
         originalConsoleError.apply(console, args);
       };
       
-      // Prevent multiple CMS initializations
+      // Control estricto de inicialización
       let cmsInitialized = false;
+      let initializationAttempts = 0;
+      const MAX_ATTEMPTS = 3;
       
-      // Initialize CMS with error handling
-      function initializeCMS() {
-        if (cmsInitialized) return;
-        
-        try {
-          if (window.CMS) {
-            CMS.registerLocale('pl', plTranslations);
-            CMS.init();
-            cmsInitialized = true;
-            console.log('Decap CMS initialized successfully');
-          }
-        } catch (error) {
-          console.warn('CMS initialization error suppressed:', error.message);
+      // Limpiar completamente el contenedor
+      function forceClearRoot() {
+        const root = document.getElementById('nc-root');
+        if (root) {
+          root.innerHTML = '';
+          // Remover todos los event listeners
+          const newRoot = root.cloneNode(false);
+          root.parentNode.replaceChild(newRoot, root);
         }
       }
       
-      // Initialize immediately if CMS is available
+      // Prevenir duplicación agresiva
+      function preventDuplication() {
+        const root = document.getElementById('nc-root');
+        if (!root) return;
+        
+        // Observer para eliminar duplicados inmediatamente
+        const observer = new MutationObserver((mutations) => {
+          mutations.forEach((mutation) => {
+            if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+              const children = Array.from(root.children);
+              if (children.length > 1) {
+                // Eliminar todos excepto el primero
+                children.slice(1).forEach(child => {
+                  try {
+                    root.removeChild(child);
+                  } catch (e) {
+                    // Ignorar errores de eliminación
+                  }
+                });
+              }
+            }
+          });
+        });
+        
+        observer.observe(root, { 
+          childList: true, 
+          subtree: false,
+          attributes: false 
+        });
+        
+        // Verificación periódica adicional
+        setInterval(() => {
+          const children = Array.from(root.children);
+          if (children.length > 1) {
+            children.slice(1).forEach(child => {
+              try {
+                root.removeChild(child);
+              } catch (e) {
+                // Ignorar errores
+              }
+            });
+          }
+        }, 500);
+      }
+      
+      // Inicializar CMS con control estricto
+      function initializeCMS() {
+        if (cmsInitialized || initializationAttempts >= MAX_ATTEMPTS) {
+          return;
+        }
+        
+        initializationAttempts++;
+        
+        try {
+          if (window.CMS) {
+            // Limpiar antes de inicializar
+            forceClearRoot();
+            
+            // Registrar idioma y inicializar
+            CMS.registerLocale('pl', plTranslations);
+            CMS.init();
+            
+            cmsInitialized = true;
+            console.log('Decap CMS inicializado correctamente - Intento:', initializationAttempts);
+            
+            // Activar prevención de duplicación
+            setTimeout(preventDuplication, 100);
+            
+          } else {
+            // Reintentar si CMS no está disponible
+            setTimeout(initializeCMS, 500);
+          }
+        } catch (error) {
+          console.warn('Error de inicialización CMS suprimido:', error.message);
+          if (initializationAttempts < MAX_ATTEMPTS) {
+            setTimeout(initializeCMS, 1000);
+          }
+        }
+      }
+      
+      // Inicializar inmediatamente
       initializeCMS();
 
       if (window.netlifyIdentity) {
