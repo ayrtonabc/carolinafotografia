@@ -1,0 +1,51 @@
+/* custom.css */
+
+/* Fondo rojo para todo el panel */
+body {
+  background-color: #ff2d2d !important;
+  color: white !important;
+}
+
+/* Fondo morado en la cabecera */
+[class^="AppHeader-header-"],
+[class*="AppHeader-header-"] {
+  background-color: #6a0dad !important;
+  color: white !important;
+}
+
+/* Cambiar los botones a verde grande */
+button, [class^="Button-button-"] {
+  background-color: #00c851 !important;
+  color: white !important;
+  font-size: 18px !important;
+  padding: 12px 24px !important;
+  border-radius: 10px !important;
+}
+
+/* Cartas de contenido con bordes gruesos negros */
+[class*="EntryCard-card-"] {
+  border: 4px solid black !important;
+  background-color: white !important;
+  color: black !important;
+  transform: scale(1.02);
+  transition: transform 0.2s;
+}
+
+/* Sidebar con fondo oscuro y texto amarillo */
+[class^="Sidebar-container-"] {
+  background-color: #222 !important;
+  color: yellow !important;
+}
+
+/* Links activos en azul eléctrico */
+[class^="Sidebar-nav-link-active-"] {
+  background-color: #00bfff !important;
+  color: white !important;
+}
+
+/* Etiquetas de campos en negrita y azul */
+[class^="Field-label-"],
+[class^="Control-label-"] {
+  color: #0066ff !important;
+  font-weight: bold !important;
+}
