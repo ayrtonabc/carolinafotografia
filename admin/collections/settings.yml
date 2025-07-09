@@ -1,0 +1,13 @@
+- name: "settings"
+  label: "Ustawienia Ogólne"
+  files:
+    - name: "site"
+      label: "Informacje o Stronie"
+      file: "src/data/site.json"
+      fields:
+        - { label: "Nazwa Strony", name: "title", widget: "string" }
+        - { label: "Opis", name: "description", widget: "text" }
+        - { label: "Email", name: "email", widget: "string" }
+        - { label: "Telefon", name: "phone", widget: "string" }
+        - { label: "Lokalizacja", name: "location", widget: "string" }
+        - { label: "Logo", name: "logo", widget: "image" }

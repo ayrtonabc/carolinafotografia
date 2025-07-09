@@ -1,0 +1,21 @@
+- name: "about"
+  label: "O Mnie"
+  files:
+    - name: "about"
+      label: "Informacje Osobiste"
+      file: "src/data/about.json"
+      fields:
+        - { label: "Tytuł", name: "title", widget: "string" }
+        - { label: "Podtytuł", name: "subtitle", widget: "string" }
+        - { label: "Opis 1", name: "description1", widget: "text" }
+        - { label: "Opis 2", name: "description2", widget: "text" }
+        - { label: "Lata Doświadczenia", name: "experience", widget: "number" }
+        - { label: "Obraz", name: "image", widget: "image" }
+        - { label: "Tekst Przycisku", name: "button_text", widget: "string" }
+        - label: "Umiejętności"
+          name: "skills"
+          widget: "list"
+          fields:
+            - { label: "Ikona", name: "icon", widget: "string" }
+            - { label: "Tytuł", name: "title", widget: "string" }
+            - { label: "Opis", name: "description", widget: "text" }

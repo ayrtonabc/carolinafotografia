@@ -1,0 +1,32 @@
+- name: "gallery"
+  label: "Galeria"
+  files:
+    - name: "gallery"
+      label: "Obrazy Galerii"
+      file: "src/data/gallery.json"
+      fields:
+        - { label: "Tytuł", name: "title", widget: "string" }
+        - { label: "Podtytuł", name: "subtitle", widget: "text" }
+        - label: "Filtry"
+          name: "filters"
+          widget: "list"
+          fields:
+            - { label: "Klucz", name: "key", widget: "string" }
+            - { label: "Etykieta", name: "label", widget: "string" }
+        - label: "Obrazy"
+          name: "images"
+          widget: "list"
+          fields:
+            - { label: "Tytuł", name: "title", widget: "string" }
+            - { label: "Opis", name: "description", widget: "string" }
+            - { label: "Obraz", name: "image", widget: "image" }
+            - label: "Kategoria"
+              name: "category"
+              widget: "select"
+              options: ["retratos", "bodas", "familias"]
+        - label: "Wezwanie do Działania"
+          name: "cta"
+          widget: "object"
+          fields:
+            - { label: "Tekst", name: "text", widget: "string" }
+            - { label: "Tekst Przycisku", name: "button_text", widget: "string" }
