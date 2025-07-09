@@ -35,46 +35,36 @@
     
     /* Custom CMS Styling */
     .nc-collectionPage-card {
-      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
-      border: 1px solid rgba(255, 255, 255, 0.2) !important;
-      border-radius: 16px !important;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      background: #ffffff !important;
+      border: 1px solid #e2e8f0 !important;
+      border-radius: 12px !important;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06) !important;
+      transition: all 0.3s ease !important;
       position: relative !important;
       overflow: hidden !important;
-      min-height: 180px !important;
+      min-height: 120px !important;
+      max-height: 140px !important;
       display: flex !important;
       flex-direction: column !important;
       align-items: center !important;
       justify-content: center !important;
       text-align: center !important;
-      padding: 24px !important;
+      padding: 16px !important;
+      cursor: pointer !important;
     }
     
     .nc-collectionPage-card:hover {
-      transform: translateY(-8px) scale(1.02) !important;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12) !important;
-      background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%) !important;
-    }
-    
-    .nc-collectionPage-card::before {
-      content: '' !important;
-      position: absolute !important;
-      top: 0 !important;
-      left: 0 !important;
-      right: 0 !important;
-      height: 4px !important;
-      background: linear-gradient(90deg, #667eea 0%, #764ba2 100%) !important;
-      border-radius: 16px 16px 0 0 !important;
-      pointer-events: none !important;
+      transform: translateY(-2px) !important;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1) !important;
+      border-color: #cbd5e1 !important;
     }
     
     .card-icon {
-      font-size: 48px !important;
+      font-size: 32px !important;
       margin-bottom: 8px !important;
-      opacity: 0.9 !important;
+      opacity: 0.8 !important;
       transition: all 0.3s ease !important;
-      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1)) !important;
+      line-height: 1 !important;
     }
     
     .nc-collectionPage-card:hover .card-icon {
@@ -99,8 +89,8 @@
      [class*="cardView"],
      .nc-collectionPage-cardGrid {
        display: grid !important;
-       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important;
-       gap: 20px !important;
+       grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)) !important;
+       gap: 16px !important;
        padding: 20px !important;
      }
      
@@ -161,22 +151,17 @@
     
     /* Card text styling */
     .nc-collectionPage-card h2 {
-      color: #334155 !important;
-      font-weight: 500 !important;
-      font-size: 16px !important;
-      margin: 12px 0 0 0 !important;
-      line-height: 1.4 !important;
+      color: #1e293b !important;
+      font-weight: 600 !important;
+      font-size: 14px !important;
+      margin: 8px 0 0 0 !important;
+      line-height: 1.3 !important;
     }
     
     .nc-collectionPage-card p {
-      color: rgba(255,255,255,0.9) !important;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.2) !important;
-    }
-    
-    /* Header styling */
-    .nc-app-header {
-      background: linear-gradient(90deg, #667eea 0%, #764ba2 100%) !important;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1) !important;
+      color: #64748b !important;
+      font-size: 12px !important;
+      margin: 4px 0 0 0 !important;
     }
     
     /* Sidebar styling */
