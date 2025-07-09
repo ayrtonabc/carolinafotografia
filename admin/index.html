@@ -5,132 +5,142 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Panel Administracyjny - Karolina Fotografia</title>
   <link rel="icon" type="image/png" href="/image.png" />
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  <script src="https://unpkg.com/decap-cms/dist/decap-cms.js"></script>
-  <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      margin: 0;
-      background: linear-gradient(135deg, #f8f6f3 0%, #faf8f5 100%);
-    }
-    .loading {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      flex-direction: column;
-    }
-    .spinner {
-      width: 40px;
-      height: 40px;
-      border: 4px solid #f3f3f3;
-      border-top: 4px solid #d4af37;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-    }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-  </style>
 </head>
 <body>
-  <div class="loading">
-    <div class="spinner"></div>
-    <p style="margin-top: 20px; color: #666;">Ładowanie panelu administracyjnego...</p>
-  </div>
-  
   <!-- Contenedor para Decap CMS -->
   <div id="nc-root"></div>
   
-  <!-- Include the script that builds the page and powers Decap CMS -->
+  <!-- Scripts -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  
   <script>
+    // Configuración de idioma polaco
+    window.CMS_MANUAL_INIT = true;
+    
+    // Traducciones polacas
     const pl = {
-      app: { header: { content: 'Treść', workflow: 'Przepływ pracy', media: 'Media', quickAdd: 'Szybkie dodawanie' }, app: { errorHeader: 'Błąd podczas ładowania konfiguracji CMS', configErrors: 'Błędy konfiguracji', checkConfigYml: 'Sprawdź plik config.yml.', loadingConfig: 'Ładowanie konfiguracji...', waitingBackend: 'Oczekiwanie na backend...' }, notFoundPage: { header: 'Nie znaleziono' } }, collection: { sidebar: { collections: 'Kolekcje', allCollections: 'Wszystkie kolekcje', searchAll: 'Szukaj we wszystkich', searchIn: 'Szukaj w' }, collectionTop: { sortBy: 'Sortuj według', viewAs: 'Wyświetl jako', newButton: 'Nowy %{collectionLabel}', ascending: 'Rosnąco', descending: 'Malejąco', searchResults: 'Wyniki wyszukiwania dla "%{searchTerm}"', searchResultsInCollection: 'Wyniki wyszukiwania dla "%{searchTerm}" w %{collection}', filterBy: 'Filtruj według', groupBy: 'Grupuj według' } }, editor: { editorControl: { field: { optional: 'opcjonalne' } }, editorControlPane: { widget: { required: '%{fieldLabel} jest wymagane.', regexPattern: '%{fieldLabel} nie pasuje do wzorca: %{pattern}.', processing: '%{fieldLabel} jest przetwarzane.', range: '%{fieldLabel} musi być między %{minValue} a %{maxValue}.', min: '%{fieldLabel} musi być co najmniej %{minValue}.', max: '%{fieldLabel} musi być %{maxValue} lub mniej.', rangeCount: '%{fieldLabel} musi mieć między %{minCount} a %{maxCount} elementów.', rangeCountExact: '%{fieldLabel} musi mieć dokładnie %{count} elementów.', rangeMin: '%{fieldLabel} musi mieć co najmniej %{minCount} elementów.', rangeMax: '%{fieldLabel} musi mieć %{maxCount} lub mniej elementów.', invalidPath: "'%{path}' nie jest prawidłową ścieżką", pathExists: "Ścieżka '%{path}' już istnieje" }, i18n: { writingInLocale: 'Pisanie w %{locale}', copyFromLocale: 'Wypełnij z innego języka', copyFromLocaleConfirm: 'Czy chcesz wypełnić dane z języka %{locale}?\nCała istniejąca treść zostanie zastąpiona.' } }, editor: { onLeavePage: 'Czy na pewno chcesz opuścić tę stronę?', onUpdatingWithUnsavedChangesTitle: 'Niezapisane zmiany', onUpdatingWithUnsavedChangesBody: 'Masz niezapisane zmiany, zapisz je przed aktualizacją statusu.', onPublishingNotReadyTitle: 'Nie gotowe do publikacji', onPublishingNotReadyBody: 'Zmień status na "Gotowe" przed publikacją.', onPublishingWithUnsavedChangesTitle: 'Niezapisane zmiany', onPublishingWithUnsavedChangesBody: 'Masz niezapisane zmiany, zapisz je przed publikacją.', onPublishingTitle: 'Opublikować wpis?', onPublishingBody: 'Czy na pewno chcesz opublikować ten wpis?', onUnpublishingTitle: 'Cofnąć publikację wpisu?', onUnpublishingBody: 'Czy na pewno chcesz cofnąć publikację tego wpisu?', onDeleteWithUnsavedChangesTitle: 'Usunąć ten opublikowany wpis?', onDeleteWithUnsavedChangesBody: 'Czy na pewno chcesz usunąć ten opublikowany wpis, a także niezapisane zmiany z bieżącej sesji?', onDeletePublishedEntryTitle: 'Usunąć ten opublikowany wpis?', onDeletePublishedEntryBody: 'Czy na pewno chcesz usunąć ten opublikowany wpis?', onDeleteUnpublishedChangesWithUnsavedChangesTitle: 'Usunąć nieopublikowane zmiany?', onDeleteUnpublishedChangesWithUnsavedChangesBody: 'To usunie wszystkie nieopublikowane zmiany tego wpisu, a także niezapisane zmiany z bieżącej sesji. Czy nadal chcesz usunąć?', onDeleteUnpublishedChangesTitle: 'Usunąć nieopublikowane zmiany?', onDeleteUnpublishedChangesBody: 'Wszystkie nieopublikowane zmiany tego wpisu zostaną usunięte. Czy nadal chcesz usunąć?', loadingEntry: 'Ładowanie wpisu...' } }, mediaLibrary: { mediaLibraryCard: { draft: 'Szkic', copy: 'Kopiuj', copyUrl: 'Kopiuj URL', copyPath: 'Kopiuj ścieżkę', copyName: 'Kopiuj nazwę', copied: 'Skopiowane' }, mediaLibrary: { onDeleteTitle: 'Usunąć wybrane media?', onDeleteBody: 'Czy na pewno chcesz usunąć wybrane media?', fileTooLargeTitle: 'Plik za duży', fileTooLargeBody: 'Plik za duży.\nSkonfigurowano, aby nie akceptować plików większych niż %{size} kB.' }, mediaLibraryModal: { loading: 'Ładowanie...', noResults: 'Brak wyników.', noAssetsFound: 'Nie znaleziono zasobów.', noImagesFound: 'Nie znaleziono obrazów.', private: 'Prywatne ', images: 'Obrazy', mediaAssets: 'Zasoby medialne', search: 'Szukaj bieżących zasobów...', uploading: 'Przesyłanie...', upload: 'Prześlij', download: 'Pobierz', deleting: 'Usuwanie...', deleteSelected: 'Usuń wybrane', chooseSelected: 'Wybierz zaznaczone' } }, ui: { default: { goBackToSite: 'Wróć do strony' }, errorBoundary: { title: 'Błąd', details: 'Wystąpił błąd - proszę ', reportIt: 'zgłoś to.', detailsHeading: 'Szczegóły', privacyWarning: 'Otwarcie zgłoszenia automatycznie wypełnia je danymi błędu i debugowania.\nSprawdź, czy informacje są poprawne i usuń wrażliwe dane, jeśli istnieją.', recoveredEntry: { heading: 'Odzyskany dokument', warning: 'Skopiuj/wklej to gdzieś przed nawigacją!', copyButtonLabel: 'Kopiuj do schowka' } }, settingsDropdown: { logOut: 'Wyloguj się' }, toast: { onFailToLoadEntries: 'Nie udało się załadować wpisu: %{details}', onFailToLoadDeployPreview: 'Nie udało się załadować podglądu: %{details}', onFailToPersist: 'Nie udało się zapisać wpisu: %{details}', onFailToDelete: 'Nie udało się usunąć wpisu: %{details}', onFailToUpdateStatus: 'Nie udało się zaktualizować statusu: %{details}', missingRequiredField: 'Ups, przegapiono wymagane pole. Wypełnij przed zapisaniem.', entrySaved: 'Wpis zapisany', entryPublished: 'Wpis opublikowany', entryUnpublished: 'Publikacja wpisu cofnięta', onFailToPublishEntry: 'Nie udało się opublikować: %{details}', onFailToUnpublishEntry: 'Nie udało się cofnąć publikacji wpisu: %{details}', entryUpdated: 'Status wpisu zaktualizowany', onDeleteUnpublishedChanges: 'Nieopublikowane zmiany usunięte', onFailToAuth: '%{details}', onLoggedOut: 'Zostałeś wylogowany, utwórz kopię zapasową danych i zaloguj się ponownie', onBackendDown: 'Usługa backend doświadcza przerwy. Zobacz %{details} po więcej informacji' } }, 
-      workflow: {
-        workflow: {
-          loading: 'Ładowanie wpisów przepływu pracy redakcyjnej',
-          workflowHeading: 'Przepływ pracy redakcyjnej',
-          newPost: 'Nowy wpis',
-          description: '%{smart_count} wpis oczekuje na recenzję, %{readyCount} gotowy do publikacji. |||| %{smart_count} wpisów oczekuje na recenzję, %{readyCount} gotowych do publikacji. '
+      app: {
+        header: {
+          content: 'Treść',
+          workflow: 'Przepływ pracy',
+          media: 'Media',
+          quickAdd: 'Szybkie dodawanie'
+        },
+        errorHeader: 'Błąd podczas ładowania konfiguracji CMS',
+        configErrors: 'Błędy konfiguracji',
+        checkConfigYml: 'Sprawdź plik config.yml.',
+        loadingConfig: 'Ładowanie konfiguracji...',
+        waitingBackend: 'Oczekiwanie na backend...'
+      },
+      collection: {
+        sidebar: {
+          collections: 'Kolekcje',
+          allCollections: 'Wszystkie kolekcje',
+          searchAll: 'Szukaj we wszystkich',
+          searchIn: 'Szukaj w'
+        },
+        collectionTop: {
+          sortBy: 'Sortuj według',
+          viewAs: 'Wyświetl jako',
+          newButton: 'Nowy %{collectionLabel}',
+          ascending: 'Rosnąco',
+          descending: 'Malejąco'
+        }
+      },
+      editor: {
+        editorControl: {
+          field: {
+            optional: 'opcjonalne'
+          }
+        },
+        editorControlPane: {
+          widget: {
+            required: '%{fieldLabel} jest wymagane.',
+            regexPattern: '%{fieldLabel} nie pasuje do wzorca: %{pattern}.'
+          }
+        },
+        editor: {
+          onLeavePage: 'Czy na pewno chcesz opuścić tę stronę?',
+          onUpdatingWithUnsavedChangesTitle: 'Niezapisane zmiany',
+          onUpdatingWithUnsavedChangesBody: 'Masz niezapisane zmiany, zapisz je przed aktualizacją statusu.',
+          loadingEntry: 'Ładowanie wpisu...'
+        }
+      },
+      mediaLibrary: {
+        mediaLibraryCard: {
+          draft: 'Szkic',
+          copy: 'Kopiuj',
+          copyUrl: 'Kopiuj URL',
+          copyPath: 'Kopiuj ścieżkę',
+          copyName: 'Kopiuj nazwę',
+          copied: 'Skopiowane'
+        },
+        mediaLibrary: {
+          onDeleteTitle: 'Usunąć wybrane media?',
+          onDeleteBody: 'Czy na pewno chcesz usunąć wybrane media?'
+        },
+        mediaLibraryModal: {
+          loading: 'Ładowanie...',
+          noResults: 'Brak wyników.',
+          noAssetsFound: 'Nie znaleziono zasobów.',
+          noImagesFound: 'Nie znaleziono obrazów.',
+          images: 'Obrazy',
+          mediaAssets: 'Zasoby medialne',
+          search: 'Szukaj bieżących zasobów...',
+          uploading: 'Przesyłanie...',
+          upload: 'Prześlij',
+          download: 'Pobierz',
+          deleting: 'Usuwanie...',
+          deleteSelected: 'Usuń wybrane',
+          chooseSelected: 'Wybierz zaznaczone'
+        }
+      },
+      ui: {
+        default: {
+          goBackToSite: 'Wróć do strony'
+        },
+        errorBoundary: {
+          title: 'Błąd',
+          details: 'Wystąpił błąd - proszę ',
+          reportIt: 'zgłoś to.',
+          detailsHeading: 'Szczegóły'
+        },
+        settingsDropdown: {
+          logOut: 'Wyloguj się'
+        },
+        toast: {
+          onFailToLoadEntries: 'Nie udało się załadować wpisu: %{details}',
+          onFailToPersist: 'Nie udało się zapisać wpisu: %{details}',
+          onFailToDelete: 'Nie udało się usunąć wpisu: %{details}',
+          entrySaved: 'Wpis zapisany',
+          entryPublished: 'Wpis opublikowany',
+          entryUnpublished: 'Publikacja wpisu cofnięta',
+          entryUpdated: 'Status wpisu zaktualizowany',
+          onLoggedOut: 'Zostałeś wylogowany, utwórz kopię zapasową danych i zaloguj się ponownie'
         }
       }
     };
-
-    // Esperar a que el script de CMS se cargue completamente
-    function waitForCMS() {
-      return new Promise((resolve) => {
-        if (typeof window.CMS !== 'undefined' && window.CMS.init) {
-          resolve();
-        } else {
-          const checkCMS = () => {
-            if (typeof window.CMS !== 'undefined' && window.CMS.init) {
-              resolve();
-            } else {
-              setTimeout(checkCMS, 50);
-            }
-          };
-          checkCMS();
-        }
-      });
-    }
-
-    async function initializeCMS() {
-      try {
-        // Esperar a que CMS esté disponible
-        await waitForCMS();
-        
-        console.log('CMS cargado, iniciando configuración...');
-
-        // Inicjalizacja Netlify Identity
-        if (window.netlifyIdentity) {
-          window.netlifyIdentity.on("init", user => {
-            if (!user) {
-              window.netlifyIdentity.on("login", () => {
-                document.location.href = "/admin/";
-              });
-            }
-          });
-        }
-
-        // Zarejestruj polskie tłumaczenia
-        if (window.CMS.registerLocale) {
-          window.CMS.registerLocale('pl', pl);
-          console.log('Traducciones polacas registradas');
-        }
-
-        // Ukryj spinner ładowania po pomyślnej inicjalizacji
-        if (window.CMS.on) {
-          window.CMS.on('mounted', () => {
-            console.log('CMS zamontowany, ukrywanie spinnera.');
-            const loadingDiv = document.querySelector('.loading');
-            if (loadingDiv) {
-              loadingDiv.style.display = 'none';
-            }
-          });
-        }
-
-        // Inicjalizuj CMS. Domyślnie załaduje /admin/config.yml
-        if (window.CMS.init) {
-          window.CMS.init();
-          console.log('CMS inicializado correctamente');
-        }
-      } catch (error) {
-        console.error('Error al inicializar CMS:', error);
-        // Mostrar mensaje de error al usuario
-        const loadingDiv = document.querySelector('.loading');
-        if (loadingDiv) {
-          loadingDiv.innerHTML = '<div style="color: red; text-align: center;"><h3>Error al cargar el CMS</h3><p>Por favor, recarga la página</p></div>';
-        }
+    
+    // Inicialización
+    document.addEventListener('DOMContentLoaded', function() {
+      // Configurar Netlify Identity
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on('init', user => {
+          if (!user) {
+            window.netlifyIdentity.on('login', () => {
+              document.location.href = '/admin/';
+            });
+          }
+        });
       }
-    }
-
-    // Inicializar cuando el DOM esté listo
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initializeCMS);
-    } else {
-      initializeCMS();
-    }
+      
+      // Registrar idioma y inicializar CMS
+      if (window.CMS) {
+        window.CMS.registerLocale('pl', pl);
+        window.CMS.init();
+      }
+    });
   </script>
 </body>
 </html>
