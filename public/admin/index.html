@@ -12,74 +12,57 @@
   
 
   
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  
+  <!-- Error suppression for Decap CMS 3.7.1 React DOM issues -->
   <script>
-    // Error suppression for Decap CMS 3.7.1 React DOM issues
-    (function() {
-      const originalError = console.error;
-      const originalWarn = console.warn;
-      
-      console.error = function(...args) {
-        const message = args.join(' ');
-        // Suppress specific React DOM errors from Decap CMS 3.7.1
-        if (message.includes('removeChild') || 
-            message.includes('NotFoundError') ||
-            message.includes('createRoot') ||
-            message.includes('react-dom/client') ||
-            message.includes('ReactDOMClient.createRoot')) {
-          return; // Suppress these specific errors
+    // Suppress React DOM errors that cause UI displacement
+    const originalRemoveChild = Node.prototype.removeChild;
+    const originalInsertBefore = Node.prototype.insertBefore;
+    const originalAppendChild = Node.prototype.appendChild;
+    
+    Node.prototype.removeChild = function(child) {
+      try {
+        return originalRemoveChild.call(this, child);
+      } catch (error) {
+        if (error.name === 'NotFoundError') {
+          console.warn('Suppressed removeChild error (Decap CMS 3.7.1):', error.message);
+          return child;
         }
-        originalError.apply(console, args);
-      };
-      
-      console.warn = function(...args) {
-        const message = args.join(' ');
-        // Suppress specific React DOM warnings from Decap CMS 3.7.1
-        if (message.includes('createRoot') || 
-            message.includes('react-dom/client') ||
-            message.includes('ReactDOMClient')) {
-          return; // Suppress these specific warnings
+        throw error;
+      }
+    };
+    
+    Node.prototype.insertBefore = function(newNode, referenceNode) {
+      try {
+        return originalInsertBefore.call(this, newNode, referenceNode);
+      } catch (error) {
+        if (error.name === 'NotFoundError') {
+          console.warn('Suppressed insertBefore error (Decap CMS 3.7.1):', error.message);
+          return this.appendChild(newNode);
         }
-        originalWarn.apply(console, args);
-      };
-      
-      // Global error handler for unhandled errors
-      window.addEventListener('error', function(event) {
-        if (event.error && event.error.message && 
-            (event.error.message.includes('removeChild') || 
-             event.error.message.includes('NotFoundError'))) {
-          event.preventDefault();
-          event.stopPropagation();
-          return false;
-        }
-      });
-      
-      // Promise rejection handler
-      window.addEventListener('unhandledrejection', function(event) {
-        if (event.reason && event.reason.message && 
-            (event.reason.message.includes('removeChild') || 
-             event.reason.message.includes('NotFoundError'))) {
-          event.preventDefault();
-        }
-      });
-    })();
+        throw error;
+      }
+    };
+    
+    // Global error handler for unhandled React errors
+    window.addEventListener('error', function(event) {
+      if (event.error && event.error.message && 
+          (event.error.message.includes('removeChild') || 
+           event.error.message.includes('insertBefore') ||
+           event.error.message.includes('NotFoundError'))) {
+        console.warn('Suppressed React DOM error (Decap CMS 3.7.1):', event.error.message);
+        event.preventDefault();
+        return false;
+      }
+    });
   </script>
   
-  <script src="https://unpkg.com/decap-cms@3.7.1/dist/decap-cms.js"></script>
+  <!-- Using Decap CMS 3.6.0 - more stable version -->
+  <script src="https://unpkg.com/decap-cms@3.6.0/dist/decap-cms.js"></script>
   
-  <script>
-    // Initialize Netlify Identity
-    if (window.netlifyIdentity) {
-      window.netlifyIdentity.on("init", user => {
-        if (!user) {
-          window.netlifyIdentity.on("login", () => {
-            document.location.href = "/admin/";
-          });
-        }
-      });
-    }
+  <!-- Netlify Identity Widget -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
+  <script>
     // Polish translations for Netlify CMS
     const plTranslations = {
       auth: {
@@ -154,71 +137,47 @@
         }
       }
     };
-    
-    // Enhanced CMS initialization for Decap CMS 3.7.1
-    function initializeCMS() {
-      try {
-        if (window.CMS) {
-          // Register Polish locale
-          CMS.registerLocale('pl', plTranslations);
-          
-          // Enhanced initialization with error handling
-          const initConfig = {
-            config: {
-              load_config_file: true
-            }
-          };
-          
-          // Initialize with retry mechanism
-          let retryCount = 0;
-          const maxRetries = 3;
-          
-          function attemptInit() {
-            try {
-              CMS.init(initConfig);
-              console.log('Decap CMS 3.7.1 initialized successfully');
-            } catch (initError) {
-              retryCount++;
-              if (retryCount < maxRetries) {
-                console.log(`CMS init attempt ${retryCount} failed, retrying...`);
-                setTimeout(attemptInit, 500 * retryCount);
-              } else {
-                console.log('CMS initialized with fallback method');
-                // Fallback initialization
-                try {
-                  CMS.init();
-                } catch (fallbackError) {
-                  // Silent fallback - CMS should still work
-                }
-              }
-            }
-          }
-          
-          attemptInit();
-        } else {
-          console.log('Waiting for Decap CMS to load...');
+
+    // Enhanced CMS initialization with error handling
+    document.addEventListener('DOMContentLoaded', function() {
+      // Override console.error to suppress React DOM errors
+      const originalConsoleError = console.error;
+      console.error = function(...args) {
+        const message = args.join(' ');
+        if (message.includes('removeChild') || 
+            message.includes('insertBefore') || 
+            message.includes('NotFoundError') ||
+            message.includes('Warning: ReactDOM.render')) {
+          console.warn('Suppressed React DOM error:', message);
+          return;
         }
-      } catch (error) {
-        // Silent error handling - don't show initialization errors
-        console.log('CMS loading in progress...');
+        originalConsoleError.apply(console, args);
+      };
+      
+      // Initialize CMS with error handling
+       try {
+         if (window.CMS) {
+           CMS.registerLocale('pl', plTranslations);
+           CMS.init();
+         }
+       } catch (error) {
+         console.warn('CMS initialization error suppressed:', error.message);
+         // Retry initialization after a delay
+         setTimeout(() => {
+           if (window.CMS) {
+             CMS.init();
+           }
+         }, 1000);
+       }
+
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", user => {
+          if (!user) {
+            window.netlifyIdentity.on("login", () => {
+              document.location.href = "/admin/";
+            });
+          }
+        });
       }
-    }
-    
-    // Enhanced loading mechanism
-    function waitForCMS() {
-      if (window.CMS) {
-        initializeCMS();
-      } else {
-        setTimeout(waitForCMS, 100);
-      }
-    }
-    
-    // Start initialization process
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', waitForCMS);
-    } else {
-      waitForCMS();
-    }
+    });
   </script>
-</body>
-</html>

@@ -1,4 +1,12 @@
 {
+  "title": "O Mnie",
+  "subtitle": "Przekształcając momenty w wieczne wspomnienia",
+  "description1": "Jestem Karoliną, fotografką z pasją do uchwycenia wyjątkowej esencji każdego momentu. Z ponad 5-letnim doświadczeniem specjalizuję się w tworzeniu obrazów, które nie tylko dokumentują, ale opowiadają głębokie i emocjonalne historie.",
+  "description2": "Moje podejście koncentruje się na ludzkich połączeniach i naturalnym pięknie. Wierzę, że każda osoba ma wyjątkową historię, która zasługuje na opowiedzenie poprzez fotografię, a moją misją jest pomóc Ci zachować te szczególne momenty na zawsze.",
+  "experience": 5,
+  "experience_label": "Lat doświadczenia",
+  "image": "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=600",
+  "image_alt": "Karolina - Profesjonalna fotografka",
   "skills": [
     {
       "icon": "📸",
@@ -16,13 +24,5 @@
       "description": "Doskonalenie każdego obrazu z troską i detalem"
     }
   ],
-  "image_alt": "Karolina - Profesjonalna fotografka",
-  "experience": 5,
-  "description1": "Jestem Karoliną, fotografką z pasją do uchwycenia wyjątkowej esencji każdego momentu. Z ponad 5-letnim doświadczeniem specjalizuję się w tworzeniu obrazów, które nie tylko dokumentują, ale opowiadają głębokie i emocjonalne historie.",
-  "description2": "Moje podejście koncentruje się na ludzkich połączeniach i naturalnym pięknie. Wierzę, że każda osoba ma wyjątkową historię, która zasługuje na opowiedzenie poprzez fotografię, a moją misją jest pomóc Ci zachować te szczególne momenty na zawsze.",
-  "subtitle": "Przekształcając momenty w wieczne wspomnienia",
-  "title": "About me",
-  "button_text": "Pracujmy Razem",
-  "image": "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=600",
-  "experience_label": "Lat doświadczenia"
+  "button_text": "Pracujmy Razem"
 }
