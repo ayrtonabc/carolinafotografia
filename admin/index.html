@@ -26,6 +26,9 @@
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   
   <script>
+    // Set manual initialization
+    window.CMS_MANUAL_INIT = true;
+    
     // Polish translations
     const plTranslations = {
       app: {
@@ -78,9 +81,42 @@
       }
     };
     
-    // Initialize CMS
-    CMS.registerLocale('pl', plTranslations);
-    CMS.init();
+    // Safe CMS initialization
+    function initializeCMS() {
+      try {
+        // Verify DOM element exists
+        const rootElement = document.getElementById('nc-root');
+        if (!rootElement) {
+          console.error('CMS root element not found');
+          return;
+        }
+        
+        // Clear any existing content
+        rootElement.innerHTML = '';
+        
+        // Register locale and initialize
+        if (window.CMS) {
+          CMS.registerLocale('pl', plTranslations);
+          CMS.init({
+            config: {
+              load_config_file: true
+            }
+          });
+        } else {
+          console.error('CMS not loaded');
+        }
+      } catch (error) {
+        console.error('CMS initialization error:', error);
+        document.getElementById('nc-root').innerHTML = '<p>Error loading CMS. Please refresh the page.</p>';
+      }
+    }
+    
+    // Initialize when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initializeCMS);
+    } else {
+      initializeCMS();
+    }
   </script>
 </body>
 </html>
