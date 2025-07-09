@@ -12,17 +12,52 @@
   
 
   
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <script src="https://unpkg.com/decap-cms@3.7.1/dist/decap-cms.js"></script>
   
   <script>
+    // Initialize Netlify Identity
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on("init", user => {
+        if (!user) {
+          window.netlifyIdentity.on("login", () => {
+            document.location.href = "/admin/";
+          });
+        }
+      });
+    }
+
     // Polish translations for Netlify CMS
     const plTranslations = {
+      auth: {
+        login: 'Zaloguj się',
+        loggingIn: 'Logowanie...',
+        loginWithNetlifyIdentity: 'Zaloguj się przez Netlify Identity',
+        loginWithBitbucket: 'Zaloguj się przez Bitbucket',
+        loginWithGitHub: 'Zaloguj się przez GitHub',
+        loginWithGitLab: 'Zaloguj się przez GitLab',
+        errors: {
+          email: 'Wprowadź swój email.',
+          password: 'Wprowadź swoje hasło.',
+          identitySettings: 'Nie można uzyskać dostępu do ustawień tożsamości. Podczas korzystania z git-gateway backend upewnij się, że usługa Identity i Git Gateway są włączone w Netlify.'
+        }
+      },
       app: {
         header: {
-          content: 'Treść',
+          content: 'Treści',
           workflow: 'Przepływ pracy',
           media: 'Media',
           quickAdd: 'Szybkie dodawanie'
+        },
+        app: {
+          errorHeader: 'Błąd podczas ładowania konfiguracji CMS',
+          configErrors: 'Błędy konfiguracji',
+          checkConfigYml: 'Sprawdź plik config.yml.',
+          loadingConfig: 'Ładowanie konfiguracji...',
+          waitingBackend: 'Oczekiwanie na backend...'
+        },
+        notFoundPage: {
+          header: 'Nie znaleziono'
         }
       },
       collection: {
