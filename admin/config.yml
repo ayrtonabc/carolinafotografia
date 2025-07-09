@@ -1,6 +1,7 @@
 backend:
   name: git-gateway
   branch: main
+  identity_url: https://karolinagfotografia.pl/.netlify/identity
 
 locale: 'pl'
 
@@ -9,6 +10,7 @@ public_folder: "/images/uploads"
 
 site_url: https://karolinagfotografia.pl
 display_url: https://karolinagfotografia.pl
+
 
 slug:
   encoding: "ascii"
