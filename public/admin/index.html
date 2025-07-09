@@ -6,7 +6,7 @@
   <meta name="robots" content="noindex" />
   <title>Content Manager</title>
   <style>
-    /* SOLUCIÓN BALANCEADA PARA DUPLICACIÓN - Permite contenido visible */
+    /* CSS mínimo y limpio para el CMS */
     html, body {
       margin: 0;
       padding: 0;
@@ -15,57 +15,13 @@
     }
     
     #nc-root {
-      position: relative;
       width: 100%;
       height: 100vh;
-      z-index: 1;
     }
     
-    /* Prevenir múltiples instancias del CMS - solo ocultar duplicados */
-    #nc-root > div:nth-child(n+2) {
-      display: none !important;
-    }
-    
-    /* Permitir que el contenido principal se muestre normalmente */
-    #nc-root > div:first-child {
-      width: 100%;
-      height: 100%;
-      position: relative;
-    }
-    
-    /* Ocultar solo elementos duplicados específicos */
-    nav + nav,
-    header + header,
-    aside + aside,
-    [role="navigation"] + [role="navigation"] {
-      display: none !important;
-    }
-    
-    /* Prevenir scroll horizontal innecesario */
+    /* Solo prevenir scroll horizontal innecesario */
     body {
       overflow-x: hidden;
-    }
-    
-    /* Asegurar que el editor funcione correctamente */
-    [data-slate-editor] {
-      position: relative;
-      overflow: visible;
-    }
-    
-    /* Mantener funcionalidad normal del CMS */
-    [class*="sidebar"], [class*="Sidebar"] {
-      position: relative;
-      overflow-y: auto;
-    }
-    
-    [class*="main"], [class*="Main"], [class*="content"] {
-      position: relative;
-      overflow-y: auto;
-    }
-    
-    /* Box sizing para todos los elementos */
-    * {
-      box-sizing: border-box;
     }
   </style>
 </head>
@@ -201,84 +157,26 @@
       }
     };
 
-    // SOLUCIÓN BALANCEADA - JavaScript que permite funcionalidad normal
+    // Inicialización simple y limpia del CMS
     document.addEventListener('DOMContentLoaded', function() {
-      // Suprimir solo errores específicos de React DOM
-      const originalConsoleError = console.error;
-      console.error = function(...args) {
-        const message = args.join(' ');
-        if (message.includes('removeChild') || 
-            message.includes('insertBefore') || 
-            message.includes('NotFoundError')) {
-          console.warn('Error React DOM suprimido:', message);
-          return;
-        }
-        originalConsoleError.apply(console, args);
-      };
-      
-      // Control simple de inicialización
-      let cmsInitialized = false;
-      
-      // Prevenir duplicación suave - solo monitorear
-      function preventDuplication() {
-        const root = document.getElementById('nc-root');
-        if (!root) return;
-        
-        // Observer ligero para eliminar solo duplicados obvios
-        const observer = new MutationObserver((mutations) => {
-          mutations.forEach((mutation) => {
-            if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
-              const children = Array.from(root.children);
-              if (children.length > 1) {
-                // Solo eliminar si hay más de un hijo directo
-                children.slice(1).forEach(child => {
-                  try {
-                    root.removeChild(child);
-                  } catch (e) {
-                    // Ignorar errores silenciosamente
-                  }
-                });
-              }
-            }
-          });
-        });
-        
-        observer.observe(root, { 
-          childList: true, 
-          subtree: false
-        });
-      }
-      
-      // Inicializar CMS normalmente
+      // Inicializar CMS cuando esté disponible
       function initializeCMS() {
-        if (cmsInitialized) return;
-        
-        try {
-          if (window.CMS) {
-            // Registrar idioma y inicializar
-            CMS.registerLocale('pl', plTranslations);
-            CMS.init();
-            
-            cmsInitialized = true;
-            console.log('Decap CMS inicializado correctamente');
-            
-            // Activar prevención suave de duplicación después de la carga
-            setTimeout(preventDuplication, 2000);
-            
-          } else {
-            // Reintentar si CMS no está disponible
-            setTimeout(initializeCMS, 500);
-          }
-        } catch (error) {
-          console.error('Error de inicialización CMS:', error.message);
-          // Reintentar una vez más
-          setTimeout(initializeCMS, 1000);
+        if (window.CMS) {
+          // Registrar idioma polaco
+          CMS.registerLocale('pl', plTranslations);
+          // Inicializar CMS
+          CMS.init();
+          console.log('Decap CMS inicializado correctamente');
+        } else {
+          // Reintentar si CMS no está disponible
+          setTimeout(initializeCMS, 500);
         }
       }
       
       // Inicializar
       initializeCMS();
 
+      // Configuración de Netlify Identity
       if (window.netlifyIdentity) {
         window.netlifyIdentity.on("init", user => {
           if (!user) {
