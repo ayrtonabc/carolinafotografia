@@ -1,51 +1,50 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Panel Administracyjny - Karolina Fotografia</title>
-  <link rel="icon" type="image/png" href="/image.png" />
+  <meta name="robots" content="noindex" />
+  <title>Content Manager</title>
 </head>
 <body>
-  <!-- Contenedor para Decap CMS -->
+  <!-- A little help text -->
   <div id="nc-root"></div>
   
-  <!-- Scripts -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <script>
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on("init", user => {
+        if (!user) {
+          window.netlifyIdentity.on("login", () => {
+            document.location.href = "/admin/";
+          });
+        }
+      });
+    }
+  </script>
+  
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   
   <script>
-    // Configuración de idioma polaco
-    window.CMS_MANUAL_INIT = true;
-    
-    // Traducciones polacas
-    const pl = {
+    // Polish translations
+    const plTranslations = {
       app: {
         header: {
           content: 'Treść',
           workflow: 'Przepływ pracy',
           media: 'Media',
           quickAdd: 'Szybkie dodawanie'
-        },
-        errorHeader: 'Błąd podczas ładowania konfiguracji CMS',
-        configErrors: 'Błędy konfiguracji',
-        checkConfigYml: 'Sprawdź plik config.yml.',
-        loadingConfig: 'Ładowanie konfiguracji...',
-        waitingBackend: 'Oczekiwanie na backend...'
+        }
       },
       collection: {
         sidebar: {
           collections: 'Kolekcje',
-          allCollections: 'Wszystkie kolekcje',
-          searchAll: 'Szukaj we wszystkich',
-          searchIn: 'Szukaj w'
+          allCollections: 'Wszystkie kolekcje'
         },
         collectionTop: {
           sortBy: 'Sortuj według',
           viewAs: 'Wyświetl jako',
-          newButton: 'Nowy %{collectionLabel}',
-          ascending: 'Rosnąco',
-          descending: 'Malejąco'
+          newButton: 'Nowy %{collectionLabel}'
         }
       },
       editor: {
@@ -56,91 +55,32 @@
         },
         editorControlPane: {
           widget: {
-            required: '%{fieldLabel} jest wymagane.',
-            regexPattern: '%{fieldLabel} nie pasuje do wzorca: %{pattern}.'
+            required: '%{fieldLabel} jest wymagane.'
           }
-        },
-        editor: {
-          onLeavePage: 'Czy na pewno chcesz opuścić tę stronę?',
-          onUpdatingWithUnsavedChangesTitle: 'Niezapisane zmiany',
-          onUpdatingWithUnsavedChangesBody: 'Masz niezapisane zmiany, zapisz je przed aktualizacją statusu.',
-          loadingEntry: 'Ładowanie wpisu...'
         }
       },
       mediaLibrary: {
         mediaLibraryCard: {
-          draft: 'Szkic',
-          copy: 'Kopiuj',
-          copyUrl: 'Kopiuj URL',
-          copyPath: 'Kopiuj ścieżkę',
-          copyName: 'Kopiuj nazwę',
-          copied: 'Skopiowane'
+          draft: 'Szkic'
         },
         mediaLibrary: {
-          onDeleteTitle: 'Usunąć wybrane media?',
-          onDeleteBody: 'Czy na pewno chcesz usunąć wybrane media?'
-        },
-        mediaLibraryModal: {
-          loading: 'Ładowanie...',
-          noResults: 'Brak wyników.',
-          noAssetsFound: 'Nie znaleziono zasobów.',
-          noImagesFound: 'Nie znaleziono obrazów.',
-          images: 'Obrazy',
-          mediaAssets: 'Zasoby medialne',
-          search: 'Szukaj bieżących zasobów...',
-          uploading: 'Przesyłanie...',
-          upload: 'Prześlij',
-          download: 'Pobierz',
-          deleting: 'Usuwanie...',
-          deleteSelected: 'Usuń wybrane',
-          chooseSelected: 'Wybierz zaznaczone'
+          onDeleteTitle: 'Usunąć wybrane media?'
         }
       },
       ui: {
         default: {
           goBackToSite: 'Wróć do strony'
         },
-        errorBoundary: {
-          title: 'Błąd',
-          details: 'Wystąpił błąd - proszę ',
-          reportIt: 'zgłoś to.',
-          detailsHeading: 'Szczegóły'
-        },
-        settingsDropdown: {
-          logOut: 'Wyloguj się'
-        },
         toast: {
-          onFailToLoadEntries: 'Nie udało się załadować wpisu: %{details}',
-          onFailToPersist: 'Nie udało się zapisać wpisu: %{details}',
-          onFailToDelete: 'Nie udało się usunąć wpisu: %{details}',
           entrySaved: 'Wpis zapisany',
-          entryPublished: 'Wpis opublikowany',
-          entryUnpublished: 'Publikacja wpisu cofnięta',
-          entryUpdated: 'Status wpisu zaktualizowany',
-          onLoggedOut: 'Zostałeś wylogowany, utwórz kopię zapasową danych i zaloguj się ponownie'
+          entryPublished: 'Wpis opublikowany'
         }
       }
     };
     
-    // Inicialización
-    document.addEventListener('DOMContentLoaded', function() {
-      // Configurar Netlify Identity
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.on('init', user => {
-          if (!user) {
-            window.netlifyIdentity.on('login', () => {
-              document.location.href = '/admin/';
-            });
-          }
-        });
-      }
-      
-      // Registrar idioma y inicializar CMS
-      if (window.CMS) {
-        window.CMS.registerLocale('pl', pl);
-        window.CMS.init();
-      }
-    });
+    // Initialize CMS
+    CMS.registerLocale('pl', plTranslations);
+    CMS.init();
   </script>
 </body>
 </html>

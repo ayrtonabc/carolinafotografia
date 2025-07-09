@@ -1,125 +1,109 @@
 backend:
   name: git-gateway
   branch: main
-  repo: AyrtonCR/carolinafotografia
 
-# Configuración del sitio
-site_url: https://karolinagfotografia.pl
-display_url: https://karolinagfotografia.pl
-logo_url: /image.png
+locale: 'pl'
 
-# Configuración de medios
 media_folder: "public/images/uploads"
 public_folder: "/images/uploads"
 
-# Configuración del editor
-editor:
-  preview: true
+site_url: https://karolinagfotografia.pl
+display_url: https://karolinagfotografia.pl
 
-# Configuración de URL
 slug:
   encoding: "ascii"
   clean_accents: true
 
-# Configuración de idioma
-locale: 'pl'
-
-i18n:
-  structure: multiple_folders
-  locales: [pl]
-  default_locale: pl
-
-# Colecciones
 collections:
-  - name: "site_data"
-    label: "Configuración del Sitio"
+  - name: "site_content"
+    label: "Contenido del Sitio"
     files:
-      - name: "hero"
-        label: "Sección Hero"
+      - label: "Página Principal - Hero"
+        name: "hero"
         file: "src/data/hero.json"
         fields:
-          - { label: "Título", name: "title", widget: "string" }
-          - { label: "Subtítulo", name: "subtitle", widget: "string" }
-          - { label: "Descripción", name: "description", widget: "text" }
-          - { label: "Imagen de fondo", name: "background_image", widget: "image" }
-          - { label: "Texto del botón", name: "button_text", widget: "string" }
-          - { label: "Enlace del botón", name: "button_link", widget: "string" }
+          - {label: "Título", name: "title", widget: "string"}
+          - {label: "Subtítulo", name: "subtitle", widget: "string"}
+          - {label: "Descripción", name: "description", widget: "text"}
+          - {label: "Imagen de fondo", name: "background_image", widget: "image"}
+          - {label: "Texto del botón", name: "button_text", widget: "string"}
+          - {label: "Enlace del botón", name: "button_link", widget: "string"}
       
-      - name: "about"
-        label: "Acerca de"
+      - label: "Acerca de"
+        name: "about"
         file: "src/data/about.json"
         fields:
-          - { label: "Título", name: "title", widget: "string" }
-          - { label: "Descripción", name: "description", widget: "text" }
-          - { label: "Imagen", name: "image", widget: "image" }
+          - {label: "Título", name: "title", widget: "string"}
+          - {label: "Descripción", name: "description", widget: "text"}
+          - {label: "Imagen", name: "image", widget: "image"}
       
-      - name: "services"
-        label: "Servicios"
+      - label: "Servicios"
+        name: "services"
         file: "src/data/services.json"
         fields:
-          - { label: "Título", name: "title", widget: "string" }
+          - {label: "Título", name: "title", widget: "string"}
           - label: "Lista de servicios"
             name: "services"
             widget: "list"
             fields:
-              - { label: "Nombre", name: "name", widget: "string" }
-              - { label: "Descripción", name: "description", widget: "text" }
-              - { label: "Icono", name: "icon", widget: "string" }
-              - { label: "Precio", name: "price", widget: "string" }
+              - {label: "Nombre", name: "name", widget: "string"}
+              - {label: "Descripción", name: "description", widget: "text"}
+              - {label: "Icono", name: "icon", widget: "string"}
+              - {label: "Precio", name: "price", widget: "string"}
       
-      - name: "gallery"
-        label: "Galería"
+      - label: "Galería"
+        name: "gallery"
         file: "src/data/gallery.json"
         fields:
-          - { label: "Título", name: "title", widget: "string" }
+          - {label: "Título", name: "title", widget: "string"}
           - label: "Imágenes"
             name: "images"
             widget: "list"
             fields:
-              - { label: "Título", name: "title", widget: "string" }
-              - { label: "Imagen", name: "src", widget: "image" }
-              - { label: "Categoría", name: "category", widget: "string" }
-              - { label: "Descripción", name: "alt", widget: "string" }
+              - {label: "Título", name: "title", widget: "string"}
+              - {label: "Imagen", name: "src", widget: "image"}
+              - {label: "Categoría", name: "category", widget: "string"}
+              - {label: "Descripción", name: "alt", widget: "string"}
       
-      - name: "contact"
-        label: "Contacto"
+      - label: "Contacto"
+        name: "contact"
         file: "src/data/contact.json"
         fields:
-          - { label: "Título", name: "title", widget: "string" }
-          - { label: "Descripción", name: "description", widget: "text" }
-          - { label: "Email", name: "email", widget: "string" }
-          - { label: "Teléfono", name: "phone", widget: "string" }
-          - { label: "Dirección", name: "address", widget: "text" }
+          - {label: "Título", name: "title", widget: "string"}
+          - {label: "Descripción", name: "description", widget: "text"}
+          - {label: "Email", name: "email", widget: "string"}
+          - {label: "Teléfono", name: "phone", widget: "string"}
+          - {label: "Dirección", name: "address", widget: "text"}
       
-      - name: "navigation"
-        label: "Navegación"
+      - label: "Navegación"
+        name: "navigation"
         file: "src/data/navigation.json"
         fields:
           - label: "Enlaces de navegación"
             name: "links"
             widget: "list"
             fields:
-              - { label: "Texto", name: "text", widget: "string" }
-              - { label: "URL", name: "url", widget: "string" }
+              - {label: "Texto", name: "text", widget: "string"}
+              - {label: "URL", name: "url", widget: "string"}
       
-      - name: "site"
-        label: "Configuración General"
+      - label: "Configuración del Sitio"
+        name: "site"
         file: "src/data/site.json"
         fields:
-          - { label: "Título del sitio", name: "title", widget: "string" }
-          - { label: "Descripción", name: "description", widget: "text" }
-          - { label: "URL del sitio", name: "url", widget: "string" }
-          - { label: "Logo", name: "logo", widget: "image" }
+          - {label: "Título del sitio", name: "title", widget: "string"}
+          - {label: "Descripción", name: "description", widget: "text"}
+          - {label: "URL del sitio", name: "url", widget: "string"}
+          - {label: "Logo", name: "logo", widget: "image"}
       
-      - name: "footer"
-        label: "Pie de página"
+      - label: "Pie de página"
+        name: "footer"
         file: "src/data/footer.json"
         fields:
-          - { label: "Texto de copyright", name: "copyright", widget: "string" }
+          - {label: "Texto de copyright", name: "copyright", widget: "string"}
           - label: "Redes sociales"
             name: "social"
             widget: "list"
             fields:
-              - { label: "Nombre", name: "name", widget: "string" }
-              - { label: "URL", name: "url", widget: "string" }
-              - { label: "Icono", name: "icon", widget: "string" }
+              - {label: "Nombre", name: "name", widget: "string"}
+              - {label: "URL", name: "url", widget: "string"}
+              - {label: "Icono", name: "icon", widget: "string"}
