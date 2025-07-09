@@ -96,8 +96,39 @@
         setTimeout(initializeCMS, 100);
         return;
       }
-      // Konfiguracja polskich tłumaczeń
-      const polishTranslations = {
+      
+      console.log('CMS object found, initializing...');
+      
+      // Simplified initialization without complex translations
+      try {
+        window.CMS.init({
+          config: {
+            load_config_file: true,
+            display_url: window.location.origin,
+            logo_url: '/image.png'
+          }
+        });
+        
+        console.log('Decap CMS initialized successfully');
+        
+        // Hide loading spinner
+        const loadingDiv = document.querySelector('.loading');
+        if (loadingDiv) {
+          loadingDiv.style.display = 'none';
+        }
+        
+      } catch (error) {
+        console.error('Error initializing CMS:', error);
+        // Show error message
+        const loadingDiv = document.querySelector('.loading');
+        if (loadingDiv) {
+          loadingDiv.innerHTML = '<div style="color: red; text-align: center;"><h3>Error loading CMS</h3><p>' + error.message + '</p><p>Check console for details</p></div>';
+        }
+      }
+    }
+    
+    // Backup complex translations for later use
+    const polishTranslations = {
         app: {
           header: {
             content: 'Treść',
@@ -264,36 +295,11 @@
           }
         }
       };
-
-      // Rejestracja tłumaczeń
-      try {
-        window.CMS.registerLocale('pl', polishTranslations);
-        
-        window.CMS.init({
-          config: {
-            load_config_file: true,
-            display_url: window.location.origin,
-            logo_url: '/image.png',
-            locale: 'pl'
-          }
-        });
-        
-        console.log('Decap CMS initialized successfully');
-      } catch (error) {
-        console.error('Error initializing CMS:', error);
-        // Fallback initialization without custom locale
-        try {
-          window.CMS.init({
-            config: {
-              load_config_file: true,
-              display_url: window.location.origin,
-              logo_url: '/image.png'
-            }
-          });
-        } catch (fallbackError) {
-          console.error('Fallback CMS initialization failed:', fallbackError);
-        }
-      }
+      
+      // Note: Polish translations available but not used in simplified mode
+      // To enable translations, uncomment the following lines:
+      // window.CMS.registerLocale('pl', polishTranslations);
+      // And add locale: 'pl' to the CMS.init config
     }
     
     // Start initialization when DOM is ready

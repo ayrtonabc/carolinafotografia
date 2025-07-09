@@ -1,18 +1,18 @@
+# Konfiguracja dla rozwoju lokalnego
 backend:
-  name: github
-  repo: tu-usuario/tu-repositorio # Zmień na swoje repozytorium
-  branch: main
-  auth_type: pkce
-  base_url: https://api.netlify.com
-  auth_endpoint: auth
+  name: test-repo
 
-# Alternatywna konfiguracja dla Netlify Identity
+# Dla produkcji, odkomentuj i skonfiguruj:
 # backend:
-#   name: git-gateway
+#   name: github
+#   repo: tu-usuario/tu-repositorio
 #   branch: main
+#   auth_type: pkce
+#   base_url: https://api.netlify.com
+#   auth_endpoint: auth
 
-site_url: https://tu-sitio.vercel.app # Zmień na swój URL
-display_url: https://tu-sitio.vercel.app # Zmień na swój URL
+site_url: http://localhost:4322
+display_url: http://localhost:4322
 logo_url: /image.png
 
 media_folder: "public/images"
