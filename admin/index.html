@@ -40,11 +40,9 @@
   </div>
   <!-- Include the script that builds the page and powers Decap CMS -->
   <script src="https://unpkg.com/decap-cms@3.0.14/dist/decap-cms.js"></script>
+  <script src="./locales/pl.js"></script>
   
-  <script type="module">
-    // Importuj tłumaczenia
-    import pl from './locales/pl.js';
-
+  <script>
     // Inicjalizacja Netlify Identity
     if (window.netlifyIdentity) {
       window.netlifyIdentity.on("init", user => {
@@ -56,41 +54,20 @@
       });
     }
 
-    // Ręczna inicjalizacja CMS, aby zapewnić załadowanie wszystkiego
-    window.CMS_MANUAL_INIT = true;
+    // Zarejestruj polskie tłumaczenia
+    CMS.registerLocale('pl', window.pl);
 
-    // Funkcja do inicjalizacji CMS
-    function initializeCMS() {
-      // Sprawdź, czy obiekt CMS jest dostępny
-      if (typeof CMS === 'undefined') {
-        console.log('Oczekiwanie na załadowanie CMS...');
-        // Spróbuj ponownie za 100ms
-        setTimeout(initializeCMS, 100);
-        return;
+    // Ukryj spinner ładowania po pomyślnej inicjalizacji
+    CMS.on('mounted', () => {
+      console.log('CMS zamontowany, ukrywanie spinnera.');
+      const loadingDiv = document.querySelector('.loading');
+      if (loadingDiv) {
+        loadingDiv.style.display = 'none';
       }
+    });
 
-      console.log('CMS załadowany, inicjalizacja...');
-      
-      // Zarejestruj polskie tłumaczenia
-      CMS.registerLocale('pl', pl);
-
-      // Inicjalizuj CMS. Domyślnie załaduje /admin/config.yml
-      CMS.init();
-
-      console.log('Inicjalizacja CMS zakończona.');
-
-      // Ukryj spinner ładowania po pomyślnej inicjalizacji
-      CMS.on('mounted', () => {
-        console.log('CMS zamontowany, ukrywanie spinnera.');
-        const loadingDiv = document.querySelector('.loading');
-        if (loadingDiv) {
-          loadingDiv.style.display = 'none';
-        }
-      });
-    }
-
-    // Rozpocznij proces inicjalizacji
-    document.addEventListener('DOMContentLoaded', initializeCMS);
+    // Inicjalizuj CMS. Domyślnie załaduje /admin/config.yml
+    CMS.init();
   </script>
 </body>
 </html>
