@@ -1,0 +1,122 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Content Manager</title>
+</head>
+<body>
+  <!-- A little help text -->
+  <div id="nc-root"></div>
+  
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <script>
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on("init", user => {
+        if (!user) {
+          window.netlifyIdentity.on("login", () => {
+            document.location.href = "/admin/";
+          });
+        }
+      });
+    }
+  </script>
+  
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  
+  <script>
+    // Set manual initialization
+    window.CMS_MANUAL_INIT = true;
+    
+    // Polish translations
+    const plTranslations = {
+      app: {
+        header: {
+          content: 'Treść',
+          workflow: 'Przepływ pracy',
+          media: 'Media',
+          quickAdd: 'Szybkie dodawanie'
+        }
+      },
+      collection: {
+        sidebar: {
+          collections: 'Kolekcje',
+          allCollections: 'Wszystkie kolekcje'
+        },
+        collectionTop: {
+          sortBy: 'Sortuj według',
+          viewAs: 'Wyświetl jako',
+          newButton: 'Nowy %{collectionLabel}'
+        }
+      },
+      editor: {
+        editorControl: {
+          field: {
+            optional: 'opcjonalne'
+          }
+        },
+        editorControlPane: {
+          widget: {
+            required: '%{fieldLabel} jest wymagane.'
+          }
+        }
+      },
+      mediaLibrary: {
+        mediaLibraryCard: {
+          draft: 'Szkic'
+        },
+        mediaLibrary: {
+          onDeleteTitle: 'Usunąć wybrane media?'
+        }
+      },
+      ui: {
+        default: {
+          goBackToSite: 'Wróć do strony'
+        },
+        toast: {
+          entrySaved: 'Wpis zapisany',
+          entryPublished: 'Wpis opublikowany'
+        }
+      }
+    };
+    
+    // Safe CMS initialization
+    function initializeCMS() {
+      try {
+        // Verify DOM element exists
+        const rootElement = document.getElementById('nc-root');
+        if (!rootElement) {
+          console.error('CMS root element not found');
+          return;
+        }
+        
+        // Clear any existing content
+        rootElement.innerHTML = '';
+        
+        // Register locale and initialize
+        if (window.CMS) {
+          CMS.registerLocale('pl', plTranslations);
+          CMS.init({
+            config: {
+              load_config_file: true
+            }
+          });
+        } else {
+          console.error('CMS not loaded');
+        }
+      } catch (error) {
+        console.error('CMS initialization error:', error);
+        document.getElementById('nc-root').innerHTML = '<p>Error loading CMS. Please refresh the page.</p>';
+      }
+    }
+    
+    // Initialize when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initializeCMS);
+    } else {
+      initializeCMS();
+    }
+  </script>
+</body>
+</html>
