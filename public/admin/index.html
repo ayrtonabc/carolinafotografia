@@ -32,6 +32,136 @@
       font-size: 18px;
       color: #666;
     }
+    
+    /* Custom CMS Styling */
+    .nc-collectionPage-card {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+      border: none !important;
+      border-radius: 12px !important;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1) !important;
+      transition: all 0.3s ease !important;
+      position: relative !important;
+      overflow: hidden !important;
+    }
+    
+    .nc-collectionPage-card:hover {
+      transform: translateY(-5px) !important;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.15) !important;
+    }
+    
+    .nc-collectionPage-card::before {
+      content: '' !important;
+      position: absolute !important;
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      bottom: 0 !important;
+      background: linear-gradient(45deg, rgba(255,255,255,0.1), transparent) !important;
+      pointer-events: none !important;
+    }
+    
+    /* Collection card titles with icons */
+    .nc-collectionPage-card h2::before {
+      font-family: 'Segoe UI Symbol', 'Segoe UI Emoji' !important;
+      margin-right: 8px !important;
+      font-size: 1.2em !important;
+    }
+    
+    /* Specific icons for each collection */
+    .nc-collectionPage-card h2[title*="Hero"]::before,
+    .nc-collectionPage-card h2:contains("Strona Główna")::before {
+      content: '🏠' !important;
+    }
+    
+    .nc-collectionPage-card h2[title*="About"]::before,
+    .nc-collectionPage-card h2:contains("O mnie")::before {
+      content: '👤' !important;
+    }
+    
+    .nc-collectionPage-card h2[title*="Services"]::before,
+    .nc-collectionPage-card h2:contains("Usługi")::before {
+      content: '📸' !important;
+    }
+    
+    .nc-collectionPage-card h2[title*="Gallery"]::before,
+    .nc-collectionPage-card h2:contains("Galeria")::before {
+      content: '🖼️' !important;
+    }
+    
+    .nc-collectionPage-card h2[title*="Contact"]::before,
+    .nc-collectionPage-card h2:contains("Kontakt")::before {
+      content: '📞' !important;
+    }
+    
+    .nc-collectionPage-card h2[title*="Navigation"]::before,
+    .nc-collectionPage-card h2:contains("Nawigacja")::before {
+      content: '🧭' !important;
+    }
+    
+    .nc-collectionPage-card h2[title*="Site"]::before,
+    .nc-collectionPage-card h2:contains("Konfiguracja")::before {
+      content: '⚙️' !important;
+    }
+    
+    .nc-collectionPage-card h2[title*="Footer"]::before,
+    .nc-collectionPage-card h2:contains("Stopka")::before {
+      content: '📄' !important;
+    }
+    
+    /* Card text styling */
+    .nc-collectionPage-card h2 {
+      color: white !important;
+      font-weight: 600 !important;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3) !important;
+    }
+    
+    .nc-collectionPage-card p {
+      color: rgba(255,255,255,0.9) !important;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.2) !important;
+    }
+    
+    /* Header styling */
+    .nc-app-header {
+      background: linear-gradient(90deg, #667eea 0%, #764ba2 100%) !important;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1) !important;
+    }
+    
+    /* Sidebar styling */
+    .nc-app-aside {
+      background: #f8fafc !important;
+      border-right: 1px solid #e2e8f0 !important;
+    }
+    
+    /* Button styling */
+    .nc-button-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+      border: none !important;
+      border-radius: 8px !important;
+      transition: all 0.3s ease !important;
+    }
+    
+    .nc-button-primary:hover {
+      transform: translateY(-2px) !important;
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4) !important;
+    }
+    
+    /* Collection list styling */
+    .nc-collectionPage-grid {
+      gap: 20px !important;
+      padding: 20px !important;
+    }
+    
+    /* Media library styling */
+    .nc-mediaLibrary-card {
+      border-radius: 12px !important;
+      overflow: hidden !important;
+      transition: all 0.3s ease !important;
+    }
+    
+    .nc-mediaLibrary-card:hover {
+      transform: scale(1.02) !important;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+    }
   </style>
 </head>
 <body>
@@ -212,6 +342,9 @@
           CMS.init();
           
           console.log('Decap CMS initialized successfully with anti-duplication');
+          
+          // Apply custom styling and icons
+          setTimeout(applyCustomStyling, 1000);
         } else {
           setTimeout(initCMS, 100);
         }
@@ -219,6 +352,41 @@
         console.error('CMS initialization error:', error);
         setTimeout(initCMS, 1000);
       }
+    }
+
+    // Custom styling function
+    function applyCustomStyling() {
+      const cardTitles = document.querySelectorAll('.nc-collectionPage-card h2, [class*="collection"] h2, [class*="card"] h2');
+      
+      cardTitles.forEach(title => {
+        const text = title.textContent.toLowerCase();
+        let icon = '';
+        
+        if (text.includes('hero') || text.includes('strona główna') || text.includes('strona glowna')) {
+          icon = '🏠';
+        } else if (text.includes('about') || text.includes('o mnie')) {
+          icon = '👤';
+        } else if (text.includes('services') || text.includes('usługi') || text.includes('uslugi')) {
+          icon = '📸';
+        } else if (text.includes('gallery') || text.includes('galeria')) {
+          icon = '🖼️';
+        } else if (text.includes('contact') || text.includes('kontakt')) {
+          icon = '📞';
+        } else if (text.includes('navigation') || text.includes('nawigacja')) {
+          icon = '🧭';
+        } else if (text.includes('site') || text.includes('konfiguracja') || text.includes('config')) {
+          icon = '⚙️';
+        } else if (text.includes('footer') || text.includes('stopka')) {
+          icon = '📄';
+        }
+        
+        if (icon && !title.textContent.startsWith(icon)) {
+          title.textContent = icon + ' ' + title.textContent;
+        }
+      });
+      
+      // Re-apply styling periodically for dynamic content
+      setTimeout(applyCustomStyling, 3000);
     }
 
     // Wait for DOM and start initialization
