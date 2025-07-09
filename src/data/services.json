@@ -5,9 +5,9 @@
   "services": [
     {
       "name": "Portrety Profesjonalne",
-      "description": "Spersonalizowane sesje, które uchwycą Twoją wyjątkową esencję. Idealne do profili zawodowych, mediów społecznościowych lub po prostu do posiadania pięknych wspomnień o sobie.",
-      "price": "Od 150€",
-      "image": "https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg?auto=compress&cs=tinysrgb&w=600",
+      "description": "Pozwól, by fotografia wydobyła Twoją wyjątkowość i klasę. Subtelne, ponadczasowe kadry, które opowiadają Twoją historię.",
+      "price": "Od 350zł",
+      "image": "/images/uploads/11.jpeg",
       "featured": false,
       "features": [
         "Sesja 1-2 godziny",
@@ -18,9 +18,9 @@
     },
     {
       "name": "Śluby i Wydarzenia",
-      "description": "Kompletna dokumentacja Twojego wyjątkowego dnia. Uchwytuję każdą emocję, każdy uśmiech i każdy wyjątkowy moment, który czyni Twoje wydarzenie naprawdę niezapomnianym.",
-      "price": "Od 800€",
-      "image": "https://images.pexels.com/photos/1024993/pexels-photo-1024993.jpeg?auto=compress&cs=tinysrgb&w=600",
+      "description": "Kompletna dokumentacja Twojego wyjątkowego dnia. Chwytam każdą emocję, każdy uśmiech i każdy wyjątkowy moment, który czyni Twoje wydarzenie naprawdę niezapomnianym.",
+      "price": "Od 500zł",
+      "image": "/images/uploads/3.jpeg",
       "featured": true,
       "features": [
         "Pełne pokrycie wydarzenia",
@@ -32,9 +32,9 @@
     },
     {
       "name": "Sesje Rodzinne",
-      "description": "Intymne i naturalne momenty z Twoimi bliskimi. Tworzę zrelaksowaną atmosferę, w której prawdziwe emocje świecą poprzez każdą fotografię.",
-      "price": "Od 200€",
-      "image": "https://images.pexels.com/photos/1648377/pexels-photo-1648377.jpeg?auto=compress&cs=tinysrgb&w=600",
+      "description": "Naturalne sesje rodzinne pełne ciepła i prawdziwych emocji – wspomnienia na całe życie.\n\n",
+      "price": "Od 350zł",
+      "image": "/images/uploads/whatsapp-image-2025-07-09-at-23.05.49.jpeg",
       "featured": false,
       "features": [
         "Sesja 1,5 godziny",
