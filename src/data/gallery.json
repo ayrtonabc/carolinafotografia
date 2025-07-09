@@ -25,6 +25,36 @@
       "category": "familias",
       "title": "PEPE",
       "description": "PEPE"
+    },
+    {
+      "image": "/images/uploads/14.jpeg",
+      "title": "Pepe",
+      "description": "pepe",
+      "category": "familias"
+    },
+    {
+      "image": "/images/uploads/5.jpeg",
+      "title": "pepe",
+      "description": "pepe",
+      "category": "pepe"
+    },
+    {
+      "image": "/images/uploads/11.jpeg",
+      "title": "pepe",
+      "description": "pepe",
+      "category": "pepe"
+    },
+    {
+      "image": "/images/uploads/2.jpeg",
+      "title": "pepe",
+      "description": "pepe",
+      "category": "pepe"
+    },
+    {
+      "image": "/images/uploads/3.jpeg",
+      "title": "pepe",
+      "description": "pepe",
+      "category": "pepe"
     }
   ],
   "cta": {
