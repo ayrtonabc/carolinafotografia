@@ -5,6 +5,61 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex" />
   <title>Content Manager</title>
+  <style>
+     /* Prevent visual duplication and overlay issues */
+     body {
+       margin: 0;
+       padding: 0;
+       overflow-x: hidden;
+       position: relative;
+     }
+     
+     #nc-root {
+       position: relative;
+       z-index: 1;
+       min-height: 100vh;
+       width: 100%;
+       overflow: hidden;
+     }
+     
+     /* Prevent CMS duplication - ensure single instance */
+     #nc-root > div:not(:first-child) {
+       display: none !important;
+     }
+     
+     /* Fix sidebar and main content positioning */
+     [class*="sidebar"], [class*="Sidebar"] {
+       position: fixed !important;
+       z-index: 100;
+     }
+     
+     /* Prevent content duplication */
+     [data-slate-editor] {
+       position: relative;
+     }
+     
+     /* Fix main content area */
+     [class*="main"], [class*="Main"] {
+       position: relative !important;
+       overflow-y: auto;
+       height: 100vh;
+     }
+     
+     /* Prevent overlay issues */
+     .css-1hwfws3 {
+       position: relative !important;
+     }
+     
+     /* Hide duplicate navigation elements */
+     nav + nav, header + header {
+       display: none !important;
+     }
+     
+     /* Ensure proper stacking context */
+     * {
+       box-sizing: border-box;
+     }
+   </style>
 </head>
 <body>
   <!-- A little help text -->
@@ -60,7 +115,7 @@
   <script src="https://unpkg.com/decap-cms@3.6.0/dist/decap-cms.js"></script>
   
   <!-- Netlify Identity Widget -->
- 
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
   <script>
     // Polish translations for Netlify CMS
@@ -154,21 +209,67 @@
         originalConsoleError.apply(console, args);
       };
       
+      // Prevent multiple CMS initializations
+      let cmsInitialized = false;
+      
+      // Clear any existing CMS instances
+      function clearExistingCMS() {
+        const root = document.getElementById('nc-root');
+        if (root) {
+          // Remove all child elements except the first one
+          while (root.children.length > 1) {
+            root.removeChild(root.lastChild);
+          }
+          // Clear the first child if it exists
+          if (root.firstChild) {
+            root.innerHTML = '';
+          }
+        }
+      }
+      
       // Initialize CMS with error handling
-       try {
-         if (window.CMS) {
-           CMS.registerLocale('pl', plTranslations);
-           CMS.init();
-         }
-       } catch (error) {
-         console.warn('CMS initialization error suppressed:', error.message);
-         // Retry initialization after a delay
-         setTimeout(() => {
-           if (window.CMS) {
-             CMS.init();
-           }
-         }, 1000);
-       }
+      function initializeCMS() {
+        if (cmsInitialized) return;
+        
+        try {
+          if (window.CMS) {
+            // Clear any existing instances first
+            clearExistingCMS();
+            
+            CMS.registerLocale('pl', plTranslations);
+            CMS.init();
+            cmsInitialized = true;
+            console.log('Decap CMS initialized successfully');
+            
+            // Monitor for duplicate elements and remove them
+            setTimeout(() => {
+              const observer = new MutationObserver((mutations) => {
+                mutations.forEach((mutation) => {
+                  if (mutation.type === 'childList') {
+                    const root = document.getElementById('nc-root');
+                    if (root && root.children.length > 1) {
+                      // Keep only the first child, remove duplicates
+                      while (root.children.length > 1) {
+                        root.removeChild(root.lastChild);
+                      }
+                    }
+                  }
+                });
+              });
+              
+              const root = document.getElementById('nc-root');
+              if (root) {
+                observer.observe(root, { childList: true, subtree: false });
+              }
+            }, 1000);
+          }
+        } catch (error) {
+          console.warn('CMS initialization error suppressed:', error.message);
+        }
+      }
+      
+      // Initialize immediately if CMS is available
+      initializeCMS();
 
       if (window.netlifyIdentity) {
         window.netlifyIdentity.on("init", user => {
