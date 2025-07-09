@@ -1,28 +1,12 @@
 {
-  "title": "O Mnie",
-  "subtitle": "Przekształcając momenty w wieczne wspomnienia",
-  "description1": "Jestem Karoliną, fotografką z pasją do uchwycenia wyjątkowej esencji każdego momentu. Z ponad 5-letnim doświadczeniem specjalizuję się w tworzeniu obrazów, które nie tylko dokumentują, ale opowiadają głębokie i emocjonalne historie.",
-  "description2": "Moje podejście koncentruje się na ludzkich połączeniach i naturalnym pięknie. Wierzę, że każda osoba ma wyjątkową historię, która zasługuje na opowiedzenie poprzez fotografię, a moją misją jest pomóc Ci zachować te szczególne momenty na zawsze.",
-  "experience": 5,
-  "experience_label": "Lat doświadczenia",
-  "image": "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=600",
+  "skills": [],
   "image_alt": "Karolina - Profesjonalna fotografka",
-  "skills": [
-    {
-      "icon": "📸",
-      "title": "Portrety Profesjonalne",
-      "description": "Uchwycenie wyjątkowej osobowości każdego klienta"
-    },
-    {
-      "icon": "💍",
-      "title": "Fotografia Wydarzeń",
-      "description": "Uwiecznienie najważniejszych momentów"
-    },
-    {
-      "icon": "🎨",
-      "title": "Edycja Artystyczna",
-      "description": "Doskonalenie każdego obrazu z troską i detalem"
-    }
-  ],
-  "button_text": "Pracujmy Razem"
+  "experience": 4,
+  "description1": "Cześć! Mam na imię Karolina. Mieszkam w malowniczej Ostródzie – miejscu, które nie tylko inspiruje mnie do pracy, ale też jest moim bezpiecznym portem. Prywatnie jestem mamą dwóch cudownych dziewczynek, które każdego dnia przypominają mi, jak ważne są ulotne chwile… i jak warto je zatrzymać na zdjęciach.\n\nFotografia to dla mnie coś więcej niż zawód – to sposób patrzenia na świat. Uwielbiam łapać emocje, drobne gesty, spojrzenia pełne miłości i czułości. Specjalizuję się w sesjach rodzinnych, kobiecych i dziecięcych – bo wiem, jak cenne są wspomnienia, które tworzymy razem.\n\nPoza obiektywem jestem ogromną miłośniczką książek – uwielbiam zanurzać się w dobrej historii z kubkiem kawy w ręku. To daje mi równowagę i inspirację.\n\nTworzę z serca i dla serca. Jeśli marzysz o sesji, która będzie piękną pamiątką na lata – zapraszam Cię do mojego świata.",
+  "description2": "Moje podejście koncentruje się na ludzkich połączeniach i naturalnym pięknie. Wierzę, że każda osoba ma wyjątkową historię, która zasługuje na opowiedzenie poprzez fotografię, a moją misją jest pomóc Ci zachować te szczególne momenty na zawsze.",
+  "subtitle": "Przekształcając momenty w wieczne wspomnienia",
+  "title": "O Mnie",
+  "button_text": "Pracujmy Razem",
+  "image": "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=600",
+  "experience_label": "Lat doświadczenia"
 }
