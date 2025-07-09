@@ -1,6 +1,6 @@
 {
   "title": "Moje Usługi",
-  "subtitle": "Oferuję szeroki zakres usług fotograficznych dostosowanych do Twoich konkretnych potrzeb",
+  "subtitle": "Oferuję szeroki zakres usług fotograficznych dostosowanych do Twoich konkretnych potrzeb.  Tworzę sesje pełne emocji, światła i autentyczności – zarówno w plenerze, jak i w domowym zaciszu.",
   "featured_badge": "Najpopularniejsze",
   "services": [
     {
@@ -17,7 +17,7 @@
       ]
     },
     {
-      "name": "Śluby i Wydarzenia",
+      "name": "Sesje reportażowe",
       "description": "Kompletna dokumentacja Twojego wyjątkowego dnia. Chwytam każdą emocję, każdy uśmiech i każdy wyjątkowy moment, który czyni Twoje wydarzenie naprawdę niezapomnianym.",
       "price": "Od 500zł",
       "image": "/images/uploads/3.jpeg",
@@ -35,7 +35,7 @@
       "description": "Naturalne sesje rodzinne pełne ciepła i prawdziwych emocji – wspomnienia na całe życie.\n\n",
       "price": "Od 350zł",
       "image": "/images/uploads/whatsapp-image-2025-07-09-at-23.05.49.jpeg",
-      "featured": false,
+      "featured": true,
       "features": [
         "Sesja 1,5 godziny",
         "Lokalizacja do wyboru",
