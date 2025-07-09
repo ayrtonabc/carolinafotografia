@@ -2,59 +2,29 @@
   "title": "Moje Portfolio",
   "subtitle": "Wybór moich najnowszych prac, które pokazują różnorodność i jakość mojej fotografii",
   "filters": [
-    { "key": "all", "label": "Wszystkie" },
-    { "key": "retratos", "label": "Portrety" },
-    { "key": "bodas", "label": "Śluby" },
-    { "key": "familias", "label": "Rodziny" }
+    {
+      "key": "all",
+      "label": "Wszystkie"
+    },
+    {
+      "key": "retratos",
+      "label": "Portrety"
+    },
+    {
+      "key": "bodas",
+      "label": "Śluby"
+    },
+    {
+      "key": "familias",
+      "label": "Rodziny"
+    }
   ],
   "images": [
     {
-      "title": "Portret Profesjonalny",
-      "description": "Sesja studyjna",
-      "image": "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=600",
-      "category": "retratos"
-    },
-    {
-      "title": "Romantyczny Ślub",
-      "description": "Ceremonia na świeżym powietrzu",
-      "image": "https://images.pexels.com/photos/1024993/pexels-photo-1024993.jpeg?auto=compress&cs=tinysrgb&w=600",
-      "category": "bodas"
-    },
-    {
-      "title": "Sesja Rodzinna",
-      "description": "Park naturalny",
-      "image": "https://images.pexels.com/photos/1648377/pexels-photo-1648377.jpeg?auto=compress&cs=tinysrgb&w=600",
-      "category": "familias"
-    },
-    {
-      "title": "Portret Artystyczny",
-      "description": "Naturalne światło",
-      "image": "https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg?auto=compress&cs=tinysrgb&w=600",
-      "category": "retratos"
-    },
-    {
-      "title": "Detale Ślubne",
-      "description": "Wyjątkowe momenty",
-      "image": "https://images.pexels.com/photos/1444442/pexels-photo-1444442.jpeg?auto=compress&cs=tinysrgb&w=600",
-      "category": "bodas"
-    },
-    {
-      "title": "Więź Rodzinna",
-      "description": "Intymne momenty",
-      "image": "https://images.pexels.com/photos/1128318/pexels-photo-1128318.jpeg?auto=compress&cs=tinysrgb&w=600",
-      "category": "familias"
-    },
-    {
-      "title": "Naturalna Ekspresja",
-      "description": "Portret korporacyjny",
-      "image": "https://images.pexels.com/photos/1264210/pexels-photo-1264210.jpeg?auto=compress&cs=tinysrgb&w=600",
-      "category": "retratos"
-    },
-    {
-      "title": "Celebracja",
-      "description": "Przyjęcie weselne",
-      "image": "https://images.pexels.com/photos/1729931/pexels-photo-1729931.jpeg?auto=compress&cs=tinysrgb&w=600",
-      "category": "bodas"
+      "image": "/images/uploads/12.jpeg",
+      "category": "familias",
+      "title": "PEPE",
+      "description": "PEPE"
     }
   ],
   "cta": {
