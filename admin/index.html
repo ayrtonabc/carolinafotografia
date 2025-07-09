@@ -23,13 +23,10 @@
     }
   </script>
   
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <script src="https://unpkg.com/netlify-cms@^2.10.0/dist/netlify-cms.js"></script>
   
   <script>
-    // Set manual initialization
-    window.CMS_MANUAL_INIT = true;
-    
-    // Polish translations
+    // Polish translations for Netlify CMS
     const plTranslations = {
       app: {
         header: {
@@ -81,41 +78,27 @@
       }
     };
     
-    // Safe CMS initialization
+    // Initialize Netlify CMS
     function initializeCMS() {
       try {
-        // Verify DOM element exists
-        const rootElement = document.getElementById('nc-root');
-        if (!rootElement) {
-          console.error('CMS root element not found');
-          return;
-        }
-        
-        // Clear any existing content
-        rootElement.innerHTML = '';
-        
-        // Register locale and initialize
         if (window.CMS) {
           CMS.registerLocale('pl', plTranslations);
-          CMS.init({
-            config: {
-              load_config_file: true
-            }
-          });
+          CMS.init();
         } else {
-          console.error('CMS not loaded');
+          console.error('Netlify CMS not loaded');
         }
       } catch (error) {
         console.error('CMS initialization error:', error);
-        document.getElementById('nc-root').innerHTML = '<p>Error loading CMS. Please refresh the page.</p>';
       }
     }
     
-    // Initialize when DOM is ready
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initializeCMS);
-    } else {
+    // Wait for CMS to load
+    if (window.CMS) {
       initializeCMS();
+    } else {
+      document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(initializeCMS, 100);
+      });
     }
   </script>
 </body>
