@@ -35,18 +35,26 @@
     
     /* Custom CMS Styling */
     .nc-collectionPage-card {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
-      border: none !important;
-      border-radius: 12px !important;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.1) !important;
-      transition: all 0.3s ease !important;
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
+      border: 1px solid rgba(255, 255, 255, 0.2) !important;
+      border-radius: 16px !important;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
       position: relative !important;
       overflow: hidden !important;
+      min-height: 180px !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+      text-align: center !important;
+      padding: 24px !important;
     }
     
     .nc-collectionPage-card:hover {
-      transform: translateY(-5px) !important;
-      box-shadow: 0 12px 40px rgba(0,0,0,0.15) !important;
+      transform: translateY(-8px) scale(1.02) !important;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12) !important;
+      background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%) !important;
     }
     
     .nc-collectionPage-card::before {
@@ -55,10 +63,53 @@
       top: 0 !important;
       left: 0 !important;
       right: 0 !important;
-      bottom: 0 !important;
-      background: linear-gradient(45deg, rgba(255,255,255,0.1), transparent) !important;
+      height: 4px !important;
+      background: linear-gradient(90deg, #667eea 0%, #764ba2 100%) !important;
+      border-radius: 16px 16px 0 0 !important;
       pointer-events: none !important;
     }
+    
+    .card-icon {
+      font-size: 48px !important;
+      margin-bottom: 8px !important;
+      opacity: 0.9 !important;
+      transition: all 0.3s ease !important;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1)) !important;
+    }
+    
+    .nc-collectionPage-card:hover .card-icon {
+       transform: scale(1.1) !important;
+       opacity: 1 !important;
+     }
+     
+     /* Hide filters and force card view */
+     .nc-collectionPage-searchContainer,
+     .nc-collectionPage-filterContainer,
+     [class*="filter"],
+     [class*="search"],
+     .nc-collectionPage-viewControls,
+     [class*="viewControl"],
+     [class*="listView"],
+     .nc-collectionPage-toolbar .nc-button:not(.nc-button-primary) {
+       display: none !important;
+     }
+     
+     /* Force card view layout */
+     .nc-collectionPage-cards,
+     [class*="cardView"],
+     .nc-collectionPage-cardGrid {
+       display: grid !important;
+       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important;
+       gap: 20px !important;
+       padding: 20px !important;
+     }
+     
+     /* Hide list view completely */
+     .nc-collectionPage-list,
+     [class*="listView"],
+     .nc-collectionPage-table {
+       display: none !important;
+     }
     
     /* Collection card titles with icons */
     .nc-collectionPage-card h2::before {
@@ -110,9 +161,11 @@
     
     /* Card text styling */
     .nc-collectionPage-card h2 {
-      color: white !important;
-      font-weight: 600 !important;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.3) !important;
+      color: #334155 !important;
+      font-weight: 500 !important;
+      font-size: 16px !important;
+      margin: 12px 0 0 0 !important;
+      line-height: 1.4 !important;
     }
     
     .nc-collectionPage-card p {
@@ -293,6 +346,15 @@
       const observer = new MutationObserver(function(mutations) {
         mutations.forEach(function(mutation) {
           if (mutation.type === 'childList') {
+            // Remove duplicate headers
+            const headers = document.querySelectorAll('header.css-y7r3-AppHeader, [class*="AppHeader"]');
+            if (headers.length > 1) {
+              for (let i = 1; i < headers.length; i++) {
+                headers[i].remove();
+                console.log('Removed duplicate header');
+              }
+            }
+            
             // Remove duplicate CMS containers
             const containers = document.querySelectorAll('[data-netlify-cms], .cms-editor-visual, .nc-app-container');
             if (containers.length > 1) {
@@ -310,6 +372,15 @@
                 console.log('Removed duplicate navigation');
               }
             }
+            
+            // Remove duplicate main containers
+            const mainContainers = document.querySelectorAll('[class*="MainContainer"], [class*="AppMainContainer"]');
+            if (mainContainers.length > 1) {
+              for (let i = 1; i < mainContainers.length; i++) {
+                mainContainers[i].remove();
+                console.log('Removed duplicate main container');
+              }
+            }
           }
         });
       });
@@ -319,6 +390,7 @@
         subtree: true
       });
       
+      console.log('Enhanced anti-duplication system activated');
       return observer;
     }
 
@@ -356,9 +428,12 @@
 
     // Custom styling function
     function applyCustomStyling() {
-      const cardTitles = document.querySelectorAll('.nc-collectionPage-card h2, [class*="collection"] h2, [class*="card"] h2');
+      const cards = document.querySelectorAll('.nc-collectionPage-card');
       
-      cardTitles.forEach(title => {
+      cards.forEach(card => {
+        const title = card.querySelector('h2');
+        if (!title) return;
+        
         const text = title.textContent.toLowerCase();
         let icon = '';
         
@@ -380,8 +455,18 @@
           icon = '📄';
         }
         
-        if (icon && !title.textContent.startsWith(icon)) {
-          title.textContent = icon + ' ' + title.textContent;
+        if (icon && !card.querySelector('.card-icon')) {
+          // Create icon element
+          const iconElement = document.createElement('div');
+          iconElement.className = 'card-icon';
+          iconElement.textContent = icon;
+          
+          // Clean title text (remove existing emoji if any)
+          const cleanTitle = title.textContent.replace(/^[🏠👤📸🖼️📞🧭⚙️📄]\s*/, '');
+          title.textContent = cleanTitle;
+          
+          // Insert icon before title
+          card.insertBefore(iconElement, title);
         }
       });
       
