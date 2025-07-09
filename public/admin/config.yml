@@ -1,0 +1,219 @@
+backend:
+  name: git-gateway
+  branch: main
+
+locale: 'pl'
+
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
+
+site_url: https://karolinagfotografia.pl
+display_url: https://karolinagfotografia.pl
+
+slug:
+  encoding: "ascii"
+  clean_accents: true
+
+collections:
+  - name: "site_content"
+    label: "Treść Strony"
+    files:
+      - label: "Strona Główna - Hero"
+        name: "hero"
+        file: "src/data/hero.json"
+        fields:
+          - {label: "Tytuł", name: "title", widget: "string"}
+          - {label: "Akcent", name: "accent", widget: "string"}
+          - {label: "Opis", name: "description", widget: "text"}
+          - {label: "Obraz", name: "image", widget: "image"}
+          - {label: "Tekst alternatywny obrazu", name: "image_alt", widget: "string"}
+          - {label: "Przycisk główny", name: "button_primary", widget: "string"}
+          - {label: "Przycisk drugorzędny", name: "button_secondary", widget: "string"}
+      
+      - label: "O mnie"
+        name: "about"
+        file: "src/data/about.json"
+        fields:
+          - {label: "Tytuł", name: "title", widget: "string"}
+          - {label: "Podtytuł", name: "subtitle", widget: "string"}
+          - {label: "Opis 1", name: "description1", widget: "text"}
+          - {label: "Opis 2", name: "description2", widget: "text"}
+          - {label: "Doświadczenie (lata)", name: "experience", widget: "number"}
+          - {label: "Etykieta doświadczenia", name: "experience_label", widget: "string"}
+          - {label: "Obraz", name: "image", widget: "image"}
+          - {label: "Tekst alternatywny obrazu", name: "image_alt", widget: "string"}
+          - label: "Umiejętności"
+            name: "skills"
+            widget: "list"
+            fields:
+              - {label: "Ikona", name: "icon", widget: "string"}
+              - {label: "Tytuł", name: "title", widget: "string"}
+              - {label: "Opis", name: "description", widget: "text"}
+          - {label: "Tekst przycisku", name: "button_text", widget: "string"}
+      
+      - label: "Usługi"
+        name: "services"
+        file: "src/data/services.json"
+        fields:
+          - {label: "Tytuł", name: "title", widget: "string"}
+          - {label: "Podtytuł", name: "subtitle", widget: "string"}
+          - {label: "Etykieta wyróżnionej usługi", name: "featured_badge", widget: "string"}
+          - label: "Lista usług"
+            name: "services"
+            widget: "list"
+            fields:
+              - {label: "Nazwa", name: "name", widget: "string"}
+              - {label: "Opis", name: "description", widget: "text"}
+              - {label: "Cena", name: "price", widget: "string"}
+              - {label: "Obraz", name: "image", widget: "image"}
+              - {label: "Wyróżniony", name: "featured", widget: "boolean"}
+              - label: "Funkcje"
+                name: "features"
+                widget: "list"
+                field: {label: "Funkcja", name: "feature", widget: "string"}
+          - label: "Wezwanie do działania"
+            name: "cta"
+            widget: "object"
+            fields:
+              - {label: "Tytuł", name: "title", widget: "string"}
+              - {label: "Opis", name: "description", widget: "text"}
+              - {label: "Tekst przycisku", name: "button_text", widget: "string"}
+      
+      - label: "Galeria"
+        name: "gallery"
+        file: "src/data/gallery.json"
+        fields:
+          - {label: "Tytuł", name: "title", widget: "string"}
+          - {label: "Podtytuł", name: "subtitle", widget: "string"}
+          - label: "Filtry"
+            name: "filters"
+            widget: "list"
+            fields:
+              - {label: "Klucz", name: "key", widget: "string"}
+              - {label: "Etykieta", name: "label", widget: "string"}
+          - label: "Zdjęcia"
+            name: "images"
+            widget: "list"
+            fields:
+              - {label: "Tytuł", name: "title", widget: "string"}
+              - {label: "Opis", name: "description", widget: "string"}
+              - {label: "Obraz", name: "image", widget: "image"}
+              - {label: "Kategoria", name: "category", widget: "string"}
+          - label: "Wezwanie do działania"
+            name: "cta"
+            widget: "object"
+            fields:
+              - {label: "Tekst", name: "text", widget: "string"}
+              - {label: "Tekst przycisku", name: "button_text", widget: "string"}
+      
+      - label: "Kontakt"
+        name: "contact"
+        file: "src/data/contact.json"
+        fields:
+          - {label: "Tytuł", name: "title", widget: "string"}
+          - {label: "Podtytuł", name: "subtitle", widget: "text"}
+          - label: "Karty kontaktowe"
+            name: "contact_cards"
+            widget: "list"
+            fields:
+              - {label: "Ikona", name: "icon", widget: "string"}
+              - {label: "Tytuł", name: "title", widget: "string"}
+              - {label: "Wartość", name: "value", widget: "string"}
+              - {label: "Link", name: "link", widget: "string", required: false}
+              - {label: "Tekst linku", name: "link_text", widget: "string", required: false}
+              - {label: "Notatka", name: "note", widget: "string", required: false}
+          - label: "Media społecznościowe"
+            name: "social"
+            widget: "object"
+            fields:
+              - {label: "Tytuł", name: "title", widget: "string"}
+              - label: "Linki"
+                name: "links"
+                widget: "list"
+                fields:
+                  - {label: "Platforma", name: "platform", widget: "string"}
+                  - {label: "URL", name: "url", widget: "string"}
+                  - {label: "Etykieta", name: "label", widget: "string"}
+          - label: "Formularz"
+            name: "form"
+            widget: "object"
+            fields:
+              - {label: "Tekst przycisku", name: "button_text", widget: "string"}
+              - {label: "Tekst ładowania", name: "button_loading", widget: "string"}
+              - {label: "Wiadomość sukcesu", name: "success_message", widget: "string"}
+              - {label: "Wiadomość błędu", name: "error_message", widget: "string"}
+      
+      - label: "Nawigacja"
+        name: "navigation"
+        file: "src/data/navigation.json"
+        fields:
+          - {label: "Alt logo", name: "logo_alt", widget: "string"}
+          - label: "Elementy menu"
+            name: "menu_items"
+            widget: "list"
+            fields:
+              - {label: "Href", name: "href", widget: "string"}
+              - {label: "Etykieta", name: "label", widget: "string"}
+          - {label: "Etykieta menu mobilnego", name: "mobile_menu_label", widget: "string"}
+      
+      - label: "Konfiguracja Strony"
+        name: "site"
+        file: "src/data/site.json"
+        fields:
+          - {label: "Tytuł strony", name: "title", widget: "string"}
+          - {label: "Opis", name: "description", widget: "text"}
+          - {label: "Email", name: "email", widget: "string"}
+          - {label: "Telefon", name: "phone", widget: "string"}
+          - {label: "Lokalizacja", name: "location", widget: "string"}
+          - {label: "Logo", name: "logo", widget: "image"}
+      
+      - label: "Stopka"
+        name: "footer"
+        file: "src/data/footer.json"
+        fields:
+          - label: "Marka"
+            name: "brand"
+            widget: "object"
+            fields:
+              - {label: "Nazwa", name: "name", widget: "string"}
+              - {label: "Opis", name: "description", widget: "text"}
+          - label: "Nawigacja"
+            name: "navigation"
+            widget: "object"
+            fields:
+              - {label: "Tytuł", name: "title", widget: "string"}
+              - label: "Linki"
+                name: "links"
+                widget: "list"
+                fields:
+                  - {label: "Href", name: "href", widget: "string"}
+                  - {label: "Etykieta", name: "label", widget: "string"}
+          - label: "Usługi"
+            name: "services"
+            widget: "object"
+            fields:
+              - {label: "Tytuł", name: "title", widget: "string"}
+              - label: "Elementy"
+                name: "items"
+                widget: "list"
+                field: {label: "Usługa", name: "service", widget: "string"}
+          - label: "Kontakt"
+            name: "contact"
+            widget: "object"
+            fields:
+              - {label: "Tytuł", name: "title", widget: "string"}
+              - label: "Elementy"
+                name: "items"
+                widget: "list"
+                fields:
+                  - {label: "Ikona", name: "icon", widget: "string"}
+                  - {label: "Tekst", name: "text", widget: "string"}
+                  - {label: "Link", name: "link", widget: "string", required: false}
+          - label: "Media społecznościowe"
+            name: "social"
+            widget: "list"
+            fields:
+              - {label: "Platforma", name: "platform", widget: "string"}
+              - {label: "URL", name: "url", widget: "string"}
+              - {label: "Etykieta", name: "label", widget: "string"}
+          - {label: "Tekst copyright", name: "copyright", widget: "string"}

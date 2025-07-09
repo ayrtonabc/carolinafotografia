@@ -1,8 +1,9 @@
 {
-  "title": "hola ",
-  "subtitle": "SUBTITULO",
-  "description": "dESCIRPCION SUBTITULO",
-  "background_image": "/images/uploads/12465.jpg",
-  "button_text": "BOTON",
-  "button_link": "#"
+  "title": "Uchwycając momenty",
+  "accent": "wyjątkowe",
+  "description": "Profesjonalna fotografia, która opowiada historie poprzez każdy obraz. Specjalizuję się w tworzeniu wspomnień, które będą trwać całe życie.",
+  "image": "https://images.pexels.com/photos/1264210/pexels-photo-1264210.jpeg?auto=compress&cs=tinysrgb&w=800",
+  "image_alt": "Profesjonalna fotografia - Sesja portretowa",
+  "button_primary": "Zarezerwuj Sesję",
+  "button_secondary": "Zobacz Portfolio"
 }

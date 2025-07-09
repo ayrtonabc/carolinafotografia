@@ -1,0 +1,220 @@
+---
+import galleryData from '../data/gallery.json';
+---
+
+<section id="galeria" class="gallery section-padding">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">{galleryData.title}</h2>
+      <p class="section-subtitle">
+        {galleryData.subtitle}
+      </p>
+    </div>
+    
+    <div class="gallery-filters">
+      {galleryData.filters.map((filter, index) => (
+        <button class={`filter-btn ${index === 0 ? 'active' : ''}`} data-filter={filter.key}>
+          {filter.label}
+        </button>
+      ))}
+    </div>
+    
+    <div class="gallery-grid" id="gallery-grid">
+      {galleryData.images.map(image => (
+        <div class="gallery-item" data-category={image.category}>
+          <img 
+            src={image.image}
+            alt={image.title}
+            loading="lazy"
+          />
+          <div class="gallery-overlay">
+            <h3>{image.title}</h3>
+            <p>{image.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+    
+    <div class="gallery-cta">
+      <p>{galleryData.cta.text}</p>
+      <a href="#contacto" class="btn">{galleryData.cta.button_text}</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .gallery {
+    background: var(--color-white);
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+
+  .section-title {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    color: var(--color-primary);
+  }
+
+  .section-subtitle {
+    font-size: 1.2rem;
+    color: var(--color-gray);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .gallery-filters {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 50px;
+    flex-wrap: wrap;
+  }
+
+  .filter-btn {
+    padding: 10px 25px;
+    background: transparent;
+    border: 2px solid var(--color-light-gray);
+    border-radius: 25px;
+    color: var(--color-gray);
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    font-family: var(--font-body);
+  }
+
+  .filter-btn:hover,
+  .filter-btn.active {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    color: var(--color-white);
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-bottom: 60px;
+  }
+
+  .gallery-item {
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: var(--transition-slow);
+    aspect-ratio: 4/5;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .gallery-item:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: var(--shadow-strong), var(--shadow-glow);
+  }
+
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition);
+  }
+
+  .gallery-item:hover img {
+    transform: scale(1.1);
+  }
+
+  .gallery-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+    color: var(--color-white);
+    padding: 30px 20px 20px;
+    transform: translateY(100%);
+    transition: var(--transition);
+  }
+
+  .gallery-item:hover .gallery-overlay {
+    transform: translateY(0);
+  }
+
+  .gallery-overlay h3 {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+  }
+
+  .gallery-overlay p {
+    font-size: 0.9rem;
+    opacity: 0.9;
+  }
+
+  .gallery-item.hidden {
+    display: none;
+  }
+
+  .gallery-cta {
+    text-align: center;
+    padding: 40px;
+    background: var(--color-light);
+    border-radius: 20px;
+  }
+
+  .gallery-cta p {
+    font-size: 1.3rem;
+    color: var(--color-primary);
+    margin-bottom: 25px;
+    font-weight: 500;
+  }
+
+  @media (max-width: 768px) {
+    .gallery-grid {
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .section-title {
+      font-size: 2rem;
+    }
+
+    .gallery-filters {
+      gap: 10px;
+    }
+
+    .filter-btn {
+      padding: 8px 20px;
+      font-size: 0.9rem;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const galleryItems = document.querySelectorAll('.gallery-item');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        // Remove active class from all buttons
+        filterBtns.forEach(b => b.classList.remove('active'));
+        // Add active class to clicked button
+        this.classList.add('active');
+
+        const filter = this.getAttribute('data-filter');
+
+        galleryItems.forEach(item => {
+          if (filter === 'all' || item.getAttribute('data-category') === filter) {
+            item.classList.remove('hidden');
+            item.style.display = 'block';
+          } else {
+            item.classList.add('hidden');
+            item.style.display = 'none';
+          }
+        });
+      });
+    });
+  });
+</script>

@@ -1,0 +1,51 @@
+{
+  "brand": {
+    "name": "Karolina Fotografia",
+    "description": "Uchwycenie wyjątkowych i niepowtarzalnych momentów z pasją i profesjonalizmem."
+  },
+  "navigation": {
+    "title": "Nawigacja",
+    "links": [
+      { "href": "#inicio", "label": "Strona główna" },
+      { "href": "#sobre-mi", "label": "O mnie" },
+      { "href": "#servicios", "label": "Usługi" },
+      { "href": "#galeria", "label": "Galeria" },
+      { "href": "#contacto", "label": "Kontakt" }
+    ]
+  },
+  "services": {
+    "title": "Usługi",
+    "items": [
+      "Portrety Profesjonalne",
+      "Fotografia Ślubna",
+      "Sesje Rodzinne",
+      "Wydarzenia Specjalne",
+      "Fotografia Korporacyjna"
+    ]
+  },
+  "contact": {
+    "title": "Kontakt",
+    "items": [
+      {
+        "icon": "📧",
+        "text": "hola@karolinafotografia.com",
+        "link": "mailto:hola@karolinafotografia.com"
+      },
+      {
+        "icon": "📱",
+        "text": "+34 600 123 456",
+        "link": "tel:+34600123456"
+      },
+      {
+        "icon": "📍",
+        "text": "Madryt, Hiszpania"
+      }
+    ]
+  },
+  "social": [
+    { "platform": "instagram", "url": "#", "label": "Instagram" },
+    { "platform": "facebook", "url": "#", "label": "Facebook" },
+    { "platform": "pinterest", "url": "#", "label": "Pinterest" }
+  ],
+  "copyright": "© 2024 Karolina Fotografia. Wszelkie prawa zastrzeżone."
+}

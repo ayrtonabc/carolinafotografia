@@ -1,0 +1,23 @@
+{
+  "name": "carolina-fotografia",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Sitio web de fotografía profesional con CMS integrado",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "netlify:build": "npm run build",
+    "netlify:dev": "netlify dev"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "astro": "^5.2.5",
+    "decap-cms-app": "^3.7.1",
+    "netlify-identity-widget": "^1.9.2"
+  }
+}

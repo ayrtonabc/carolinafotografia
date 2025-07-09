@@ -1,0 +1,47 @@
+{
+  "external": {
+    "auth": {
+      "auth0": {},
+      "facebook": {},
+      "google": {}
+    },
+    "registration": {
+      "autoconfirm": true,
+      "invite_only": false
+    },
+    "templates": {
+      "invite": "email-templates/invite.html",
+      "recovery": "email-templates/recovery.html",
+      "email_change": "email-templates/email-change.html"
+    }
+  },
+  "tokens": {
+    "access": {
+      "expires_in": 3600,
+      "audience": [],
+      "issuer": "",
+      "jwt_secret": ""
+    },
+    "refresh": {
+      "enabled": true,
+      "secret": ""
+    }
+  },
+  "site_url": "https://karolinagfotografia.pl",
+  "disable_signup": false,
+  "webhook": {
+    "url": "",
+    "events": {
+      "signup": false,
+      "login": false,
+      "logout": false,
+      "delete_user": false,
+      "invite": false,
+      "request_password_recovery": false,
+      "email_change": false,
+      "token_refreshed": false
+    },
+    "secret": ""
+  },
+  "enable_autoconfirm": true
+}

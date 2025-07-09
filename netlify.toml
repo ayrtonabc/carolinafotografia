@@ -1,0 +1,56 @@
+[build]
+  publish = "dist"
+  command = "npm run build"
+
+[build.environment]
+  NODE_VERSION = "18"
+  # Habilitar Git Gateway
+  NETLIFY_USE_YARN = "true"
+  # Habilitar soporte para autenticación
+  NETLIFY_AUTH = "true"
+  # Habilitar soporte para funciones
+  NETLIFY_FUNCTIONS = "true"
+
+# Configuración para Netlify Identity (necesario para Decap CMS)
+[template.environment]
+  NETLIFY_IDENTITY_ENABLED = "true"
+
+# Headers de seguridad
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# Headers específicos para el admin del CMS
+[[headers]]
+  for = "/admin/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+
+# Configuración de redirects (complementa _redirects)
+[[redirects]]
+  from = "/admin"
+  to = "/admin/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/admin/*"
+  to = "/admin/index.html"
+  status = 200
+
+# Fallback para SPA
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Configuración de funciones (si las necesitas en el futuro)
+[functions]
+  directory = "netlify/functions"
+
+# Configuración de formularios (si usas Netlify Forms)
+[forms]
+  settings = { spam_protection = true }

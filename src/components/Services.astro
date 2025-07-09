@@ -1,0 +1,217 @@
+---
+import servicesData from '../data/services.json';
+---
+
+<section id="servicios" class="services section-padding">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">{servicesData.title}</h2>
+      <p class="section-subtitle">
+        {servicesData.subtitle}
+      </p>
+    </div>
+    
+    <div class="services-grid">
+      {servicesData.services.map(service => (
+        <div class={`service-card ${service.featured ? 'featured' : ''}`}>
+          {service.featured && <div class="featured-badge">{servicesData.featured_badge}</div>}
+          <div class="service-image">
+            <img 
+              src={service.image}
+              alt={service.name}
+              loading="lazy"
+            />
+          </div>
+          <div class="service-content">
+            <h3>{service.name}</h3>
+            <p>{service.description}</p>
+            <ul class="service-features">
+              {service.features.map(feature => (
+                <li>{feature}</li>
+              ))}
+            </ul>
+            <div class="service-price">{service.price}</div>
+          </div>
+        </div>
+      ))}
+    </div>
+    
+    <div class="services-cta">
+      <h3>{servicesData.cta.title}</h3>
+      <p>{servicesData.cta.description}</p>
+      <a href="#contacto" class="btn">{servicesData.cta.button_text}</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .services {
+    background: var(--color-light);
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .section-title {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    color: var(--color-primary);
+  }
+
+  .section-subtitle {
+    font-size: 1.2rem;
+    color: var(--color-gray);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 40px;
+    margin-bottom: 80px;
+  }
+
+  .service-card {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+    transition: var(--transition-slow);
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .service-card:hover {
+    transform: translateY(-15px);
+    box-shadow: var(--shadow-strong), var(--shadow-glow);
+    background: rgba(255, 255, 255, 0.95);
+  }
+
+  .service-card.featured {
+    border: 3px solid var(--color-accent);
+    transform: scale(1.05);
+  }
+
+  .featured-badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: var(--color-accent);
+    color: var(--color-white);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    z-index: 10;
+  }
+
+  .service-image {
+    height: 250px;
+    overflow: hidden;
+  }
+
+  .service-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition);
+  }
+
+  .service-card:hover .service-image img {
+    transform: scale(1.1);
+  }
+
+  .service-content {
+    padding: 30px;
+  }
+
+  .service-content h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: var(--color-primary);
+  }
+
+  .service-content p {
+    color: var(--color-gray);
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  .service-features {
+    list-style: none;
+    margin-bottom: 25px;
+  }
+
+  .service-features li {
+    padding: 8px 0;
+    color: var(--color-gray);
+    position: relative;
+    padding-left: 25px;
+  }
+
+  .service-features li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--color-accent);
+    font-weight: bold;
+  }
+
+  .service-price {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    font-family: var(--font-heading);
+  }
+
+  .services-cta {
+    text-align: center;
+    background: var(--color-white);
+    padding: 50px;
+    border-radius: 20px;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .services-cta h3 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    color: var(--color-primary);
+  }
+
+  .services-cta p {
+    font-size: 1.1rem;
+    color: var(--color-gray);
+    margin-bottom: 30px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  @media (max-width: 768px) {
+    .services-grid {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+
+    .service-card.featured {
+      transform: none;
+    }
+
+    .section-title {
+      font-size: 2rem;
+    }
+
+    .services-cta {
+      padding: 30px 20px;
+    }
+
+    .services-cta h3 {
+      font-size: 1.5rem;
+    }
+  }
+</style>

@@ -1,0 +1,213 @@
+---
+export interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+}
+
+const { title, description = "Profesjonalna fotografia, która uchwycuje wyjątkowe i niepowtarzalne momenty. Specjalizuję się w portretach, wydarzeniach i sesjach spersonalizowanych.", image = "/image.png" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    
+    <!-- SEO Meta Tags -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content="fotografia, profesjonalna fotografka, portrety, wydarzenia, sesje fotograficzne, fotografia artystyczna" />
+    <meta name="author" content="Karolina Fotografia" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={image} />
+    <meta property="og:locale" content="pl_PL" />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={image} />
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "Karolina Fotografia",
+      "description": "Profesjonalna fotografia specjalizująca się w portretach, wydarzeniach i sesjach spersonalizowanych",
+      "serviceType": "Fotografia",
+      "areaServed": "Hiszpania",
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Usługi Fotograficzne",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Fotografia Portretowa"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Fotografia Wydarzeń"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Sesje Spersonalizowane"
+            }
+          }
+        ]
+      }
+    }
+    </script>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --color-primary: #1a1a1a;
+    --color-secondary: #6b5b73;
+    --color-accent: #d4af37;
+    --color-light: #faf9f7;
+    --color-white: #ffffff;
+    --color-gray: #4a4a4a;
+    --color-light-gray: #f8f8f8;
+    --color-dark-gray: #2a2a2a;
+    --color-soft-accent: #f4f1e8;
+    
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Inter', sans-serif;
+    
+    --shadow-soft: 0 2px 20px rgba(0, 0, 0, 0.06);
+    --shadow-medium: 0 8px 40px rgba(0, 0, 0, 0.1);
+    --shadow-strong: 0 20px 60px rgba(0, 0, 0, 0.15);
+    --shadow-glow: 0 0 30px rgba(212, 175, 55, 0.2);
+    
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 100px;
+  }
+
+  body {
+    font-family: var(--font-body);
+    line-height: 1.6;
+    color: var(--color-primary);
+    background-color: var(--color-white);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    line-height: 1.2;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 15px 35px;
+    background: linear-gradient(135deg, var(--color-accent) 0%, #c49d2e 100%);
+    color: var(--color-white);
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: var(--transition-slow);
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-body);
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-medium);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.9rem;
+  }
+
+  .btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: var(--transition);
+  }
+
+  .btn:hover {
+    background: linear-gradient(135deg, #c49d2e 0%, var(--color-accent) 100%);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-strong), var(--shadow-glow);
+  }
+
+  .btn:hover::before {
+    left: 100%;
+  }
+
+  .btn-outline {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    color: var(--color-primary);
+    border: 2px solid rgba(26, 26, 26, 0.2);
+  }
+
+  .btn-outline:hover {
+    background: var(--color-primary);
+    color: var(--color-white);
+    border-color: var(--color-primary);
+  }
+
+  .section-padding {
+    padding: 80px 0;
+  }
+
+  @media (max-width: 768px) {
+    .section-padding {
+      padding: 60px 0;
+    }
+    
+    .container {
+      padding: 0 15px;
+    }
+  }
+</style>

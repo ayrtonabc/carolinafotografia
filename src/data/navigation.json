@@ -1,0 +1,11 @@
+{
+  "logo_alt": "Karolina Fotografia",
+  "menu_items": [
+    { "href": "#inicio", "label": "Strona główna" },
+    { "href": "#sobre-mi", "label": "O mnie" },
+    { "href": "#servicios", "label": "Usługi" },
+    { "href": "#galeria", "label": "Galeria" },
+    { "href": "#contacto", "label": "Kontakt" }
+  ],
+  "mobile_menu_label": "Otwórz menu"
+}

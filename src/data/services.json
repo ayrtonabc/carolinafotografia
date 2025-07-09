@@ -1,0 +1,52 @@
+{
+  "title": "Moje Usługi",
+  "subtitle": "Oferuję szeroki zakres usług fotograficznych dostosowanych do Twoich konkretnych potrzeb",
+  "featured_badge": "Najpopularniejsze",
+  "services": [
+    {
+      "name": "Portrety Profesjonalne",
+      "description": "Spersonalizowane sesje, które uchwycą Twoją wyjątkową esencję. Idealne do profili zawodowych, mediów społecznościowych lub po prostu do posiadania pięknych wspomnień o sobie.",
+      "price": "Od 150€",
+      "image": "https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg?auto=compress&cs=tinysrgb&w=600",
+      "featured": false,
+      "features": [
+        "Sesja 1-2 godziny",
+        "Wiele zmian stroju",
+        "20-30 edytowanych zdjęć",
+        "Prywatna galeria online"
+      ]
+    },
+    {
+      "name": "Śluby i Wydarzenia",
+      "description": "Kompletna dokumentacja Twojego wyjątkowego dnia. Uchwytuję każdą emocję, każdy uśmiech i każdy wyjątkowy moment, który czyni Twoje wydarzenie naprawdę niezapomnianym.",
+      "price": "Od 800€",
+      "image": "https://images.pexels.com/photos/1024993/pexels-photo-1024993.jpeg?auto=compress&cs=tinysrgb&w=600",
+      "featured": true,
+      "features": [
+        "Pełne pokrycie wydarzenia",
+        "Drugi fotograf w zestawie",
+        "100+ edytowanych zdjęć",
+        "Premium album cyfrowy",
+        "Dostawa w 2-3 tygodnie"
+      ]
+    },
+    {
+      "name": "Sesje Rodzinne",
+      "description": "Intymne i naturalne momenty z Twoimi bliskimi. Tworzę zrelaksowaną atmosferę, w której prawdziwe emocje świecą poprzez każdą fotografię.",
+      "price": "Od 200€",
+      "image": "https://images.pexels.com/photos/1648377/pexels-photo-1648377.jpeg?auto=compress&cs=tinysrgb&w=600",
+      "featured": false,
+      "features": [
+        "Sesja 1,5 godziny",
+        "Lokalizacja do wyboru",
+        "25-35 edytowanych zdjęć",
+        "Zwierzęta domowe wliczone"
+      ]
+    }
+  ],
+  "cta": {
+    "title": "Nie znajdziesz tego, czego szukasz?",
+    "description": "Każdy projekt jest wyjątkowy. Skontaktuj się ze mną, aby stworzyć spersonalizowany pakiet, który idealnie odpowiada Twoim potrzebom.",
+    "button_text": "Konsultacja Spersonalizowana"
+  }
+}

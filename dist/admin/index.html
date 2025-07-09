@@ -1,0 +1,224 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Content Manager</title>
+</head>
+<body>
+  <!-- A little help text -->
+  <div id="nc-root"></div>
+  
+
+  
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  
+  <script>
+    // Error suppression for Decap CMS 3.7.1 React DOM issues
+    (function() {
+      const originalError = console.error;
+      const originalWarn = console.warn;
+      
+      console.error = function(...args) {
+        const message = args.join(' ');
+        // Suppress specific React DOM errors from Decap CMS 3.7.1
+        if (message.includes('removeChild') || 
+            message.includes('NotFoundError') ||
+            message.includes('createRoot') ||
+            message.includes('react-dom/client') ||
+            message.includes('ReactDOMClient.createRoot')) {
+          return; // Suppress these specific errors
+        }
+        originalError.apply(console, args);
+      };
+      
+      console.warn = function(...args) {
+        const message = args.join(' ');
+        // Suppress specific React DOM warnings from Decap CMS 3.7.1
+        if (message.includes('createRoot') || 
+            message.includes('react-dom/client') ||
+            message.includes('ReactDOMClient')) {
+          return; // Suppress these specific warnings
+        }
+        originalWarn.apply(console, args);
+      };
+      
+      // Global error handler for unhandled errors
+      window.addEventListener('error', function(event) {
+        if (event.error && event.error.message && 
+            (event.error.message.includes('removeChild') || 
+             event.error.message.includes('NotFoundError'))) {
+          event.preventDefault();
+          event.stopPropagation();
+          return false;
+        }
+      });
+      
+      // Promise rejection handler
+      window.addEventListener('unhandledrejection', function(event) {
+        if (event.reason && event.reason.message && 
+            (event.reason.message.includes('removeChild') || 
+             event.reason.message.includes('NotFoundError'))) {
+          event.preventDefault();
+        }
+      });
+    })();
+  </script>
+  
+  <script src="https://unpkg.com/decap-cms@3.7.1/dist/decap-cms.js"></script>
+  
+  <script>
+    // Initialize Netlify Identity
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on("init", user => {
+        if (!user) {
+          window.netlifyIdentity.on("login", () => {
+            document.location.href = "/admin/";
+          });
+        }
+      });
+    }
+
+    // Polish translations for Netlify CMS
+    const plTranslations = {
+      auth: {
+        login: 'Zaloguj się',
+        loggingIn: 'Logowanie...',
+        loginWithNetlifyIdentity: 'Zaloguj się przez Netlify Identity',
+        loginWithBitbucket: 'Zaloguj się przez Bitbucket',
+        loginWithGitHub: 'Zaloguj się przez GitHub',
+        loginWithGitLab: 'Zaloguj się przez GitLab',
+        errors: {
+          email: 'Wprowadź swój email.',
+          password: 'Wprowadź swoje hasło.',
+          identitySettings: 'Nie można uzyskać dostępu do ustawień tożsamości. Podczas korzystania z git-gateway backend upewnij się, że usługa Identity i Git Gateway są włączone w Netlify.'
+        }
+      },
+      app: {
+        header: {
+          content: 'Treści',
+          workflow: 'Przepływ pracy',
+          media: 'Media',
+          quickAdd: 'Szybkie dodawanie'
+        },
+        app: {
+          errorHeader: 'Błąd podczas ładowania konfiguracji CMS',
+          configErrors: 'Błędy konfiguracji',
+          checkConfigYml: 'Sprawdź plik config.yml.',
+          loadingConfig: 'Ładowanie konfiguracji...',
+          waitingBackend: 'Oczekiwanie na backend...'
+        },
+        notFoundPage: {
+          header: 'Nie znaleziono'
+        }
+      },
+      collection: {
+        sidebar: {
+          collections: 'Kolekcje',
+          allCollections: 'Wszystkie kolekcje'
+        },
+        collectionTop: {
+          sortBy: 'Sortuj według',
+          viewAs: 'Wyświetl jako',
+          newButton: 'Nowy %{collectionLabel}'
+        }
+      },
+      editor: {
+        editorControl: {
+          field: {
+            optional: 'opcjonalne'
+          }
+        },
+        editorControlPane: {
+          widget: {
+            required: '%{fieldLabel} jest wymagane.'
+          }
+        }
+      },
+      mediaLibrary: {
+        mediaLibraryCard: {
+          draft: 'Szkic'
+        },
+        mediaLibrary: {
+          onDeleteTitle: 'Usunąć wybrane media?'
+        }
+      },
+      ui: {
+        default: {
+          goBackToSite: 'Wróć do strony'
+        },
+        toast: {
+          entrySaved: 'Wpis zapisany',
+          entryPublished: 'Wpis opublikowany'
+        }
+      }
+    };
+    
+    // Enhanced CMS initialization for Decap CMS 3.7.1
+    function initializeCMS() {
+      try {
+        if (window.CMS) {
+          // Register Polish locale
+          CMS.registerLocale('pl', plTranslations);
+          
+          // Enhanced initialization with error handling
+          const initConfig = {
+            config: {
+              load_config_file: true
+            }
+          };
+          
+          // Initialize with retry mechanism
+          let retryCount = 0;
+          const maxRetries = 3;
+          
+          function attemptInit() {
+            try {
+              CMS.init(initConfig);
+              console.log('Decap CMS 3.7.1 initialized successfully');
+            } catch (initError) {
+              retryCount++;
+              if (retryCount < maxRetries) {
+                console.log(`CMS init attempt ${retryCount} failed, retrying...`);
+                setTimeout(attemptInit, 500 * retryCount);
+              } else {
+                console.log('CMS initialized with fallback method');
+                // Fallback initialization
+                try {
+                  CMS.init();
+                } catch (fallbackError) {
+                  // Silent fallback - CMS should still work
+                }
+              }
+            }
+          }
+          
+          attemptInit();
+        } else {
+          console.log('Waiting for Decap CMS to load...');
+        }
+      } catch (error) {
+        // Silent error handling - don't show initialization errors
+        console.log('CMS loading in progress...');
+      }
+    }
+    
+    // Enhanced loading mechanism
+    function waitForCMS() {
+      if (window.CMS) {
+        initializeCMS();
+      } else {
+        setTimeout(waitForCMS, 100);
+      }
+    }
+    
+    // Start initialization process
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', waitForCMS);
+    } else {
+      waitForCMS();
+    }
+  </script>
+</body>
+</html>

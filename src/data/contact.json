@@ -1,0 +1,86 @@
+{
+  "title": "Pracujmy Razem",
+  "subtitle": "Gotowy na stworzenie wyjątkowych wspomnień? Skontaktuj się ze mną i porozmawiajmy o Twojej następnej sesji fotograficznej",
+  "contact_cards": [
+    {
+      "icon": "📧",
+      "title": "Email",
+      "value": "hola@karolinafotografia.com",
+      "link": "mailto:hola@karolinafotografia.com",
+      "link_text": "Wyślij Email"
+    },
+    {
+      "icon": "📱",
+      "title": "Telefon",
+      "value": "+34 600 123 456",
+      "link": "tel:+34600123456",
+      "link_text": "Zadzwoń Teraz"
+    },
+    {
+      "icon": "📍",
+      "title": "Lokalizacja",
+      "value": "Madryt, Hiszpania",
+      "note": "Dostępna do podróży"
+    }
+  ],
+  "social": {
+    "title": "Śledź mnie",
+    "links": [
+      { "platform": "instagram", "url": "#", "label": "Instagram" },
+      { "platform": "facebook", "url": "#", "label": "Facebook" },
+      { "platform": "pinterest", "url": "#", "label": "Pinterest" }
+    ]
+  },
+  "form": {
+    "fields": [
+      {
+        "name": "name",
+        "label": "Imię i Nazwisko",
+        "type": "text",
+        "required": true
+      },
+      {
+        "name": "email",
+        "label": "Email",
+        "type": "email",
+        "required": true
+      },
+      {
+        "name": "phone",
+        "label": "Telefon",
+        "type": "tel",
+        "required": false
+      },
+      {
+        "name": "service",
+        "label": "Typ Sesji",
+        "type": "select",
+        "required": true,
+        "options": [
+          { "value": "", "label": "Wybierz usługę" },
+          { "value": "retratos", "label": "Portrety Profesjonalne" },
+          { "value": "bodas", "label": "Śluby i Wydarzenia" },
+          { "value": "familias", "label": "Sesje Rodzinne" },
+          { "value": "otro", "label": "Inne (określ w wiadomości)" }
+        ]
+      },
+      {
+        "name": "date",
+        "label": "Preferowana Data",
+        "type": "date",
+        "required": false
+      },
+      {
+        "name": "message",
+        "label": "Wiadomość",
+        "type": "textarea",
+        "placeholder": "Opowiedz mi więcej o swojej wizji sesji...",
+        "required": false
+      }
+    ],
+    "button_text": "Wyślij Wiadomość",
+    "button_loading": "Wysyłanie...",
+    "success_message": "Dziękuję za wiadomość! Skontaktuję się z Tobą wkrótce.",
+    "error_message": "Wystąpił błąd. Spróbuj ponownie."
+  }
+}
