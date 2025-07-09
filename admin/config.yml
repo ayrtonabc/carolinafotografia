@@ -1,7 +1,6 @@
 backend:
   name: git-gateway
   branch: main
-  repo: AyrtonCR/carolinafotografia
 
 # Configuración del sitio
 site_url: https://karolinagfotografia.pl
@@ -16,57 +15,62 @@ public_folder: "/images/uploads"
 editor:
   preview: true
 
-# Configuración de URL
-slug:
-  encoding: "ascii"
-  clean_accents: true
-
-# Configuración de idioma
-locale: 'pl'
-
-i18n:
-  structure: multiple_folders
-  locales: [pl]
-  default_locale: pl
-
 # Colecciones
 collections:
-  - name: "pages"
-    label: "Páginas"
+  - name: "site"
+    label: "Configuración del Sitio"
     files:
-      - name: "home"
-        label: "Inicio"
-        file: "src/data/home.json"
+      - name: "hero"
+        label: "Sección Hero"
+        file: "src/data/hero.json"
         fields:
           - { label: "Título", name: "title", widget: "string" }
+          - { label: "Subtítulo", name: "subtitle", widget: "string" }
           - { label: "Descripción", name: "description", widget: "text" }
-          - { label: "Imagen de fondo", name: "hero_image", widget: "image" }
-          - { label: "Texto del botón", name: "button_text", widget: "string" }
-
-  - name: "blog"
-    label: "Blog"
-    folder: "src/content/blog"
-    create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-    editor:
-      preview: true
-    fields:
-      - { label: "Título", name: "title", widget: "string" }
-      - { label: "Fecha", name: "date", widget: "datetime" }
-      - { label: "Imagen destacada", name: "image", widget: "image" }
-      - { label: "Contenido", name: "body", widget: "markdown" }
-      - { label: "Autor", name: "author", widget: "string" }
-      - { label: "Categorías", name: "categories", widget: "list" }
-      - { label: "Descripción", name: "description", widget: "text" }
+          - { label: "Imagen de fondo", name: "backgroundImage", widget: "image" }
+          - { label: "Texto del botón", name: "buttonText", widget: "string" }
+          - { label: "Enlace del botón", name: "buttonLink", widget: "string" }
+      
+      - name: "about"
+        label: "Acerca de"
+        file: "src/data/about.json"
+        fields:
+          - { label: "Título", name: "title", widget: "string" }
+          - { label: "Descripción", name: "description", widget: "markdown" }
+          - { label: "Imagen", name: "image", widget: "image" }
+      
+      - name: "services"
+        label: "Servicios"
+        file: "src/data/services.json"
+        fields:
+          - { label: "Título", name: "title", widget: "string" }
+          - label: "Lista de servicios"
+            name: "services"
+            widget: "list"
+            fields:
+              - { label: "Nombre del servicio", name: "name", widget: "string" }
+              - { label: "Descripción", name: "description", widget: "text" }
+              - { label: "Precio", name: "price", widget: "string" }
+              - { label: "Imagen", name: "image", widget: "image" }
+      
+      - name: "contact"
+        label: "Contacto"
+        file: "src/data/contact.json"
+        fields:
+          - { label: "Título", name: "title", widget: "string" }
+          - { label: "Email", name: "email", widget: "string" }
+          - { label: "Teléfono", name: "phone", widget: "string" }
+          - { label: "Dirección", name: "address", widget: "text" }
+          - { label: "Horarios", name: "hours", widget: "text" }
 
   - name: "gallery"
     label: "Galería"
-    folder: "public/images/gallery"
-    media_folder: ""
-    public_folder: "/images/gallery"
+    folder: "src/data/gallery"
     create: true
+    slug: "{{slug}}"
     fields:
       - { label: "Título", name: "title", widget: "string" }
       - { label: "Imagen", name: "image", widget: "image" }
-      - { label: "Categoría", name: "category", widget: "string" }
-      - { label: "Descripción", name: "description", widget: "text" }
+      - { label: "Categoría", name: "category", widget: "select", options: ["bodas", "retratos", "eventos", "familia"] }
+      - { label: "Descripción", name: "description", widget: "text", required: false }
+      - { label: "Fecha", name: "date", widget: "datetime" }
