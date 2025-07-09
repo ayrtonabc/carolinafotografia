@@ -53,7 +53,13 @@
       }
     };
 
-    window.addEventListener('DOMContentLoaded', () => {
+    function initializeCMS() {
+      if (typeof CMS === 'undefined') {
+        // Esperar a que CMS esté disponible
+        setTimeout(initializeCMS, 100);
+        return;
+      }
+
       // Inicjalizacja Netlify Identity
       if (window.netlifyIdentity) {
         window.netlifyIdentity.on("init", user => {
@@ -79,7 +85,9 @@
 
       // Inicjalizuj CMS. Domyślnie załaduje /admin/config.yml
       CMS.init();
-    });
+    }
+
+    window.addEventListener('DOMContentLoaded', initializeCMS);
   </script>
 </body>
 </html>
