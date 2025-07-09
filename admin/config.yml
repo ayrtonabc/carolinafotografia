@@ -1,8 +1,13 @@
-# Konfiguracja dla rozwoju lokalnego
+# Konfiguracja dla Netlify (produkcja)
 backend:
-  name: test-repo
+  name: git-gateway
+  branch: main
 
-# Dla produkcji, odkomentuj i skonfiguruj:
+# Dla rozwoju lokalnego, odkomentuj:
+# backend:
+#   name: test-repo
+
+# Alternatywna konfiguracja GitHub (jeśli nie używasz Netlify Identity):
 # backend:
 #   name: github
 #   repo: tu-usuario/tu-repositorio
@@ -11,8 +16,8 @@ backend:
 #   base_url: https://api.netlify.com
 #   auth_endpoint: auth
 
-site_url: http://localhost:4322
-display_url: http://localhost:4322
+site_url: https://tu-sitio.netlify.app # Zmień na swój URL Netlify
+display_url: https://tu-sitio.netlify.app # Zmień na swój URL Netlify
 logo_url: /image.png
 
 media_folder: "public/images"
