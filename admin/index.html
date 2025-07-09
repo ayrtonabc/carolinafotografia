@@ -6,118 +6,56 @@
   <meta name="robots" content="noindex" />
   <title>Content Manager</title>
   <style>
-     /* Prevent visual duplication and overlay issues */
-     body {
-       margin: 0;
-       padding: 0;
-       overflow-x: hidden;
-       position: relative;
-     }
-     
-     #nc-root {
-       position: relative;
-       z-index: 1;
-       min-height: 100vh;
-       width: 100%;
-       overflow: hidden;
-     }
-     
-     /* Prevent CMS duplication - ensure single instance */
-     #nc-root > div:not(:first-child) {
-       display: none !important;
-     }
-     
-     /* Fix sidebar and main content positioning */
-     [class*="sidebar"], [class*="Sidebar"] {
-       position: fixed !important;
-       z-index: 100;
-     }
-     
-     /* Prevent content duplication */
-     [data-slate-editor] {
-       position: relative;
-     }
-     
-     /* Fix main content area */
-     [class*="main"], [class*="Main"] {
-       position: relative !important;
-       overflow-y: auto;
-       height: 100vh;
-     }
-     
-     /* Prevent overlay issues */
-     .css-1hwfws3 {
-       position: relative !important;
-     }
-     
-     /* Hide duplicate navigation elements */
-     nav + nav, header + header {
-       display: none !important;
-     }
-     
-     /* Ensure proper stacking context */
-     * {
-       box-sizing: border-box;
-     }
-   </style>
+    /* Reset completo para el CMS */
+    body {
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      background: white !important;
+    }
+    
+    /* Ocultar todo excepto el contenedor del CMS */
+    body > :not(#nc-root) {
+      display: none !important;
+    }
+    
+    /* Contenedor principal del CMS */
+    #nc-root {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      background: white;
+    }
+    
+    /* Prevenir flashes de contenido duplicado */
+    body.cms-loading:before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: white;
+      z-index: 9999;
+    }
+    
+    /* Estilos para el editor */
+    [data-slate-editor] {
+      -webkit-user-modify: read-write-plaintext-only !important;
+    }
+  </style>
 </head>
 <body>
-  <!-- A little help text -->
   <div id="nc-root"></div>
-  
 
-  
-  <!-- Error suppression for Decap CMS 3.7.1 React DOM issues -->
-  <script>
-    // Suppress React DOM errors that cause UI displacement
-    const originalRemoveChild = Node.prototype.removeChild;
-    const originalInsertBefore = Node.prototype.insertBefore;
-    const originalAppendChild = Node.prototype.appendChild;
-    
-    Node.prototype.removeChild = function(child) {
-      try {
-        return originalRemoveChild.call(this, child);
-      } catch (error) {
-        if (error.name === 'NotFoundError') {
-          console.warn('Suppressed removeChild error (Decap CMS 3.7.1):', error.message);
-          return child;
-        }
-        throw error;
-      }
-    };
-    
-    Node.prototype.insertBefore = function(newNode, referenceNode) {
-      try {
-        return originalInsertBefore.call(this, newNode, referenceNode);
-      } catch (error) {
-        if (error.name === 'NotFoundError') {
-          console.warn('Suppressed insertBefore error (Decap CMS 3.7.1):', error.message);
-          return this.appendChild(newNode);
-        }
-        throw error;
-      }
-    };
-    
-    // Global error handler for unhandled React errors
-    window.addEventListener('error', function(event) {
-      if (event.error && event.error.message && 
-          (event.error.message.includes('removeChild') || 
-           event.error.message.includes('insertBefore') ||
-           event.error.message.includes('NotFoundError'))) {
-        console.warn('Suppressed React DOM error (Decap CMS 3.7.1):', event.error.message);
-        event.preventDefault();
-        return false;
-      }
-    });
-  </script>
-  
-  <!-- Using Decap CMS 3.6.0 - more stable version -->
-  <script src="https://unpkg.com/decap-cms@3.6.0/dist/decap-cms.js"></script>
-  
-  
+  <!-- Netlify Identity Widget -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
+  <!-- Decap CMS -->
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 
   <script>
-    // Polish translations for Netlify CMS
+    // Traducciones al polaco
     const plTranslations = {
       auth: {
         login: 'Zaloguj się',
@@ -192,92 +130,98 @@
       }
     };
 
-    // Enhanced CMS initialization with error handling
-    document.addEventListener('DOMContentLoaded', function() {
-      // Override console.error to suppress React DOM errors
-      const originalConsoleError = console.error;
-      console.error = function(...args) {
-        const message = args.join(' ');
-        if (message.includes('removeChild') || 
-            message.includes('insertBefore') || 
-            message.includes('NotFoundError') ||
-            message.includes('Warning: ReactDOM.render')) {
-          console.warn('Suppressed React DOM error:', message);
-          return;
-        }
-        originalConsoleError.apply(console, args);
-      };
-      
-      // Prevent multiple CMS initializations
-      let cmsInitialized = false;
-      
-      // Clear any existing CMS instances
-      function clearExistingCMS() {
-        const root = document.getElementById('nc-root');
-        if (root) {
-          // Remove all child elements except the first one
-          while (root.children.length > 1) {
-            root.removeChild(root.lastChild);
-          }
-          // Clear the first child if it exists
-          if (root.firstChild) {
-            root.innerHTML = '';
-          }
-        }
+    // Sobreescribir métodos del DOM para suprimir errores
+    const originalRemoveChild = Node.prototype.removeChild;
+    const originalAppendChild = Node.prototype.appendChild;
+    const originalInsertBefore = Node.prototype.insertBefore;
+
+    Node.prototype.removeChild = function(child) {
+      if (!this.contains(child)) return child;
+      try {
+        return originalRemoveChild.call(this, child);
+      } catch (error) {
+        console.warn('[CMS] Suppressed removeChild error:', error.message);
+        return child;
       }
+    };
+
+    Node.prototype.appendChild = function(child) {
+      try {
+        return originalAppendChild.call(this, child);
+      } catch (error) {
+        console.warn('[CMS] Suppressed appendChild error:', error.message);
+        return child;
+      }
+    };
+
+    Node.prototype.insertBefore = function(newNode, referenceNode) {
+      try {
+        return originalInsertBefore.call(this, newNode, referenceNode);
+      } catch (error) {
+        console.warn('[CMS] Suppressed insertBefore error:', error.message);
+        return this.appendChild(newNode);
+      }
+    };
+
+    // Sobreescribir console.error para filtrar errores de React
+    const originalConsoleError = console.error;
+    console.error = function(...args) {
+      const message = args.join(' ');
+      if (/removeChild|insertBefore|NotFoundError|ReactDOM.render|Failed to execute/.test(message)) {
+        console.warn('[CMS Suppressed Error]:', message);
+        return;
+      }
+      originalConsoleError.apply(console, args);
+    };
+
+    // Inicialización del CMS
+    document.addEventListener('DOMContentLoaded', function() {
+      document.body.classList.add('cms-loading');
       
-      // Initialize CMS with error handling
-      function initializeCMS() {
-        if (cmsInitialized) return;
-        
+      // Limpiar contenedor
+      const root = document.getElementById('nc-root');
+      if (root) root.innerHTML = '';
+      
+      // Inicializar con retraso
+      setTimeout(() => {
         try {
-          if (window.CMS) {
-            // Clear any existing instances first
-            clearExistingCMS();
-            
+          if (window.CMS && !window.CMS._initialized) {
             CMS.registerLocale('pl', plTranslations);
             CMS.init();
-            cmsInitialized = true;
+            window.CMS._initialized = true;
             console.log('Decap CMS initialized successfully');
             
-            // Monitor for duplicate elements and remove them
             setTimeout(() => {
-              const observer = new MutationObserver((mutations) => {
-                mutations.forEach((mutation) => {
-                  if (mutation.type === 'childList') {
-                    const root = document.getElementById('nc-root');
-                    if (root && root.children.length > 1) {
-                      // Keep only the first child, remove duplicates
-                      while (root.children.length > 1) {
-                        root.removeChild(root.lastChild);
-                      }
-                    }
-                  }
-                });
-              });
-              
-              const root = document.getElementById('nc-root');
-              if (root) {
-                observer.observe(root, { childList: true, subtree: false });
-              }
-            }, 1000);
+              document.body.classList.remove('cms-loading');
+            }, 500);
           }
         } catch (error) {
-          console.warn('CMS initialization error suppressed:', error.message);
+          console.warn('CMS initialization error:', error);
+          document.body.classList.remove('cms-loading');
         }
-      }
-      
-      // Initialize immediately if CMS is available
-      initializeCMS();
+      }, 300);
 
+      // Configuración de Netlify Identity
       if (window.netlifyIdentity) {
         window.netlifyIdentity.on("init", user => {
           if (!user) {
             window.netlifyIdentity.on("login", () => {
-              document.location.href = "/admin/";
+              window.location.href = window.location.href;
             });
           }
         });
       }
     });
+
+    // Limpieza adicional como último recurso
+    setInterval(() => {
+      const elements = document.body.children;
+      for (let i = 0; i < elements.length; i++) {
+        if (elements[i].id !== 'nc-root' && !elements[i].hasAttribute('data-netlify-cms')) {
+          elements[i].remove();
+        }
+      }
+    }, 1000);
   </script>
+</body>
+</html>
