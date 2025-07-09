@@ -158,6 +158,40 @@
       }
     };
 
+    // Anti-duplication system
+    function setupAntiDuplication() {
+      const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          if (mutation.type === 'childList') {
+            // Remove duplicate CMS containers
+            const containers = document.querySelectorAll('[data-netlify-cms], .cms-editor-visual, .nc-app-container');
+            if (containers.length > 1) {
+              for (let i = 1; i < containers.length; i++) {
+                containers[i].remove();
+                console.log('Removed duplicate CMS container');
+              }
+            }
+            
+            // Remove duplicate navigation elements
+            const navs = document.querySelectorAll('nav[role="navigation"]');
+            if (navs.length > 1) {
+              for (let i = 1; i < navs.length; i++) {
+                navs[i].remove();
+                console.log('Removed duplicate navigation');
+              }
+            }
+          }
+        });
+      });
+      
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true
+      });
+      
+      return observer;
+    }
+
     // Initialize CMS when ready
     function initCMS() {
       try {
@@ -168,13 +202,16 @@
             loading.remove();
           }
           
+          // Setup anti-duplication before CMS init
+          setupAntiDuplication();
+          
           // Register Polish locale
           CMS.registerLocale('pl', plTranslations);
           
           // Initialize CMS
           CMS.init();
           
-          console.log('Decap CMS initialized successfully');
+          console.log('Decap CMS initialized successfully with anti-duplication');
         } else {
           setTimeout(initCMS, 100);
         }
