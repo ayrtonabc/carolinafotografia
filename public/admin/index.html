@@ -5,6 +5,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex" />
   <title>Content Manager</title>
+  <style>
+    /* Prevent visual duplication and overlay issues */
+    body {
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+    
+    #nc-root {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+    }
+    
+    /* Ensure CMS content doesn't duplicate */
+    [data-slate-editor] {
+      position: relative;
+    }
+    
+    /* Fix potential scroll and overlay issues */
+    .css-1hwfws3 {
+      position: relative !important;
+    }
+  </style>
 </head>
 <body>
   <!-- A little help text -->
@@ -154,21 +178,27 @@
         originalConsoleError.apply(console, args);
       };
       
+      // Prevent multiple CMS initializations
+      let cmsInitialized = false;
+      
       // Initialize CMS with error handling
-       try {
-         if (window.CMS) {
-           CMS.registerLocale('pl', plTranslations);
-           CMS.init();
-         }
-       } catch (error) {
-         console.warn('CMS initialization error suppressed:', error.message);
-         // Retry initialization after a delay
-         setTimeout(() => {
-           if (window.CMS) {
-             CMS.init();
-           }
-         }, 1000);
-       }
+      function initializeCMS() {
+        if (cmsInitialized) return;
+        
+        try {
+          if (window.CMS) {
+            CMS.registerLocale('pl', plTranslations);
+            CMS.init();
+            cmsInitialized = true;
+            console.log('Decap CMS initialized successfully');
+          }
+        } catch (error) {
+          console.warn('CMS initialization error suppressed:', error.message);
+        }
+      }
+      
+      // Initialize immediately if CMS is available
+      initializeCMS();
 
       if (window.netlifyIdentity) {
         window.netlifyIdentity.on("init", user => {
