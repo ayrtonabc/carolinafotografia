@@ -1,7 +1,18 @@
+# 1. CONFIGURACIÓN DEL BACKEND Y DEL SITIO
 backend:
   name: git-gateway
   branch: main
   identity_url: https://karolinagfotografia.pl/.netlify/identity
+  # Mensajes de commit personalizados y en polaco
+  commit_messages:
+    create: 'Utworzono {{collection}} "{{slug}}"'
+    update: 'Zaktualizowano {{collection}} "{{slug}}"'
+    delete: 'Usunięto {{collection}} "{{slug}}"'
+    uploadMedia: 'Przesłano "{{path}}"'
+    deleteMedia: 'Usunięto "{{path}}"'
+
+# ⚠️ CAMBIAR: Pon aquí la URL a tu logo. Debe ser una ruta absoluta desde la raíz de tu sitio.
+logo_url: /images/uploads/logo.svg
 
 locale: 'pl'
 
@@ -11,15 +22,25 @@ public_folder: "/images/uploads"
 site_url: https://karolinagfotografia.pl
 display_url: https://karolinagfotografia.pl
 
-
 slug:
   encoding: "ascii"
   clean_accents: true
 
+# 2. GRUPOS PARA ORGANIZAR LA BARRA LATERAL
+view_groups:
+  - name: settings
+    label: Główne Ustawienia
+  - name: content
+    label: Zarządzanie Treścią
+  - name: structure
+    label: Struktura Strony
+
+# 3. COLECCIONES MEJORADAS
 collections:
-  # Colección para contenido simple
+  # --- GRUPO: GŁÓWNE USTAWNIENIA ---
   - name: "site_content"
     label: "Treść Strony"
+    view_group: settings
     files:
       - label: "Strona Główna - Hero"
         name: "hero"
@@ -33,76 +54,15 @@ collections:
           - {label: "Przycisk główny", name: "button_primary", widget: "string"}
           - {label: "Przycisk drugorzędny", name: "button_secondary", widget: "string"}
       
-      - label: "O mnie"
-        name: "about"
-        file: "src/data/about.json"
+      - label: "Konfiguracja Strony"
+        name: "site"
+        file: "src/data/site.json"
         fields:
-          - {label: "Tytuł", name: "title", widget: "string"}
-          - {label: "Podtytuł", name: "subtitle", widget: "string"}
-          - {label: "Opis 1", name: "description1", widget: "text"}
-          - {label: "Opis 2", name: "description2", widget: "text"}
-          - {label: "Doświadczenie (lata)", name: "experience", widget: "number"}
-          - {label: "Etykieta doświadczenia", name: "experience_label", widget: "string"}
-          - {label: "Obraz", name: "image", widget: "image"}
-          - {label: "Tekst alternatywny obrazu", name: "image_alt", widget: "string"}
-          - label: "Umiejętności"
-            name: "skills"
-            widget: "list"
-            fields:
-              - {label: "Ikona", name: "icon", widget: "string"}
-              - {label: "Tytuł", name: "title", widget: "string"}
-              - {label: "Opis", name: "description", widget: "text"}
-          - {label: "Tekst przycisku", name: "button_text", widget: "string"}
-      
-      - label: "Konfiguracja Usług"
-        name: "services_config"
-        file: "src/data/services_config.json"
-        fields:
-          - {label: "Tytuł", name: "title", widget: "string"}
-          - {label: "Podtytuł", name: "subtitle", widget: "string"}
-          - {label: "Etykieta wyróżnionej usługi", name: "featured_badge", widget: "string"}
-          - label: "Wezwanie do działania"
-            name: "cta"
-            widget: "object"
-            fields:
-              - {label: "Tytuł", name: "title", widget: "string"}
-              - {label: "Opis", name: "description", widget: "text"}
-              - {label: "Tekst przycisku", name: "button_text", widget: "string"}
-      
-      - label: "Konfiguracja Galerii"
-        name: "gallery_config"
-        file: "src/data/gallery_config.json"
-        fields:
-          - {label: "Tytuł", name: "title", widget: "string"}
-          - {label: "Podtytuł", name: "subtitle", widget: "string"}
-          - {label: "Filtry (klucze separados przez |)", name: "filter_keys", widget: "string"}
-          - {label: "Filtry (etykiety separadas przez |)", name: "filter_labels", widget: "string"}
-          - label: "Wezwanie do działania"
-            name: "cta"
-            widget: "object"
-            fields:
-              - {label: "Tekst", name: "text", widget: "string"}
-              - {label: "Tekst przycisku", name: "button_text", widget: "string"}
-      
-      - label: "Kontakt - Configuración Principal"
-        name: "contact_main"
-        file: "src/data/contact.json"
-        fields:
-          - {label: "Tytuł", name: "title", widget: "string"}
-          - {label: "Podtytuł", name: "subtitle", widget: "text"}
-          - label: "Media społecznościowe"
-            name: "social"
-            widget: "object"
-            fields:
-              - {label: "Tytuł", name: "title", widget: "string"}
-          - label: "Formularz"
-            name: "form"
-            widget: "object"
-            fields:
-              - {label: "Tekst przycisku", name: "button_text", widget: "string"}
-              - {label: "Tekst ładowania", name: "button_loading", widget: "string"}
-              - {label: "Wiadomość sukcesu", name: "success_message", widget: "string"}
-              - {label: "Wiadomość błędu", name: "error_message", widget: "string"}
+          - {label: "Tytuł strony", name: "title", widget: "string"}
+          - {label: "Opis", name: "description", widget: "text"}
+          - {label: "Email", name: "email", widget: "string"}
+          - {label: "Telefon", name: "phone", widget: "string"}
+          - {label: "Lokalizacja", name: "location", widget: "string"}
       
       - label: "Nawigacja"
         name: "navigation"
@@ -117,107 +77,97 @@ collections:
               - {label: "Etykieta", name: "label", widget: "string"}
           - {label: "Etykieta menu mobilnego", name: "mobile_menu_label", widget: "string"}
       
-      - label: "Konfiguracja Strony"
-        name: "site"
-        file: "src/data/site.json"
-        fields:
-          - {label: "Tytuł strony", name: "title", widget: "string"}
-          - {label: "Opis", name: "description", widget: "text"}
-          - {label: "Email", name: "email", widget: "string"}
-          - {label: "Telefon", name: "phone", widget: "string"}
-          - {label: "Lokalizacja", name: "location", widget: "string"}
-          - {label: "Logo", name: "logo", widget: "image"}
-      
       - label: "Stopka"
         name: "footer"
         file: "src/data/footer.json"
         fields:
-          - label: "Marka"
-            name: "brand"
-            widget: "object"
-            fields:
-              - {label: "Nazwa", name: "name", widget: "string"}
-              - {label: "Opis", name: "description", widget: "text"}
-          - label: "Nawigacja"
-            name: "navigation"
-            widget: "object"
-            fields:
-              - {label: "Tytuł", name: "title", widget: "string"}
-          - label: "Usługi"
-            name: "services"
-            widget: "object"
-            fields:
-              - {label: "Tytuł", name: "title", widget: "string"}
-          - label: "Kontakt"
-            name: "contact"
-            widget: "object"
-            fields:
-              - {label: "Tytuł", name: "title", widget: "string"}
+          - {label: "Nazwa w stopce", name: "brand_name", widget: "string"}
+          - {label: "Opis w stopce", name: "brand_description", widget: "text"}
           - {label: "Tekst copyright", name: "copyright", widget: "string"}
+      
+      - label: "Sekcja O Mnie"
+        name: "about"
+        file: "src/data/about.json"
+        fields:
+          - {label: "Tytuł", name: "title", widget: "string"}
+          - {label: "Podtytuł", name: "subtitle", widget: "string"}
+          - {label: "Opis 1", name: "description1", widget: "text"}
+          - {label: "Opis 2", name: "description2", widget: "text"}
+          - {label: "Obraz", name: "image", widget: "image"}
+          - {label: "Tekst alternatywny obrazu", name: "image_alt", widget: "string"}
+          - {label: "Tekst przycisku", name: "button_text", widget: "string"}
 
-  # Colección para Usługi (cada servicio como archivo separado)
+  # --- GRUPO: ZARZĄDZANIE TREŚCIĄ ---
   - name: "services"
     label: "Usługi"
+    label_singular: "Usługa"
     folder: "src/data/services/"
+    view_group: content
     create: true
     slug: "{{slug}}"
+    summary: "{{name}} | Cena: {{price}}"
+    editor:
+      preview: false
     fields:
       - {label: "Nazwa", name: "name", widget: "string"}
       - {label: "Opis", name: "description", widget: "text"}
       - {label: "Cena", name: "price", widget: "string"}
       - {label: "Obraz", name: "image", widget: "image"}
       - {label: "Wyróżniony", name: "featured", widget: "boolean", default: false}
-      - {label: "Funkcje (separar por |)", name: "features", widget: "string"}
+      - label: "Cechy usługi"
+        name: "features"
+        widget: "list"
+        field: {label: "Cecha", name: "feature", widget: "string"}
 
-  # Colección para Imágenes de Galería
   - name: "gallery_images"
     label: "Zdjęcia Galerii"
+    label_singular: "Zdjęcie"
     folder: "src/data/gallery_images/"
+    view_group: content
     create: true
     slug: "{{slug}}"
+    summary: "{{title}} ({{category}})"
+    editor:
+      preview: false
     fields:
       - {label: "Tytuł", name: "title", widget: "string"}
-      - {label: "Opis", name: "description", widget: "string"}
+      - {label: "Opis", name: "description", widget: "string", required: false}
       - {label: "Obraz", name: "image", widget: "image"}
-      - {label: "Kategoria", name: "category", widget: "string"}
+      - label: "Kategoria"
+        name: "category"
+        widget: "select"
+        # ⚠️ CAMBIAR: Edytuj te kategorie, aby pasowały do twojej galerii
+        options: ["portret", "slub", "reportaz", "krajobraz"]
+        default: "portret"
 
-  # Colección para Tarjetas de Contacto
+  # --- GRUPO: STRUKTURA STRONY ---
   - name: "contact_cards"
     label: "Karty Kontaktowe"
+    label_singular: "Karta"
     folder: "src/data/contact_cards/"
+    view_group: structure
     create: true
     slug: "{{slug}}"
+    summary: "{{title}}: {{value}}"
+    editor:
+      preview: false
     fields:
-      - {label: "Ikona", name: "icon", widget: "string"}
+      - {label: "Ikona", name: "icon", widget: "string", hint: "Wpisz nazwę ikony z Font Awesome, np. 'fas fa-phone'"}
       - {label: "Tytuł", name: "title", widget: "string"}
       - {label: "Wartość", name: "value", widget: "string"}
       - {label: "Link", name: "link", widget: "string", required: false}
-      - {label: "Tekst linku", name: "link_text", widget: "string", required: false}
-      - {label: "Notatka", name: "note", widget: "string", required: false}
 
-  # Colección para Enlaces Sociales
   - name: "social_links"
     label: "Linki Społecznościowe"
+    label_singular: "Link"
     folder: "src/data/social_links/"
+    view_group: structure
     create: true
     slug: "{{slug}}"
+    summary: "{{platform}}"
+    editor:
+      preview: false
     fields:
-      - {label: "Platforma", name: "platform", widget: "string"}
+      - {label: "Platforma", name: "platform", widget: "string", hint: "Np. Facebook, Instagram"}
       - {label: "URL", name: "url", widget: "string"}
-      - {label: "Etykieta", name: "label", widget: "string"}
-
-  # Colección para Elementos de Pie de Página
-  - name: "footer_items"
-    label: "Elementy Stopki"
-    folder: "src/data/footer_items/"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - {label: "Tytuł sekcji", name: "section_title", widget: "string"}
-      - {label: "Typ (nawigacja|usługi|kontakt)", name: "type", widget: "string"}
-      - label: "Elementy"
-        name: "items"
-        widget: "list"
-        fields:
-          - {label: "Tekst", name: "text", widget: "string"}
-          - {label: "URL (opcjonalne)", name: "url", widget: "string", required: false}
+      - {label: "Ikona", name: "icon", widget: "string", hint: "Wpisz nazwę ikony z Font Awesome, np. 'fab fa-instagram'"}
