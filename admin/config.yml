@@ -1,6 +1,5 @@
 backend:
-  name: git-gateway
-  branch: main
+  name: test-repo
 
 locale: 'pl'
 
@@ -26,6 +25,7 @@ collections:
           - {label: "Akcent", name: "accent", widget: "string"}
           - {label: "Opis", name: "description", widget: "text"}
           - {label: "Obraz", name: "image", widget: "image"}
+          - {label: "Tekst alternatywny obrazu", name: "image_alt", widget: "string"}
           - {label: "Przycisk główny", name: "button_primary", widget: "string"}
           - {label: "Przycisk drugorzędny", name: "button_secondary", widget: "string"}
       
@@ -38,7 +38,9 @@ collections:
           - {label: "Opis 1", name: "description1", widget: "text"}
           - {label: "Opis 2", name: "description2", widget: "text"}
           - {label: "Doświadczenie (lata)", name: "experience", widget: "number"}
+          - {label: "Etykieta doświadczenia", name: "experience_label", widget: "string"}
           - {label: "Obraz", name: "image", widget: "image"}
+          - {label: "Tekst alternatywny obrazu", name: "image_alt", widget: "string"}
           - label: "Umiejętności"
             name: "skills"
             widget: "list"
@@ -54,6 +56,7 @@ collections:
         fields:
           - {label: "Tytuł", name: "title", widget: "string"}
           - {label: "Podtytuł", name: "subtitle", widget: "string"}
+          - {label: "Etykieta wyróżnionej usługi", name: "featured_badge", widget: "string"}
           - label: "Lista usług"
             name: "services"
             widget: "list"
