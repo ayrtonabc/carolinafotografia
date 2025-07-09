@@ -1,31 +1,27 @@
 # Konfiguracja dla Netlify (produkcja)
 backend:
-  name: git-gateway
-  branch: main
+  name: git-gateway # Używa Netlify Identity
+  branch: main # Gałąź produkcyjna
+  repo: AyrtonCR/carolinafotografia # Zastąp z twoim repo
 
-# Dla rozwoju lokalnego, odkomentuj:
-# backend:
-#   name: test-repo
+# Tryb publikacji: `simple` lub `editorial_workflow`
+# `editorial_workflow` pozwala na tworzenie borradores y revisiones.
+publish_mode: editorial_workflow
 
-# Alternatywna konfiguracja GitHub (jeśli nie używasz Netlify Identity):
-# backend:
-#   name: github
-#   repo: tu-usuario/tu-repositorio
-#   branch: main
-#   auth_type: pkce
-#   base_url: https://api.netlify.com
-#   auth_endpoint: auth
+# Adres URL twojego wdrożonego serwisu
+site_url: https://karolinagfotografia.pl
+display_url: https://karolinagfotografia.pl
 
-site_url: https://tu-sitio.netlify.app # Zmień na swój URL Netlify
-display_url: https://tu-sitio.netlify.app # Zmień na swój URL Netlify
+# Logo wyświetlane w CMS
 logo_url: /image.png
 
-media_folder: "public/images"
-public_folder: "/images"
+# Konfiguracja mediów
+media_folder: "public/images/uploads" # Przechowuj przesłane pliki tutaj
+public_folder: "/images/uploads" # Publiczna ścieżka do plików
 
 # Konfiguracja edytora
 editor:
-  preview: true
+  preview: true # Włącz podgląd na żywo
 
 # Konfiguracja slug
 slug:

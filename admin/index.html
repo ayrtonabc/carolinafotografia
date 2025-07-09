@@ -42,7 +42,7 @@
   <script src="https://unpkg.com/decap-cms@3.0.14/dist/decap-cms.js"></script>
   
   <script>
-    // Initialize Netlify Identity
+    // Inicjalizacja Netlify Identity
     if (window.netlifyIdentity) {
       window.netlifyIdentity.on("init", user => {
         if (!user) {
@@ -52,83 +52,47 @@
         }
       });
     }
-    
-    // Custom styling for CMS
+
+    // Ręczna inicjalizacja CMS, aby zapewnić załadowanie wszystkiego
     window.CMS_MANUAL_INIT = true;
-    
-    // Enhanced error handling for DOM manipulation issues
-    window.addEventListener('error', function(e) {
-      console.warn('CMS Error caught:', e.error);
-      if (e.error && e.error.message && (e.error.message.includes('removeChild') || e.error.message.includes('Node'))) {
-        console.log('DOM manipulation error detected, attempting recovery...');
-        e.preventDefault();
-        return false;
-      }
-    });
-    
-    // Override problematic DOM methods with safe versions
-    const originalRemoveChild = Node.prototype.removeChild;
-    Node.prototype.removeChild = function(child) {
-      try {
-        if (this.contains(child)) {
-          return originalRemoveChild.call(this, child);
-        } else {
-          console.warn('Attempted to remove child that is not a child of this node, skipping...');
-          return child;
-        }
-      } catch (error) {
-        console.warn('Error in removeChild, skipping:', error);
-        return child;
-      }
-    };
-    
-    // Add unhandled promise rejection handler
-    window.addEventListener('unhandledrejection', function(e) {
-      if (e.reason && e.reason.message && e.reason.message.includes('removeChild')) {
-        console.warn('Unhandled promise rejection for DOM manipulation, preventing...');
-        e.preventDefault();
-      }
-    });
-    
-    // Wait for both DOM and CMS to be ready
+
+    // Funkcja do inicjalizacji CMS
     function initializeCMS() {
-      if (!window.CMS) {
+      // Sprawdź, czy obiekt CMS jest dostępny
+      if (typeof CMS === 'undefined') {
+        console.log('Oczekiwanie na załadowanie CMS...');
+        // Spróbuj ponownie za 100ms
         setTimeout(initializeCMS, 100);
         return;
       }
+
+      console.log('CMS załadowany, inicjalizacja...');
       
-      console.log('CMS object found, initializing...');
-      
-      // Simplified initialization without complex translations
-      try {
-        window.CMS.init({
-          config: {
-            load_config_file: true,
-            display_url: window.location.origin,
-            logo_url: '/image.png'
-          }
-        });
-        
-        console.log('Decap CMS initialized successfully');
-        
-        // Hide loading spinner
+      // Inicjalizuj CMS. Domyślnie załaduje /admin/config.yml
+      CMS.init();
+
+      console.log('Inicjalizacja CMS zakończona.');
+
+      // Ukryj spinner ładowania po pomyślnej inicjalizacji
+      CMS.on('mounted', () => {
+        console.log('CMS zamontowany, ukrywanie spinnera.');
         const loadingDiv = document.querySelector('.loading');
         if (loadingDiv) {
           loadingDiv.style.display = 'none';
         }
-        
-      } catch (error) {
-        console.error('Error initializing CMS:', error);
-        // Show error message
-        const loadingDiv = document.querySelector('.loading');
-        if (loadingDiv) {
-          loadingDiv.innerHTML = '<div style="color: red; text-align: center;"><h3>Error loading CMS</h3><p>' + error.message + '</p><p>Check console for details</p></div>';
-        }
-      }
+      });
     }
-    
-    // Backup complex translations for later use
+
+    // Rozpocznij proces inicjalizacji
+    document.addEventListener('DOMContentLoaded', initializeCMS);
+  </script>
+
+  <!--
+    Poniżej znajdują się tłumaczenia na język polski, które można zintegrować w przyszłości.
+    Obecna uproszczona konfiguracja nie używa ich bezpośrednio, aby uniknąć konfliktów.
+
     const polishTranslations = {
+  -->
         app: {
           header: {
             content: 'Treść',
