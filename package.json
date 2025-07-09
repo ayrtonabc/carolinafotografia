@@ -4,20 +4,46 @@
   "version": "1.0.0",
   "private": true,
   "description": "Sitio web de fotografía profesional con CMS integrado",
+  "author": "Carolina Fotografía",
+  "license": "MIT",
+  "keywords": [
+    "astro",
+    "photography",
+    "cms",
+    "netlify",
+    "decap-cms",
+    "portfolio"
+  ],
   "scripts": {
     "dev": "astro dev",
+    "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
+    "check": "astro check",
+    "clean": "rm -rf dist .astro",
     "netlify:build": "npm run build",
-    "netlify:dev": "netlify dev"
+    "netlify:dev": "netlify dev",
+    "cms:config": "echo 'CMS config located at public/admin/config.yml'",
+    "deploy:preview": "netlify deploy",
+    "deploy:prod": "netlify deploy --prod"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
   },
   "dependencies": {
     "astro": "^5.2.5",
-    "decap-cms-app": "^3.6.0",
+    "decap-cms-app": "^3.3.0",
     "netlify-identity-widget": "^1.9.2"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/usuario/carolina-fotografia.git"
+  },
+  "bugs": {
+    "url": "https://github.com/usuario/carolina-fotografia/issues"
+  },
+  "homepage": "https://carolina-fotografia.netlify.app"
 }
