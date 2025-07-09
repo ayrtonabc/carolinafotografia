@@ -1,5 +1,5 @@
 {
-  "title": "Pracujmy Razem",
+  "title": "Kontakt",
   "subtitle": "Gotowy na stworzenie wyjątkowych wspomnień? Skontaktuj się ze mną i porozmawiajmy o Twojej następnej sesji fotograficznej",
   "contact_cards": [
     {
@@ -26,9 +26,21 @@
   "social": {
     "title": "Śledź mnie",
     "links": [
-      { "platform": "instagram", "url": "#", "label": "Instagram" },
-      { "platform": "facebook", "url": "#", "label": "Facebook" },
-      { "platform": "pinterest", "url": "#", "label": "Pinterest" }
+      {
+        "platform": "instagram",
+        "url": "#",
+        "label": "Instagram"
+      },
+      {
+        "platform": "facebook",
+        "url": "#",
+        "label": "Facebook"
+      },
+      {
+        "platform": "pinterest",
+        "url": "#",
+        "label": "Pinterest"
+      }
     ]
   },
   "form": {
@@ -57,11 +69,26 @@
         "type": "select",
         "required": true,
         "options": [
-          { "value": "", "label": "Wybierz usługę" },
-          { "value": "retratos", "label": "Portrety Profesjonalne" },
-          { "value": "bodas", "label": "Śluby i Wydarzenia" },
-          { "value": "familias", "label": "Sesje Rodzinne" },
-          { "value": "otro", "label": "Inne (określ w wiadomości)" }
+          {
+            "value": "",
+            "label": "Wybierz usługę"
+          },
+          {
+            "value": "retratos",
+            "label": "Portrety Profesjonalne"
+          },
+          {
+            "value": "bodas",
+            "label": "Śluby i Wydarzenia"
+          },
+          {
+            "value": "familias",
+            "label": "Sesje Rodzinne"
+          },
+          {
+            "value": "otro",
+            "label": "Inne (określ w wiadomości)"
+          }
         ]
       },
       {
