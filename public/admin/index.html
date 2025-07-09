@@ -6,103 +6,66 @@
   <meta name="robots" content="noindex" />
   <title>Content Manager</title>
   <style>
-    /* SOLUCIÓN DEFINITIVA PARA DUPLICACIÓN DEL PANEL */
+    /* SOLUCIÓN BALANCEADA PARA DUPLICACIÓN - Permite contenido visible */
     html, body {
       margin: 0;
       padding: 0;
       height: 100%;
-      overflow: hidden;
-      position: fixed;
       width: 100%;
     }
     
     #nc-root {
-      position: fixed;
-      top: 0;
-      left: 0;
+      position: relative;
       width: 100%;
-      height: 100%;
+      height: 100vh;
       z-index: 1;
-      overflow: hidden;
     }
     
-    /* Forzar una sola instancia del CMS */
+    /* Prevenir múltiples instancias del CMS - solo ocultar duplicados */
     #nc-root > div:nth-child(n+2) {
       display: none !important;
-      visibility: hidden !important;
-      opacity: 0 !important;
-      pointer-events: none !important;
     }
     
-    /* Prevenir scroll en el contenedor principal */
+    /* Permitir que el contenido principal se muestre normalmente */
     #nc-root > div:first-child {
-      position: fixed !important;
-      top: 0 !important;
-      left: 0 !important;
-      width: 100% !important;
-      height: 100% !important;
-      overflow: hidden !important;
+      width: 100%;
+      height: 100%;
+      position: relative;
     }
     
-    /* Controlar el área de contenido principal */
-    [class*="cms-app"], [class*="App"], [data-testid="app"] {
-      position: fixed !important;
-      top: 0 !important;
-      left: 0 !important;
-      width: 100% !important;
-      height: 100% !important;
-      overflow: hidden !important;
-    }
-    
-    /* Sidebar fijo */
-    [class*="sidebar"], [class*="Sidebar"], [data-testid="sidebar"] {
-      position: fixed !important;
-      top: 0 !important;
-      left: 0 !important;
-      height: 100% !important;
-      z-index: 1000 !important;
-      overflow-y: auto !important;
-    }
-    
-    /* Área de contenido principal */
-    [class*="main"], [class*="Main"], [class*="content"], [data-testid="main"] {
-      position: fixed !important;
-      top: 0 !important;
-      right: 0 !important;
-      height: 100% !important;
-      overflow-y: auto !important;
-      overflow-x: hidden !important;
-    }
-    
-    /* Prevenir duplicación de elementos específicos */
-    [data-slate-editor] {
-      position: relative !important;
-    }
-    
-    /* Ocultar elementos duplicados */
-    nav:nth-of-type(n+2), 
-    header:nth-of-type(n+2),
-    [role="navigation"]:nth-of-type(n+2) {
+    /* Ocultar solo elementos duplicados específicos */
+    nav + nav,
+    header + header,
+    aside + aside,
+    [role="navigation"] + [role="navigation"] {
       display: none !important;
     }
     
-    /* Prevenir scroll en elementos padre */
-    .css-1hwfws3, 
-    [class*="layout"], 
-    [class*="Layout"] {
-      position: relative !important;
-      overflow: hidden !important;
+    /* Prevenir scroll horizontal innecesario */
+    body {
+      overflow-x: hidden;
     }
     
-    /* Asegurar que no hay elementos flotantes */
+    /* Asegurar que el editor funcione correctamente */
+    [data-slate-editor] {
+      position: relative;
+      overflow: visible;
+    }
+    
+    /* Mantener funcionalidad normal del CMS */
+    [class*="sidebar"], [class*="Sidebar"] {
+      position: relative;
+      overflow-y: auto;
+    }
+    
+    [class*="main"], [class*="Main"], [class*="content"] {
+      position: relative;
+      overflow-y: auto;
+    }
+    
+    /* Box sizing para todos los elementos */
     * {
-      box-sizing: border-box !important;
-    }
-    
-    /* Prevenir cualquier transformación que cause duplicación */
-    [class*="transform"], 
-    [style*="transform"] {
-      transform: none !important;
+      box-sizing: border-box;
     }
   </style>
 </head>
@@ -238,55 +201,41 @@
       }
     };
 
-    // SOLUCIÓN DEFINITIVA PARA DUPLICACIÓN - JavaScript mejorado
+    // SOLUCIÓN BALANCEADA - JavaScript que permite funcionalidad normal
     document.addEventListener('DOMContentLoaded', function() {
-      // Suprimir errores de React DOM
+      // Suprimir solo errores específicos de React DOM
       const originalConsoleError = console.error;
       console.error = function(...args) {
         const message = args.join(' ');
         if (message.includes('removeChild') || 
             message.includes('insertBefore') || 
-            message.includes('NotFoundError') ||
-            message.includes('Warning: ReactDOM.render')) {
+            message.includes('NotFoundError')) {
           console.warn('Error React DOM suprimido:', message);
           return;
         }
         originalConsoleError.apply(console, args);
       };
       
-      // Control estricto de inicialización
+      // Control simple de inicialización
       let cmsInitialized = false;
-      let initializationAttempts = 0;
-      const MAX_ATTEMPTS = 3;
       
-      // Limpiar completamente el contenedor
-      function forceClearRoot() {
-        const root = document.getElementById('nc-root');
-        if (root) {
-          root.innerHTML = '';
-          // Remover todos los event listeners
-          const newRoot = root.cloneNode(false);
-          root.parentNode.replaceChild(newRoot, root);
-        }
-      }
-      
-      // Prevenir duplicación agresiva
+      // Prevenir duplicación suave - solo monitorear
       function preventDuplication() {
         const root = document.getElementById('nc-root');
         if (!root) return;
         
-        // Observer para eliminar duplicados inmediatamente
+        // Observer ligero para eliminar solo duplicados obvios
         const observer = new MutationObserver((mutations) => {
           mutations.forEach((mutation) => {
             if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
               const children = Array.from(root.children);
               if (children.length > 1) {
-                // Eliminar todos excepto el primero
+                // Solo eliminar si hay más de un hijo directo
                 children.slice(1).forEach(child => {
                   try {
                     root.removeChild(child);
                   } catch (e) {
-                    // Ignorar errores de eliminación
+                    // Ignorar errores silenciosamente
                   }
                 });
               }
@@ -296,61 +245,38 @@
         
         observer.observe(root, { 
           childList: true, 
-          subtree: false,
-          attributes: false 
+          subtree: false
         });
-        
-        // Verificación periódica adicional
-        setInterval(() => {
-          const children = Array.from(root.children);
-          if (children.length > 1) {
-            children.slice(1).forEach(child => {
-              try {
-                root.removeChild(child);
-              } catch (e) {
-                // Ignorar errores
-              }
-            });
-          }
-        }, 500);
       }
       
-      // Inicializar CMS con control estricto
+      // Inicializar CMS normalmente
       function initializeCMS() {
-        if (cmsInitialized || initializationAttempts >= MAX_ATTEMPTS) {
-          return;
-        }
-        
-        initializationAttempts++;
+        if (cmsInitialized) return;
         
         try {
           if (window.CMS) {
-            // Limpiar antes de inicializar
-            forceClearRoot();
-            
             // Registrar idioma y inicializar
             CMS.registerLocale('pl', plTranslations);
             CMS.init();
             
             cmsInitialized = true;
-            console.log('Decap CMS inicializado correctamente - Intento:', initializationAttempts);
+            console.log('Decap CMS inicializado correctamente');
             
-            // Activar prevención de duplicación
-            setTimeout(preventDuplication, 100);
+            // Activar prevención suave de duplicación después de la carga
+            setTimeout(preventDuplication, 2000);
             
           } else {
             // Reintentar si CMS no está disponible
             setTimeout(initializeCMS, 500);
           }
         } catch (error) {
-          console.warn('Error de inicialización CMS suprimido:', error.message);
-          if (initializationAttempts < MAX_ATTEMPTS) {
-            setTimeout(initializeCMS, 1000);
-          }
+          console.error('Error de inicialización CMS:', error.message);
+          // Reintentar una vez más
+          setTimeout(initializeCMS, 1000);
         }
       }
       
-      // Inicializar inmediatamente
+      // Inicializar
       initializeCMS();
 
       if (window.netlifyIdentity) {
