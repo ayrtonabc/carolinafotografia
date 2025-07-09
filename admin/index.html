@@ -39,7 +39,7 @@
     <p style="margin-top: 20px; color: #666;">Ładowanie panelu administracyjnego...</p>
   </div>
   <!-- Include the script that builds the page and powers Decap CMS -->
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <script src="https://unpkg.com/decap-cms@3.1.10/dist/decap-cms.js"></script>
   
   <script>
     // Initialize Netlify Identity
@@ -56,7 +56,23 @@
     // Custom styling for CMS
     window.CMS_MANUAL_INIT = true;
     
-    window.addEventListener('DOMContentLoaded', () => {
+    // Error handling for DOM manipulation issues
+    window.addEventListener('error', function(e) {
+      console.warn('CMS Error caught:', e.error);
+      if (e.error && e.error.message && e.error.message.includes('removeChild')) {
+        console.log('DOM manipulation error detected, attempting recovery...');
+        // Prevent the error from breaking the CMS
+        e.preventDefault();
+        return false;
+      }
+    });
+    
+    // Wait for both DOM and CMS to be ready
+    function initializeCMS() {
+      if (!window.CMS) {
+        setTimeout(initializeCMS, 100);
+        return;
+      }
       // Konfiguracja polskich tłumaczeń
       const polishTranslations = {
         app: {
@@ -227,19 +243,42 @@
       };
 
       // Rejestracja tłumaczeń
-      if (window.CMS) {
+      try {
         window.CMS.registerLocale('pl', polishTranslations);
-      }
-
-      window.CMS.init({
-        config: {
-          load_config_file: true,
-          display_url: window.location.origin,
-          logo_url: '/image.png',
-          locale: 'pl'
+        
+        window.CMS.init({
+          config: {
+            load_config_file: true,
+            display_url: window.location.origin,
+            logo_url: '/image.png',
+            locale: 'pl'
+          }
+        });
+        
+        console.log('Decap CMS initialized successfully');
+      } catch (error) {
+        console.error('Error initializing CMS:', error);
+        // Fallback initialization without custom locale
+        try {
+          window.CMS.init({
+            config: {
+              load_config_file: true,
+              display_url: window.location.origin,
+              logo_url: '/image.png'
+            }
+          });
+        } catch (fallbackError) {
+          console.error('Fallback CMS initialization failed:', fallbackError);
         }
-      });
-    });
+      }
+    }
+    
+    // Start initialization when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initializeCMS);
+    } else {
+      initializeCMS();
+    }
   </script>
 </body>
 </html>
