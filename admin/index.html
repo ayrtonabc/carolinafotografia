@@ -5,67 +5,146 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex" />
   <title>Content Manager</title>
-  
-  <!-- 1. Parche CRÍTICO para el error removeChild -->
-  <script>
-    // Parche global para el error específico de removeChild
-    (function() {
-      const originalRemoveChild = Node.prototype.removeChild;
-      
-      Node.prototype.removeChild = function(child) {
-        try {
-          // Verificar si el hijo realmente existe en este padre
-          if (child && child.parentNode === this) {
-            return originalRemoveChild.call(this, child);
-          }
-          return child;
-        } catch (error) {
-          // Suprimir solo el error específico de removeChild
-          if (error.name === 'NotFoundError') {
-            console.warn('removeChild error suppressed:', error.message);
-            return child;
-          }
-          throw error;
-        }
-      };
-    })();
-  </script>
-  
-  
 </head>
 <body>
+  <!-- A little help text -->
   <div id="nc-root"></div>
+  
 
-  <!-- 3. Cargar Decap CMS 3.7.1 -->
+  
+  <!-- Error suppression for Decap CMS 3.7.1 React DOM issues -->
+  <script>
+    // Suppress React DOM errors that cause UI displacement
+    const originalRemoveChild = Node.prototype.removeChild;
+    const originalInsertBefore = Node.prototype.insertBefore;
+    const originalAppendChild = Node.prototype.appendChild;
+    
+    Node.prototype.removeChild = function(child) {
+      try {
+        return originalRemoveChild.call(this, child);
+      } catch (error) {
+        if (error.name === 'NotFoundError') {
+          console.warn('Suppressed removeChild error (Decap CMS 3.7.1):', error.message);
+          return child;
+        }
+        throw error;
+      }
+    };
+    
+    Node.prototype.insertBefore = function(newNode, referenceNode) {
+      try {
+        return originalInsertBefore.call(this, newNode, referenceNode);
+      } catch (error) {
+        if (error.name === 'NotFoundError') {
+          console.warn('Suppressed insertBefore error (Decap CMS 3.7.1):', error.message);
+          return this.appendChild(newNode);
+        }
+        throw error;
+      }
+    };
+    
+    // Global error handler for unhandled React errors
+    window.addEventListener('error', function(event) {
+      if (event.error && event.error.message && 
+          (event.error.message.includes('removeChild') || 
+           event.error.message.includes('insertBefore') ||
+           event.error.message.includes('NotFoundError'))) {
+        console.warn('Suppressed React DOM error (Decap CMS 3.7.1):', event.error.message);
+        event.preventDefault();
+        return false;
+      }
+    });
+  </script>
+  
+  <!-- Decap CMS includes React internally -->
   <script src="https://unpkg.com/decap-cms@3.7.1/dist/decap-cms.js"></script>
   
-  <!-- 4. Netlify Identity cargado al final -->
+  <!-- Netlify Identity Widget -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  
+
   <script>
-    // Polish translations for Decap CMS
+    // Polish translations for Netlify CMS
     const plTranslations = {
-      // ... (mantén tu objeto de traducción completo aquí) ...
+      auth: {
+        login: 'Zaloguj się',
+        loggingIn: 'Logowanie...',
+        loginWithNetlifyIdentity: 'Zaloguj się przez Netlify Identity',
+        loginWithBitbucket: 'Zaloguj się przez Bitbucket',
+        loginWithGitHub: 'Zaloguj się przez GitHub',
+        loginWithGitLab: 'Zaloguj się przez GitLab',
+        errors: {
+          email: 'Wprowadź swój email.',
+          password: 'Wprowadź swoje hasło.',
+          identitySettings: 'Nie można uzyskać dostępu do ustawień tożsamości. Podczas korzystania z git-gateway backend upewnij się, że usługa Identity i Git Gateway są włączone w Netlify.'
+        }
+      },
+      app: {
+        header: {
+          content: 'Treści',
+          workflow: 'Przepływ pracy',
+          media: 'Media',
+          quickAdd: 'Szybkie dodawanie'
+        },
+        app: {
+          errorHeader: 'Błąd podczas ładowania konfiguracji CMS',
+          configErrors: 'Błędy konfiguracji',
+          checkConfigYml: 'Sprawdź plik config.yml.',
+          loadingConfig: 'Ładowanie konfiguracji...',
+          waitingBackend: 'Oczekiwanie na backend...'
+        },
+        notFoundPage: {
+          header: 'Nie znaleziono'
+        }
+      },
+      collection: {
+        sidebar: {
+          collections: 'Kolekcje',
+          allCollections: 'Wszystkie kolekcje'
+        },
+        collectionTop: {
+          sortBy: 'Sortuj według',
+          viewAs: 'Wyświetl jako',
+          newButton: 'Nowy %{collectionLabel}'
+        }
+      },
+      editor: {
+        editorControl: {
+          field: {
+            optional: 'opcjonalne'
+          }
+        },
+        editorControlPane: {
+          widget: {
+            required: '%{fieldLabel} jest wymagane.'
+          }
+        }
+      },
+      mediaLibrary: {
+        mediaLibraryCard: {
+          draft: 'Szkic'
+        },
+        mediaLibrary: {
+          onDeleteTitle: 'Usunąć wybrane media?'
+        }
+      },
+      ui: {
+        default: {
+          goBackToSite: 'Wróć do strony'
+        },
+        toast: {
+          entrySaved: 'Wpis zapisany',
+          entryPublished: 'Wpis opublikowany'
+        }
+      }
     };
 
-    // Inicialización segura
+    // Simplified CMS initialization
     document.addEventListener('DOMContentLoaded', function() {
-      // Registrar traducciones
       if (window.CMS) {
         CMS.registerLocale('pl', plTranslations);
+        CMS.init();
       }
 
-      // Inicialización de CMS con protección
-      try {
-        if (window.CMS) {
-          CMS.init();
-          console.log('Decap CMS 3.7.1 initialized');
-        }
-      } catch (error) {
-        console.error('CMS init error:', error);
-      }
-
-      // Inicialización de Netlify Identity
       if (window.netlifyIdentity) {
         window.netlifyIdentity.on("init", user => {
           if (!user) {
@@ -77,5 +156,3 @@
       }
     });
   </script>
-</body>
-</html>
