@@ -5,51 +5,144 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex" />
   <title>Content Manager</title>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
   <style>
-    /* Reset completo para el CMS */
+    :root {
+      /* Paleta de colores del nuevo diseño */
+      --nc-background: #161b22; /* Fondo principal oscuro */
+      --nc-surface: #21262d;   /* Fondo de elementos como cards y la barra lateral */
+      --nc-surface-hover: #30363d; /* Color al pasar el ratón */
+      --nc-border: #444c56;     /* Bordes sutiles */
+      --nc-text: #c9d1d9;       /* Texto principal */
+      --nc-text-subtle: #8b949e; /* Texto secundario o de ayuda */
+      --nc-accent: #58a6ff;     /* Color de acento (botones, enlaces) */
+      --nc-accent-hover: #79c0ff; /* Acento al pasar el ratón */
+      --nc-success: #3fb950;     /* Color para notificaciones de éxito */
+      --nc-danger: #f85149;      /* Color para acciones de peligro */
+    }
+
+    /* --- RESET Y CONFIGURACIÓN GLOBAL --- */
     body {
       margin: 0;
       padding: 0;
       overflow-x: hidden;
-      background: white !important;
+      background-color: var(--nc-background) !important;
     }
-    
-    /* Ocultar todo excepto el contenedor del CMS */
-    body > :not(#nc-root) {
-      display: none !important;
-    }
-    
-    /* Contenedor principal del CMS */
     #nc-root {
       position: relative;
       z-index: 1;
       min-height: 100vh;
-      background: white;
     }
-    
-    /* Prevenir flashes de contenido duplicado */
-    body.cms-loading:before {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: white;
-      z-index: 9999;
+    body > :not(#nc-root) {
+      display: none !important;
     }
-    
-    /* Estilos para el editor */
     [data-slate-editor] {
       -webkit-user-modify: read-write-plaintext-only !important;
+    }
+
+    /* --- TEMA OSCURO PARA TODO EL PANEL --- */
+    [class^="App-container"], [class^="AppHeader-header-"] {
+      background-color: var(--nc-background) !important;
+      color: var(--nc-text) !important;
+    }
+    [class^="Sidebar-container-"] {
+      background-color: var(--nc-surface) !important;
+      border-right: 1px solid var(--nc-border) !important;
+    }
+    [class^="Sidebar-nav-link-"] {
+      color: var(--nc-text-subtle) !important;
+      transition: background-color 0.2s, color 0.2s;
+    }
+    [class^="Sidebar-nav-link-"]:hover {
+      background-color: var(--nc-surface-hover) !important;
+      color: var(--nc-text) !important;
+    }
+    [class^="Sidebar-nav-link-active-"] {
+      background-color: var(--nc-accent) !important;
+      color: #fff !important;
+    }
+    [class^="CollectionPage-main-"] {
+      background-color: var(--nc-background) !important;
+    }
+    [class*="EntryCard-card-"] {
+      background-color: var(--nc-surface) !important;
+      border: 1px solid var(--nc-border) !important;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    [class*="EntryCard-card-"]:hover {
+      border-color: var(--nc-accent) !important;
+      transform: translateY(-3px);
+    }
+    [class*="EntryCard-card-title-"] {
+      color: var(--nc-text) !important;
+    }
+    [class*="EntryCard-card-body-"] {
+      color: var(--nc-text-subtle) !important;
+    }
+    [class^="ActionButton-button-"], button, [class^="Button-button-"] {
+      background-color: var(--nc-accent) !important;
+      color: #fff !important;
+      border-radius: 6px !important;
+      transition: background-color 0.2s;
+    }
+    [class^="ActionButton-button-"]:hover, button:hover, [class^="Button-button-"]:hover {
+      background-color: var(--nc-accent-hover) !important;
+    }
+    [class*="-delete-button"] {
+        background-color: var(--nc-danger) !important;
+    }
+    input, textarea, [class^="Input-input-"] {
+      background-color: var(--nc-background) !important;
+      border: 1px solid var(--nc-border) !important;
+      color: var(--nc-text) !important;
+      border-radius: 6px !important;
+    }
+    input:focus, textarea:focus, [class^="Input-input-"]:focus {
+      border-color: var(--nc-accent) !important;
+      box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.3) !important;
+    }
+    [class^="Control-label-"], [class^="Field-label-"] {
+        color: var(--nc-text-subtle) !important;
+    }
+    [class^="Editor-root-"] {
+        background-color: var(--nc-surface) !important;
+        border: 1px solid var(--nc-border) !important;
+    }
+    [class^="Editor-preview-"] {
+        background-color: var(--nc-background) !important;
+    }
+
+    /* --- ICONOS PERSONALIZADOS PARA COLECCIONES --- */
+    /* ⚠️ ¡IMPORTANTE! Reemplaza 'posts' y 'pages' con los nombres de TUS colecciones ⚠️ */
+    [data-collection="posts"] a::before,
+    [data-collection="blog"] a::before {
+      font-family: "Font Awesome 6 Free";
+      content: "\f02d"; /* fas fa-book */
+      font-weight: 900;
+      margin-right: 10px;
+      color: var(--nc-accent);
+    }
+    [data-collection="pages"] a::before {
+      font-family: "Font Awesome 6 Free";
+      content: "\f15c"; /* fas fa-file-alt */
+      font-weight: 900;
+      margin-right: 10px;
+      color: var(--nc-accent);
+    }
+    [data-collection="settings"] a::before {
+      font-family: "Font Awesome 6 Free";
+      content: "\f013"; /* fas fa-cog */
+      font-weight: 900;
+      margin-right: 10px;
+      color: var(--nc-accent);
     }
   </style>
 </head>
 <body>
   <div id="nc-root"></div>
-
   
-  <!-- Decap CMS -->
   <script src="https://unpkg.com/decap-cms@^3.7.1/dist/decap-cms.js"></script>
 
   <script>
@@ -176,11 +269,9 @@
     document.addEventListener('DOMContentLoaded', function() {
       document.body.classList.add('cms-loading');
       
-      // Limpiar contenedor
       const root = document.getElementById('nc-root');
       if (root) root.innerHTML = '';
       
-      // Inicializar con retraso
       setTimeout(() => {
         try {
           if (window.CMS && !window.CMS._initialized) {
