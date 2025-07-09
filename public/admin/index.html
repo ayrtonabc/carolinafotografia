@@ -4,7 +4,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex" />
-  <title>Content Manager</title>
+  <title>Panel Administracyjny - Carolina Fotografia</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     html, body {
       margin: 0;
@@ -35,41 +37,63 @@
     
     /* Custom CMS Styling */
     .nc-collectionPage-card {
-      background: #ffffff !important;
+      background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%) !important;
       border: 1px solid #e2e8f0 !important;
-      border-radius: 12px !important;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06) !important;
-      transition: all 0.3s ease !important;
+      border-radius: 16px !important;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
       position: relative !important;
       overflow: hidden !important;
-      min-height: 120px !important;
-      max-height: 140px !important;
+      min-height: 140px !important;
+      max-height: 160px !important;
       display: flex !important;
       flex-direction: column !important;
       align-items: center !important;
       justify-content: center !important;
       text-align: center !important;
-      padding: 16px !important;
+      padding: 20px !important;
       cursor: pointer !important;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+    }
+    
+    .nc-collectionPage-card::before {
+      content: '' !important;
+      position: absolute !important;
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      height: 3px !important;
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6, #06b6d4) !important;
+      opacity: 0 !important;
+      transition: opacity 0.3s ease !important;
     }
     
     .nc-collectionPage-card:hover {
-      transform: translateY(-2px) !important;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1) !important;
-      border-color: #cbd5e1 !important;
+      transform: translateY(-4px) scale(1.02) !important;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15), 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+      border-color: #3b82f6 !important;
+      background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%) !important;
+    }
+    
+    .nc-collectionPage-card:hover::before {
+      opacity: 1 !important;
     }
     
     .card-icon {
-      font-size: 32px !important;
-      margin-bottom: 8px !important;
-      opacity: 0.8 !important;
-      transition: all 0.3s ease !important;
+      font-size: 36px !important;
+      margin-bottom: 12px !important;
+      display: block !important;
       line-height: 1 !important;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6) !important;
+      -webkit-background-clip: text !important;
+      -webkit-text-fill-color: transparent !important;
+      background-clip: text !important;
+      transition: all 0.3s ease !important;
     }
     
     .nc-collectionPage-card:hover .card-icon {
-       transform: scale(1.1) !important;
-       opacity: 1 !important;
+       transform: scale(1.1) rotate(5deg) !important;
+       filter: drop-shadow(0 2px 4px rgba(59, 130, 246, 0.3)) !important;
      }
      
      /* Hide filters and force card view */
@@ -153,15 +177,32 @@
     .nc-collectionPage-card h2 {
       color: #1e293b !important;
       font-weight: 600 !important;
-      font-size: 14px !important;
-      margin: 8px 0 0 0 !important;
-      line-height: 1.3 !important;
+      font-size: 16px !important;
+      margin: 0 0 6px 0 !important;
+      line-height: 1.4 !important;
+      font-family: 'Inter', sans-serif !important;
+      letter-spacing: -0.025em !important;
+      transition: color 0.3s ease !important;
+    }
+    
+    .nc-collectionPage-card:hover h2 {
+      color: #3b82f6 !important;
     }
     
     .nc-collectionPage-card p {
       color: #64748b !important;
-      font-size: 12px !important;
-      margin: 4px 0 0 0 !important;
+      font-weight: 400 !important;
+      font-size: 13px !important;
+      margin: 0 !important;
+      line-height: 1.5 !important;
+      font-family: 'Inter', sans-serif !important;
+      opacity: 0.8 !important;
+      transition: all 0.3s ease !important;
+    }
+    
+    .nc-collectionPage-card:hover p {
+      opacity: 1 !important;
+      color: #475569 !important;
     }
     
     /* Sidebar styling */
@@ -295,8 +336,8 @@
           allCollections: 'Wszystkie kolekcje'
         },
         collectionTop: {
-          sortBy: 'Sortuj według',
-          viewAs: 'Wyświetl jako',
+          sortBy: 'Ordenar por',
+      viewAs: 'Ver como',
           newButton: 'Nowy %{collectionLabel}'
         }
       },
@@ -429,28 +470,27 @@
         let icon = '';
         
         if (text.includes('hero') || text.includes('strona główna') || text.includes('strona glowna')) {
-          icon = '🏠';
+          icon = 'fas fa-home';
         } else if (text.includes('about') || text.includes('o mnie')) {
-          icon = '👤';
+          icon = 'fas fa-user';
         } else if (text.includes('services') || text.includes('usługi') || text.includes('uslugi')) {
-          icon = '📸';
+          icon = 'fas fa-camera';
         } else if (text.includes('gallery') || text.includes('galeria')) {
-          icon = '🖼️';
+          icon = 'fas fa-images';
         } else if (text.includes('contact') || text.includes('kontakt')) {
-          icon = '📞';
+          icon = 'fas fa-phone';
         } else if (text.includes('navigation') || text.includes('nawigacja')) {
-          icon = '🧭';
+          icon = 'fas fa-compass';
         } else if (text.includes('site') || text.includes('konfiguracja') || text.includes('config')) {
-          icon = '⚙️';
+          icon = 'fas fa-cog';
         } else if (text.includes('footer') || text.includes('stopka')) {
-          icon = '📄';
+          icon = 'fas fa-file-alt';
         }
         
         if (icon) {
           // Create icon element
-          const iconElement = document.createElement('div');
-          iconElement.className = 'card-icon';
-          iconElement.textContent = icon;
+          const iconElement = document.createElement('i');
+          iconElement.className = `card-icon ${icon}`;
           
           // Clean title text (remove existing emoji if any)
           const cleanTitle = title.textContent.replace(/^[🏠👤📸🖼️📞🧭⚙️📄]\s*/, '');
