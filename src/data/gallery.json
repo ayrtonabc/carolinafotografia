@@ -22,39 +22,39 @@
   "images": [
     {
       "image": "/images/uploads/12.jpeg",
-      "category": "familias",
-      "title": "PEPE",
-      "description": "PEPE"
+      "category": "Rodzina",
+      "title": "Sesja rodzinna",
+      "description": "Rodzinne momenty, które zostają na zawsze – prawdziwe, pełne ciepła i emocji."
     },
     {
-      "image": "/images/uploads/14.jpeg",
-      "title": "Pepe",
-      "description": "pepe",
-      "category": "familias"
+      "image": "/images/uploads/10.jpeg",
+      "title": "Sesja ciążowa",
+      "description": "Subtelna sesja ciążowa – tak, jak czujesz. Prawdziwie i bez presji.",
+      "category": "Ciąża"
     },
     {
-      "image": "/images/uploads/5.jpeg",
-      "title": "pepe",
-      "description": "pepe",
-      "category": "pepe"
-    },
-    {
-      "image": "/images/uploads/11.jpeg",
-      "title": "pepe",
-      "description": "pepe",
-      "category": "pepe"
+      "image": "/images/uploads/6.jpeg",
+      "title": "Sesja portretowa",
+      "description": "Czas tylko dla Ciebie – portret w świetle, emocjach i spokoju.",
+      "category": "Portrety"
     },
     {
       "image": "/images/uploads/2.jpeg",
-      "title": "pepe",
-      "description": "pepe",
+      "title": "Sesja świąteczna",
+      "description": "Świąteczna sesja – pełna uśmiechów, świateł i rodzinnej atmosfery.",
       "category": "pepe"
     },
     {
+      "image": "/images/uploads/9.jpeg",
+      "title": "Sesja kobieca",
+      "description": "Pozwól sobie zabłysnąć i odkryj swoją wyjątkową zmysłowość w pełnych emocji kadrach.",
+      "category": "Kobiecość"
+    },
+    {
       "image": "/images/uploads/3.jpeg",
-      "title": "pepe",
-      "description": "pepe",
-      "category": "pepe"
+      "title": "Sesja wydarzeniowa",
+      "description": "Naturalne zdjęcia z najważniejszych wydarzeń.",
+      "category": "Wydarzenia"
     }
   ],
   "cta": {
