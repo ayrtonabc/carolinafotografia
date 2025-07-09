@@ -1,192 +1,261 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: tu-usuario/tu-repositorio # Zmień na swoje repozytorium
   branch: main
+  auth_type: pkce
+  base_url: https://api.netlify.com
+  auth_endpoint: auth
 
-site_url: http://localhost:4323
-display_url: http://localhost:4323
+# Alternatywna konfiguracja dla Netlify Identity
+# backend:
+#   name: git-gateway
+#   branch: main
+
+site_url: https://tu-sitio.vercel.app # Zmień na swój URL
+display_url: https://tu-sitio.vercel.app # Zmień na swój URL
 logo_url: /image.png
 
-# Configuración en español
-locale: 'es'
-
-# Configuración de medios
-public_folder: "/images"
 media_folder: "public/images"
+public_folder: "/images"
 
-# Configuración de slug
+# Konfiguracja edytora
+editor:
+  preview: true
+
+# Konfiguracja slug
 slug:
-  encoding: "unicode"
+  encoding: "ascii"
   clean_accents: true
-  sanitize_replacement: "-"
+
+# Konfiguracja języka
+locale: 'pl'
+
+# Tłumaczenia interfejsu
+i18n:
+  structure: multiple_folders
+  locales: [pl]
+  default_locale: pl
 
 collections:
   - name: "settings"
-    label: "⚙️ Configuración General"
+    label: "Ustawienia Ogólne"
     files:
       - name: "site"
-        label: "Información del Sitio"
+        label: "Informacje o Stronie"
         file: "src/data/site.json"
         fields:
-          - { label: "Nombre del Sitio", name: "title", widget: "string", required: true }
-          - { label: "Descripción", name: "description", widget: "text", required: true }
-          - { label: "Email", name: "email", widget: "string", required: true }
-          - { label: "Teléfono", name: "phone", widget: "string", required: true }
-          - { label: "Ubicación", name: "location", widget: "string", required: true }
-          - { label: "Logo", name: "logo", widget: "image", required: false }
-          - label: "Redes Sociales"
+          - { label: "Nazwa Strony", name: "title", widget: "string" }
+          - { label: "Opis", name: "description", widget: "text" }
+          - { label: "Email", name: "email", widget: "string" }
+          - { label: "Telefon", name: "phone", widget: "string" }
+          - { label: "Lokalizacja", name: "location", widget: "string" }
+          - { label: "Logo", name: "logo", widget: "image" }
+
+  - name: "navigation"
+    label: "Nawigacja"
+    files:
+      - name: "navigation"
+        label: "Menu Nawigacyjne"
+        file: "src/data/navigation.json"
+        fields:
+          - { label: "Alt Logo", name: "logo_alt", widget: "string" }
+          - { label: "Etykieta Menu Mobilnego", name: "mobile_menu_label", widget: "string" }
+          - label: "Elementy Menu"
+            name: "menu_items"
+            widget: "list"
+            fields:
+              - { label: "Link", name: "href", widget: "string" }
+              - { label: "Etykieta", name: "label", widget: "string" }
+
+  - name: "hero"
+    label: "Sekcja Główna"
+    files:
+      - name: "hero"
+        label: "Sekcja Hero"
+        file: "src/data/hero.json"
+        fields:
+          - { label: "Tytuł Główny", name: "title", widget: "string" }
+          - { label: "Słowo Wyróżnione", name: "accent", widget: "string" }
+          - { label: "Opis", name: "description", widget: "text" }
+          - { label: "Obraz Główny", name: "image", widget: "image" }
+          - { label: "Przycisk Główny", name: "button_primary", widget: "string" }
+          - { label: "Przycisk Drugorzędny", name: "button_secondary", widget: "string" }
+
+  - name: "about"
+    label: "O Mnie"
+    files:
+      - name: "about"
+        label: "Informacje Osobiste"
+        file: "src/data/about.json"
+        fields:
+          - { label: "Tytuł", name: "title", widget: "string" }
+          - { label: "Podtytuł", name: "subtitle", widget: "string" }
+          - { label: "Opis 1", name: "description1", widget: "text" }
+          - { label: "Opis 2", name: "description2", widget: "text" }
+          - { label: "Lata Doświadczenia", name: "experience", widget: "number" }
+          - { label: "Obraz", name: "image", widget: "image" }
+          - { label: "Tekst Przycisku", name: "button_text", widget: "string" }
+          - label: "Umiejętności"
+            name: "skills"
+            widget: "list"
+            fields:
+              - { label: "Ikona", name: "icon", widget: "string" }
+              - { label: "Tytuł", name: "title", widget: "string" }
+              - { label: "Opis", name: "description", widget: "text" }
+
+  - name: "services"
+    label: "Usługi"
+    files:
+      - name: "services"
+        label: "Lista Usług"
+        file: "src/data/services.json"
+        fields:
+          - { label: "Tytuł", name: "title", widget: "string" }
+          - { label: "Podtytuł", name: "subtitle", widget: "text" }
+          - label: "Usługi"
+            name: "services"
+            widget: "list"
+            fields:
+              - { label: "Nazwa", name: "name", widget: "string" }
+              - { label: "Opis", name: "description", widget: "text" }
+              - { label: "Cena", name: "price", widget: "string" }
+              - { label: "Obraz", name: "image", widget: "image" }
+              - { label: "Wyróżniona", name: "featured", widget: "boolean", default: false }
+              - label: "Cechy"
+                name: "features"
+                widget: "list"
+                field: { label: "Cecha", name: "feature", widget: "string" }
+          - label: "Wezwanie do Działania"
+            name: "cta"
+            widget: "object"
+            fields:
+              - { label: "Tytuł", name: "title", widget: "string" }
+              - { label: "Opis", name: "description", widget: "text" }
+              - { label: "Tekst Przycisku", name: "button_text", widget: "string" }
+
+  - name: "gallery"
+    label: "Galeria"
+    files:
+      - name: "gallery"
+        label: "Obrazy Galerii"
+        file: "src/data/gallery.json"
+        fields:
+          - { label: "Tytuł", name: "title", widget: "string" }
+          - { label: "Podtytuł", name: "subtitle", widget: "text" }
+          - label: "Filtry"
+            name: "filters"
+            widget: "list"
+            fields:
+              - { label: "Klucz", name: "key", widget: "string" }
+              - { label: "Etykieta", name: "label", widget: "string" }
+          - label: "Obrazy"
+            name: "images"
+            widget: "list"
+            fields:
+              - { label: "Tytuł", name: "title", widget: "string" }
+              - { label: "Opis", name: "description", widget: "string" }
+              - { label: "Obraz", name: "image", widget: "image" }
+              - label: "Kategoria"
+                name: "category"
+                widget: "select"
+                options: ["retratos", "bodas", "familias"]
+          - label: "Wezwanie do Działania"
+            name: "cta"
+            widget: "object"
+            fields:
+              - { label: "Tekst", name: "text", widget: "string" }
+              - { label: "Tekst Przycisku", name: "button_text", widget: "string" }
+
+  - name: "contact"
+    label: "Kontakt"
+    files:
+      - name: "contact"
+        label: "Informacje Kontaktowe"
+        file: "src/data/contact.json"
+        fields:
+          - { label: "Tytuł", name: "title", widget: "string" }
+          - { label: "Podtytuł", name: "subtitle", widget: "text" }
+          - label: "Karty Kontaktowe"
+            name: "contact_cards"
+            widget: "list"
+            fields:
+              - { label: "Ikona", name: "icon", widget: "string" }
+              - { label: "Tytuł", name: "title", widget: "string" }
+              - { label: "Wartość", name: "value", widget: "string" }
+              - { label: "Link", name: "link", widget: "string", required: false }
+              - { label: "Tekst Linku", name: "link_text", widget: "string", required: false }
+              - { label: "Notatka", name: "note", widget: "string", required: false }
+          - label: "Media Społecznościowe"
             name: "social"
             widget: "object"
             fields:
-              - { label: "Instagram", name: "instagram", widget: "string", required: false }
-              - { label: "Facebook", name: "facebook", widget: "string", required: false }
-              - { label: "LinkedIn", name: "linkedin", widget: "string", required: false }
-              - { label: "WhatsApp", name: "whatsapp", widget: "string", required: false }
-      - name: "navigation"
-        label: "Navegación"
-        file: "src/data/navigation.json"
-        fields:
-          - label: "Menú de Navegación"
-            name: "navbar"
-            widget: "object"
-            fields:
-              - { label: "Inicio", name: "home", widget: "string", default: "Inicio" }
-              - { label: "Acerca de", name: "about", widget: "string", default: "Acerca de" }
-              - { label: "Servicios", name: "services", widget: "string", default: "Servicios" }
-              - { label: "Galería", name: "gallery", widget: "string", default: "Galería" }
-              - { label: "Contacto", name: "contact", widget: "string", default: "Contacto" }
-              - { label: "Alt Logo", name: "logo_alt", widget: "string", default: "Carolina Fotografía" }
-              - { label: "Menú Móvil", name: "mobile_menu_label", widget: "string", default: "Abrir menú" }
-
-  - name: "hero"
-    label: "🏠 Sección Principal"
-    files:
-      - name: "hero"
-        label: "Sección Hero"
-        file: "src/data/hero.json"
-        fields:
-          - { label: "Título Principal", name: "title", widget: "string", required: true }
-          - { label: "Palabra Destacada", name: "accent", widget: "string", required: true }
-          - { label: "Descripción", name: "description", widget: "text", required: true }
-          - { label: "Imagen Principal", name: "image", widget: "image", required: true }
-          - label: "Botones"
-            name: "buttons"
-            widget: "object"
-            fields:
-              - { label: "Texto Botón Principal", name: "primary_text", widget: "string", default: "Reservar Sesión" }
-              - { label: "Enlace Botón Principal", name: "primary_link", widget: "string", default: "#contacto" }
-              - { label: "Texto Botón Secundario", name: "secondary_text", widget: "string", default: "Ver Portfolio" }
-              - { label: "Enlace Botón Secundario", name: "secondary_link", widget: "string", default: "#galeria" }
-
-  - name: "about"
-    label: "👤 Acerca de"
-    files:
-      - name: "about"
-        label: "Información Personal"
-        file: "src/data/about.json"
-        fields:
-          - { label: "Título", name: "title", widget: "string", required: true }
-          - { label: "Subtítulo", name: "subtitle", widget: "string", required: true }
-          - { label: "Descripción 1", name: "description1", widget: "text", required: true }
-          - { label: "Descripción 2", name: "description2", widget: "text", required: true }
-          - { label: "Años de Experiencia", name: "experience", widget: "number", required: true }
-          - { label: "Imagen", name: "image", widget: "image", required: true }
-          - label: "Estadísticas"
-            name: "stats"
-            widget: "list"
-            allow_add: true
-            allow_delete: true
-            fields:
-              - { label: "Número", name: "number", widget: "string" }
-              - { label: "Descripción", name: "description", widget: "string" }
-
-  - name: "services"
-    label: "💼 Servicios"
-    files:
-      - name: "services"
-        label: "Lista de Servicios"
-        file: "src/data/services.json"
-        fields:
-          - { label: "Título de Sección", name: "section_title", widget: "string", default: "Mis Servicios" }
-          - { label: "Subtítulo", name: "section_subtitle", widget: "text", default: "Servicios profesionales de fotografía" }
-          - label: "Servicios"
-            name: "services"
-            widget: "list"
-            allow_add: true
-            allow_delete: true
-            fields:
-              - { label: "Nombre", name: "name", widget: "string", required: true }
-              - { label: "Descripción", name: "description", widget: "text", required: true }
-              - { label: "Precio", name: "price", widget: "string", required: true }
-              - { label: "Imagen", name: "image", widget: "image", required: true }
-              - { label: "Destacado", name: "featured", widget: "boolean", default: false }
-              - { label: "Orden", name: "order", widget: "number", default: 1 }
-              - label: "Características"
-                name: "features"
+              - { label: "Tytuł", name: "title", widget: "string" }
+              - label: "Linki"
+                name: "links"
                 widget: "list"
-                allow_add: true
-                allow_delete: true
-                field: { label: "Característica", name: "feature", widget: "string" }
-
-  - name: "gallery"
-    label: "📸 Galería"
-    files:
-      - name: "gallery"
-        label: "Fotos"
-        file: "src/data/gallery.json"
-        fields:
-          - { label: "Título de Sección", name: "section_title", widget: "string", default: "Mi Portfolio" }
-          - { label: "Subtítulo", name: "section_subtitle", widget: "text", default: "Mis trabajos destacados" }
-          - label: "Fotos"
-            name: "images"
-            widget: "list"
-            allow_add: true
-            allow_delete: true
+                fields:
+                  - { label: "Platforma", name: "platform", widget: "string" }
+                  - { label: "URL", name: "url", widget: "string" }
+                  - { label: "Etykieta", name: "label", widget: "string" }
+          - label: "Formularz"
+            name: "form"
+            widget: "object"
             fields:
-              - { label: "Título", name: "title", widget: "string", required: true }
-              - { label: "Descripción", name: "description", widget: "string", required: true }
-              - { label: "Foto", name: "image", widget: "image", required: true }
-              - label: "Categoría"
-                name: "category"
-                widget: "select"
-                options: ["retratos", "bodas", "familias", "eventos", "corporativo"]
-              - { label: "Destacado", name: "featured", widget: "boolean", default: false }
-              - { label: "Orden", name: "order", widget: "number", default: 1 }
+              - { label: "Tekst Przycisku", name: "button_text", widget: "string" }
+              - { label: "Tekst Ładowania", name: "button_loading", widget: "string" }
+              - { label: "Wiadomość Sukcesu", name: "success_message", widget: "text" }
+              - { label: "Wiadomość Błędu", name: "error_message", widget: "text" }
 
-  - name: "testimonials"
-    label: "💬 Testimonios"
+  - name: "footer"
+    label: "Stopka"
     files:
-      - name: "testimonials"
-        label: "Testimonios de Clientes"
-        file: "src/data/testimonials.json"
+      - name: "footer"
+        label: "Informacje Stopki"
+        file: "src/data/footer.json"
         fields:
-          - { label: "Título de Sección", name: "section_title", widget: "string", default: "Testimonios" }
-          - label: "Testimonios"
-            name: "testimonials"
-            widget: "list"
-            allow_add: true
-            allow_delete: true
+          - label: "Marka"
+            name: "brand"
+            widget: "object"
             fields:
-              - { label: "Nombre", name: "name", widget: "string", required: true }
-              - { label: "Testimonio", name: "content", widget: "text", required: true }
-              - { label: "Calificación", name: "rating", widget: "number", min: 1, max: 5, default: 5 }
-              - { label: "Foto", name: "photo", widget: "image", required: false }
-
-  - name: "contact"
-    label: "📞 Contacto"
-    files:
-      - name: "contact"
-        label: "Información de Contacto"
-        file: "src/data/contact.json"
-        fields:
-          - { label: "Título de Sección", name: "section_title", widget: "string", default: "Contacto" }
-          - { label: "Subtítulo", name: "section_subtitle", widget: "text", default: "Hablemos sobre tu proyecto" }
-          - label: "Información de Contacto"
-            name: "contact_info"
-            widget: "list"
-            allow_add: true
-            allow_delete: true
+              - { label: "Nazwa", name: "name", widget: "string" }
+              - { label: "Opis", name: "description", widget: "text" }
+          - label: "Nawigacja"
+            name: "navigation"
+            widget: "object"
             fields:
-              - { label: "Tipo", name: "type", widget: "select", options: ["email", "telefono", "direccion", "horarios"] }
-              - { label: "Etiqueta", name: "label", widget: "string" }
-              - { label: "Valor", name: "value", widget: "string" }
-              - { label: "Icono", name: "icon", widget: "string", required: false }
+              - { label: "Tytuł", name: "title", widget: "string" }
+              - label: "Linki"
+                name: "links"
+                widget: "list"
+                fields:
+                  - { label: "Link", name: "href", widget: "string" }
+                  - { label: "Etykieta", name: "label", widget: "string" }
+          - label: "Usługi"
+            name: "services"
+            widget: "object"
+            fields:
+              - { label: "Tytuł", name: "title", widget: "string" }
+              - label: "Elementy"
+                name: "items"
+                widget: "list"
+                field: { label: "Element", name: "item", widget: "string" }
+          - label: "Kontakt"
+            name: "contact"
+            widget: "object"
+            fields:
+              - { label: "Tytuł", name: "title", widget: "string" }
+              - label: "Elementy"
+                name: "items"
+                widget: "list"
+                fields:
+                  - { label: "Ikona", name: "icon", widget: "string" }
+                  - { label: "Tekst", name: "text", widget: "string" }
+                  - { label: "Link", name: "link", widget: "string", required: false }
+          - label: "Media Społecznościowe"
+            name: "social"
+            widget: "list"
+            fields:
+              - { label: "Platforma", name: "platform", widget: "string" }
+              - { label: "URL", name: "url", widget: "string" }
+              - { label: "Etykieta", name: "label", widget: "string" }
+          - { label: "Prawa Autorskie", name: "copyright", widget: "string" }
