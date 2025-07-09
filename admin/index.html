@@ -56,11 +56,11 @@
     });
   </script>
   
-  <!-- Decap CMS includes React internally -->
-  <script src="https://unpkg.com/decap-cms@3.7.1/dist/decap-cms.js"></script>
+  <!-- Using Decap CMS 3.6.0 - more stable version -->
+  <script src="https://unpkg.com/decap-cms@3.6.0/dist/decap-cms.js"></script>
   
   <!-- Netlify Identity Widget -->
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+ 
 
   <script>
     // Polish translations for Netlify CMS
@@ -155,25 +155,20 @@
       };
       
       // Initialize CMS with error handling
-      try {
-        if (window.CMS) {
-          CMS.registerLocale('pl', plTranslations);
-          
-          // Use simplified config for testing
-          CMS.init({
-            config: {
-              load_config_file: true,
-              config_file_path: '/admin/config-simple.yml'
-            }
-          });
-        }
-      } catch (error) {
-        console.warn('CMS initialization error suppressed:', error.message);
-        // Fallback to default config
-        if (window.CMS) {
-          CMS.init();
-        }
-      }
+       try {
+         if (window.CMS) {
+           CMS.registerLocale('pl', plTranslations);
+           CMS.init();
+         }
+       } catch (error) {
+         console.warn('CMS initialization error suppressed:', error.message);
+         // Retry initialization after a delay
+         setTimeout(() => {
+           if (window.CMS) {
+             CMS.init();
+           }
+         }, 1000);
+       }
 
       if (window.netlifyIdentity) {
         window.netlifyIdentity.on("init", user => {
