@@ -6,11 +6,26 @@
   "navigation": {
     "title": "Nawigacja",
     "links": [
-      { "href": "#inicio", "label": "Strona główna" },
-      { "href": "#sobre-mi", "label": "O mnie" },
-      { "href": "#servicios", "label": "Usługi" },
-      { "href": "#galeria", "label": "Galeria" },
-      { "href": "#contacto", "label": "Kontakt" }
+      {
+        "href": "#inicio",
+        "label": "Strona główna"
+      },
+      {
+        "href": "#sobre-mi",
+        "label": "O mnie"
+      },
+      {
+        "href": "#servicios",
+        "label": "Usługi"
+      },
+      {
+        "href": "#galeria",
+        "label": "Galeria"
+      },
+      {
+        "href": "#contacto",
+        "label": "Kontakt"
+      }
     ]
   },
   "services": {
@@ -28,24 +43,31 @@
     "items": [
       {
         "icon": "📧",
-        "text": "hola@karolinafotografia.com",
-        "link": "mailto:hola@karolinafotografia.com"
+        "text": "kontakt@karolinagfotografia.pl",
+        "link": "kontakt@karolinagfotografia.pl"
       },
       {
         "icon": "📱",
-        "text": "+34 600 123 456",
-        "link": "tel:+34600123456"
+        "text": "+ 48 570 434 419",
+        "link": ""
       },
       {
-        "icon": "📍",
-        "text": "Madryt, Hiszpania"
+        "icon": "📌",
+        "text": "Ostróda"
       }
     ]
   },
   "social": [
-    { "platform": "instagram", "url": "#", "label": "Instagram" },
-    { "platform": "facebook", "url": "#", "label": "Facebook" },
-    { "platform": "pinterest", "url": "#", "label": "Pinterest" }
+    {
+      "platform": "Instagram",
+      "url": "#https://www.instagram.com/karolinagfotografia?igsh=Z3lqcWViZG9mNXRv",
+      "label": "Instagram"
+    },
+    {
+      "platform": "Facebook",
+      "url": "#https://www.facebook.com/share/19njxxPCot/",
+      "label": "Facebook"
+    }
   ],
   "copyright": "© 2024 Karolina Fotografia. Wszelkie prawa zastrzeżone."
 }
