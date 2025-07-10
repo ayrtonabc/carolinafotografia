@@ -35,11 +35,6 @@
         "platform": "facebook",
         "url": "#https://www.facebook.com/share/19njxxPCot/",
         "label": "Facebook"
-      },
-      {
-        "platform": "pinterest",
-        "url": "#",
-        "label": "Pinterest"
       }
     ]
   },
