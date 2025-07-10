@@ -5,21 +5,21 @@
     {
       "icon": "📧",
       "title": "Email",
-      "value": "hola@karolinafotografia.com",
-      "link": "mailto:hola@karolinafotografia.com",
+      "value": "kontakt@karolinagfotografia.pl",
+      "link": "",
       "link_text": "Wyślij Email"
     },
     {
       "icon": "📱",
       "title": "Telefon",
       "value": "+34 600 123 456",
-      "link": "tel:+34600123456",
+      "link": "+ 48 570 434 419",
       "link_text": "Zadzwoń Teraz"
     },
     {
       "icon": "📍",
       "title": "Lokalizacja",
-      "value": "Madryt, Hiszpania",
+      "value": "Ostróda",
       "note": "Dostępna do podróży"
     }
   ],
