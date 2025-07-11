@@ -38,7 +38,7 @@ const { title, description = "Profesjonalna fotografia, która uchwycuje wyjątk
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&family=Dancing+Script:wght@400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
     
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -86,23 +86,32 @@ const { title, description = "Profesjonalna fotografia, która uchwycuje wyjątk
 
 <style is:global>
   :root {
-    --color-primary: #1a1a1a;
-    --color-secondary: #6b5b73;
-    --color-accent: #d4af37;
-    --color-light: #faf9f7;
+    --color-primary: #2d2d2d;
+    --color-secondary: #8b7d8b;
+    --color-accent: #d4a5a5;
+    --color-accent-light: #f2d7d7;
+    --color-peach: #f5c6a0;
+    --color-lavender: #e6d7ff;
+    --color-champagne: #f7e7ce;
+    --color-light: #fdf9f7;
     --color-white: #ffffff;
-    --color-gray: #4a4a4a;
-    --color-light-gray: #f8f8f8;
-    --color-dark-gray: #2a2a2a;
-    --color-soft-accent: #f4f1e8;
+    --color-gray: #6a6a6a;
+    --color-light-gray: #f9f6f4;
+    --color-dark-gray: #3a3a3a;
+    --color-soft-accent: #f9f1f1;
+    --color-rose-gold: #e8b4b8;
+    --color-blush: #f4e4e6;
     
     --font-heading: 'Playfair Display', serif;
     --font-body: 'Inter', sans-serif;
+    --font-script: 'Dancing Script', cursive;
+    --font-elegant: 'Great Vibes', cursive;
     
-    --shadow-soft: 0 2px 20px rgba(0, 0, 0, 0.06);
-    --shadow-medium: 0 8px 40px rgba(0, 0, 0, 0.1);
-    --shadow-strong: 0 20px 60px rgba(0, 0, 0, 0.15);
-    --shadow-glow: 0 0 30px rgba(212, 175, 55, 0.2);
+    --shadow-soft: 0 4px 25px rgba(212, 165, 165, 0.15);
+    --shadow-medium: 0 8px 40px rgba(212, 165, 165, 0.2);
+    --shadow-strong: 0 20px 60px rgba(212, 165, 165, 0.25);
+    --shadow-glow: 0 0 30px rgba(212, 165, 165, 0.3);
+    --shadow-rose: 0 0 20px rgba(232, 180, 184, 0.4);
     
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-slow: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
@@ -145,22 +154,22 @@ const { title, description = "Profesjonalna fotografia, która uchwycuje wyjątk
 
   .btn {
     display: inline-block;
-    padding: 15px 35px;
-    background: linear-gradient(135deg, var(--color-accent) 0%, #c49d2e 100%);
+    padding: 16px 40px;
+    background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-rose-gold) 100%);
     color: var(--color-white);
     text-decoration: none;
-    border-radius: 50px;
-    font-weight: 600;
+    border-radius: 30px;
+    font-weight: 500;
     transition: var(--transition-slow);
     border: none;
     cursor: pointer;
     font-family: var(--font-body);
     position: relative;
     overflow: hidden;
-    box-shadow: var(--shadow-medium);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    font-size: 0.9rem;
+    box-shadow: var(--shadow-medium), var(--shadow-rose);
+    text-transform: none;
+    letter-spacing: 0.3px;
+    font-size: 0.95rem;
   }
 
   .btn::before {
@@ -170,18 +179,36 @@ const { title, description = "Profesjonalna fotografia, która uchwycuje wyjątk
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
     transition: var(--transition);
   }
 
+  .btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
+    transform: translate(-50%, -50%);
+    transition: var(--transition-slow);
+    border-radius: 50%;
+  }
+
   .btn:hover {
-    background: linear-gradient(135deg, #c49d2e 0%, var(--color-accent) 100%);
-    transform: translateY(-3px);
+    background: linear-gradient(135deg, var(--color-rose-gold) 0%, var(--color-accent) 100%);
+    transform: translateY(-2px);
     box-shadow: var(--shadow-strong), var(--shadow-glow);
   }
 
   .btn:hover::before {
     left: 100%;
+  }
+
+  .btn:hover::after {
+    width: 120px;
+    height: 120px;
   }
 
   .btn-outline {

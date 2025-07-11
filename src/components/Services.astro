@@ -37,9 +37,10 @@ import servicesData from '../data/services.json';
     </div>
     
     <div class="services-cta">
-      <h3>{servicesData.cta.title}</h3>
-      <p>{servicesData.cta.description}</p>
-      <a href="#contacto" class="btn">{servicesData.cta.button_text}</a>
+      <div class="cta-content">
+        <h3 class="cta-title">{servicesData.cta.title}</h3>
+        <p class="cta-description">{servicesData.cta.description}</p>
+      </div>
     </div>
   </div>
 </section>
@@ -170,26 +171,32 @@ import servicesData from '../data/services.json';
   }
 
   .services-cta {
-    text-align: center;
-    background: var(--color-white);
-    padding: 50px;
-    border-radius: 20px;
-    box-shadow: var(--shadow-soft);
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 15px;
+    padding: 40px 30px;
+    border: 1px solid rgba(255, 182, 193, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    backdrop-filter: blur(10px);
   }
 
-  .services-cta h3 {
-    font-size: 1.8rem;
+  .cta-content {
+    text-align: center;
+  }
+
+  .cta-title {
+    font-size: 1.6rem;
+    font-weight: 500;
     margin-bottom: 15px;
     color: var(--color-primary);
   }
 
-  .services-cta p {
-    font-size: 1.1rem;
+  .cta-description {
+    font-size: 1rem;
     color: var(--color-gray);
-    margin-bottom: 30px;
     max-width: 500px;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0 auto;
+    line-height: 1.6;
+    white-space: pre-line;
   }
 
   @media (max-width: 768px) {
@@ -207,11 +214,87 @@ import servicesData from '../data/services.json';
     }
 
     .services-cta {
-      padding: 30px 20px;
+      padding: 50px 30px;
+      margin: 0 15px;
     }
 
-    .services-cta h3 {
-      font-size: 1.5rem;
+    .cta-title {
+      font-size: 1.8rem;
+    }
+
+    .cta-description {
+      font-size: 1.1rem;
+    }
+
+    .cta-actions {
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .cta-button {
+      width: 100%;
+      max-width: 280px;
+      justify-content: center;
+    }
+
+    .cta-stats {
+      gap: 20px;
+    }
+
+    .stat-divider {
+      display: none;
+    }
+
+    .stat-number {
+      font-size: 1.6rem;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+    }
+
+    .floating-circle {
+      display: none;
+    }
+
+    .cta-icon {
+      width: 80px;
+      height: 80px;
+    }
+
+    .cta-icon svg {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .services-cta {
+      padding: 40px 20px;
+      margin: 0 10px;
+    }
+
+    .cta-title {
+      font-size: 1.6rem;
+    }
+
+    .cta-description {
+      font-size: 1rem;
+      margin-bottom: 30px;
+    }
+
+    .cta-stats {
+      flex-direction: column;
+      gap: 25px;
+    }
+
+    .stat-item {
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 15px;
+      width: 100%;
+      max-width: 200px;
     }
   }
 </style>

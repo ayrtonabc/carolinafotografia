@@ -1,0 +1,20 @@
+{
+  "brand_name": "Karolina Fotografia",
+  "brand_description": "Uchwycenie wyjątkowych i niepowtarzalnych momentów z pasją i profesjonalizmem.",
+  "copyright": "© 2025 Karolina Fotografia. Wszelkie prawa zastrzeżone.",
+  "email": "kontakt@karolinagfotografia.pl",
+  "phone": "+48 123 456 789",
+  "location": "Warszawa, Polska",
+  "social": [
+    {
+      "platform": "instagram",
+      "url": "https://instagram.com/karolinagfotografia",
+      "label": "Instagram"
+    },
+    {
+      "platform": "facebook",
+      "url": "https://facebook.com/karolinagfotografia",
+      "label": "Facebook"
+    }
+  ]
+}

@@ -3,21 +3,17 @@ import heroData from '../data/hero.json';
 ---
 
 <section id="inicio" class="hero">
-  <div class="hero-background">
-    <div class="floating-elements">
-      <div class="floating-element"></div>
-      <div class="floating-element"></div>
-      <div class="floating-element"></div>
-    </div>
-  </div>
+  
   
   <div class="hero-content">
     <div class="hero-text">
+      
       <h1 class="hero-title">
         {heroData.title}
         <span class="accent">{heroData.accent}</span>
       </h1>
       <p class="hero-description">
+       
         {heroData.description}
       </p>
       <div class="hero-buttons">
@@ -47,7 +43,14 @@ import heroData from '../data/hero.json';
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, var(--color-light) 0%, var(--color-soft-accent) 50%, #fefcf8 100%);
+    background: linear-gradient(
+  135deg,
+  rgba(255, 255, 255, 0.85) 0%,
+  rgba(235, 200, 200, 0.3) 30%,
+  rgba(250, 215, 180, 0.3) 70%,
+  rgba(240, 230, 255, 0.2) 100%
+);
+
     padding-top: 100px;
     position: relative;
     overflow: hidden;
@@ -62,41 +65,13 @@ import heroData from '../data/hero.json';
     pointer-events: none;
   }
 
-  .floating-elements {
-    position: relative;
-    width: 100%;
-    height: 100%;
-  }
+ 
 
-  .floating-element {
-    position: absolute;
-    background: linear-gradient(45deg, rgba(212, 175, 55, 0.1), rgba(212, 175, 55, 0.05));
-    border-radius: 50%;
-    animation: float 6s ease-in-out infinite;
-  }
+ 
 
-  .floating-element:nth-child(1) {
-    width: 200px;
-    height: 200px;
-    top: 20%;
-    right: 10%;
-    animation-delay: 0s;
-  }
-
-  .floating-element:nth-child(2) {
-    width: 150px;
-    height: 150px;
-    bottom: 30%;
-    left: 5%;
-    animation-delay: 2s;
-  }
-
-  .floating-element:nth-child(3) {
-    width: 100px;
-    height: 100px;
-    top: 60%;
-    right: 30%;
-    animation-delay: 4s;
+  @keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
   }
 
   @keyframes float {
@@ -118,10 +93,30 @@ import heroData from '../data/hero.json';
     padding: 0 20px;
   }
 
+  .script-accent {
+    font-family: var(--font-script);
+    font-size: 1.8rem;
+    color: var(--color-accent);
+    margin-bottom: 15px;
+    opacity: 0.9;
+    font-weight: 500;
+    text-align: left;
+    position: relative;
+  }
+
+  .script-accent::after {
+    content: '✨';
+    position: absolute;
+    right: -30px;
+    top: -5px;
+    font-size: 1rem;
+    opacity: 0.6;
+  }
+
   .hero-title {
-    font-size: 4rem;
-    font-weight: 700;
-    margin-bottom: 20px;
+    font-size: 3.8rem;
+    font-weight: 600;
+    margin-bottom: 25px;
     line-height: 1.1;
     color: var(--color-primary);
   }
@@ -129,25 +124,36 @@ import heroData from '../data/hero.json';
   .accent {
     color: var(--color-accent);
     position: relative;
-    font-weight: 700;
+    font-weight: 600;
+    font-style: italic;
   }
 
   .accent::after {
     content: '';
     position: absolute;
-    bottom: 5px;
+    bottom: 8px;
     left: 0;
     width: 100%;
-    height: 3px;
-    background: linear-gradient(90deg, var(--color-accent), rgba(212, 175, 55, 0.3));
+    height: 2px;
+    background: linear-gradient(90deg, var(--color-accent), var(--color-rose-gold));
     border-radius: 2px;
+    opacity: 0.7;
+  }
+
+  .emotional-text {
+    font-family: var(--font-script);
+    font-size: 1.4rem;
+    color: var(--color-rose-gold);
+    font-weight: 500;
+    display: inline-block;
+    margin-bottom: 8px;
   }
 
   .hero-description {
-    font-size: 1.2rem;
+    font-size: 1.15rem;
     color: var(--color-gray);
     margin-bottom: 40px;
-    line-height: 1.6;
+    line-height: 1.7;
   }
 
   .hero-buttons {
@@ -162,31 +168,36 @@ import heroData from '../data/hero.json';
 
   .image-frame {
     position: relative;
-    border-radius: 20px;
+    border-radius: 25px;
     overflow: hidden;
-    box-shadow: var(--shadow-strong), var(--shadow-glow);
-    transform: rotate(2deg);
+    box-shadow: var(--shadow-strong), var(--shadow-rose);
+    transform: rotate(1deg);
     transition: var(--transition-slow);
+    border: 3px solid var(--color-white);
   }
 
   .image-frame:hover {
-    transform: rotate(0deg) scale(1.05);
-    box-shadow: var(--shadow-strong), 0 0 50px rgba(212, 175, 55, 0.3);
+    transform: rotate(0deg) scale(1.03);
+    box-shadow: var(--shadow-strong), var(--shadow-glow), var(--shadow-rose);
   }
 
   .image-frame::before {
     content: '';
     position: absolute;
-    top: -10px;
-    left: -10px;
-    right: -10px;
-    bottom: -10px;
-    background: linear-gradient(135deg, var(--color-accent), rgba(212, 175, 55, 0.6));
-    border-radius: 25px;
+    top: -15px;
+    left: -15px;
+    right: -15px;
+    bottom: -15px;
+    background: linear-gradient(135deg, var(--color-accent-light) 0%, var(--color-peach) 50%, var(--color-rose-gold) 100%);
+    border-radius: 30px;
     z-index: -1;
-    opacity: 0.15;
-    filter: blur(1px);
+    opacity: 0.3;
+    filter: blur(2px);
   }
+
+  
+
+ 
 
   .image-frame img {
     width: 100%;
@@ -236,13 +247,14 @@ import heroData from '../data/hero.json';
 
   @media (max-width: 768px) {
     .hero {
-      padding-top: 80px;
-      min-height: calc(100vh - 20px);
+      padding-top: 120px;
+      padding-bottom: 60px;
+      min-height: calc(100vh - 80px);
     }
 
     .hero-content {
       grid-template-columns: 1fr;
-      gap: 40px;
+      gap: 30px;
       text-align: center;
       padding: 0 15px;
     }
@@ -253,20 +265,32 @@ import heroData from '../data/hero.json';
 
     .hero-description {
       font-size: 1.1rem;
+      margin-bottom: 25px;
     }
 
     .hero-buttons {
       justify-content: center;
+      margin-bottom: 20px;
     }
 
     .image-frame img {
-      height: 400px;
+      height: 320px;
+    }
+
+    .hero-image {
+      margin-bottom: 20px;
     }
   }
 
   @media (max-width: 480px) {
     .hero {
-      padding-top: 70px;
+      padding-top: 110px;
+      padding-bottom: 40px;
+      min-height: calc(100vh - 60px);
+    }
+
+    .hero-content {
+      gap: 25px;
     }
 
     .hero-title {
@@ -276,12 +300,13 @@ import heroData from '../data/hero.json';
 
     .hero-description {
       font-size: 1rem;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
     }
 
     .hero-buttons {
       flex-direction: column;
       align-items: center;
+      margin-bottom: 15px;
     }
 
     .btn {
@@ -292,11 +317,15 @@ import heroData from '../data/hero.json';
     }
 
     .image-frame img {
-      height: 350px;
+      height: 280px;
+    }
+
+    .hero-image {
+      margin-bottom: 15px;
     }
 
     .scroll-indicator {
-      bottom: 20px;
+      bottom: 15px;
     }
   }
 </style>
