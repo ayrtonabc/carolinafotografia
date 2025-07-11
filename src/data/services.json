@@ -7,7 +7,7 @@
       "name": "Portrety Profesjonalne",
       "description": "Pozwól, by fotografia wydobyła Twoją wyjątkowość i klasę. Subtelne, ponadczasowe kadry, które opowiadają Twoją historię.",
       "price": "Od 350zł",
-      "image": "/images/uploads/11.jpeg",
+      "image": "/images/uploads/11.webp",
       "featured": false,
       "features": [
         "Sesja 1-2 godziny",
@@ -20,7 +20,7 @@
       "name": "Sesje Reportażowe",
       "description": "Kompletna dokumentacja Twojego wyjątkowego dnia. Chwytam każdą emocję, każdy uśmiech i każdy wyjątkowy moment, który czyni Twoje wydarzenie naprawdę niezapomnianym.",
       "price": "Od 500zł",
-      "image": "/images/uploads/3.jpeg",
+      "image": "/images/uploads/3.webp",
       "featured": false,
       "features": [
         "Pełne pokrycie wydarzenia",
@@ -34,7 +34,7 @@
       "name": "Sesje Rodzinne",
       "description": "Naturalne sesje rodzinne pełne ciepła i prawdziwych emocji – wspomnienia na całe życie.\n\n",
       "price": "Od 350zł",
-      "image": "/images/uploads/whatsapp-image-2025-07-09-at-23.05.49.jpeg",
+      "image": "/images/uploads/whatsapp-image-2025-07-09-at-23.05.49.webp",
       "featured": true,
       "features": [
         "Sesja 1,5 godziny",
