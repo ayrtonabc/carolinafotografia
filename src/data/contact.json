@@ -12,15 +12,12 @@
     {
       "icon": "📱",
       "title": "Telefon",
-      "value": "+ 48 570 434 419",
-      "link": "+ 48 570 434 419",
-      "link_text": "Zadzwoń Teraz"
+      "value": "+48 570 434 419"
     },
     {
       "icon": "📍",
       "title": "Lokalizacja",
-      "value": "Ostróda",
-      "note": "Dostępna do podróży"
+      "value": "Ostróda"
     }
   ],
   "social": {

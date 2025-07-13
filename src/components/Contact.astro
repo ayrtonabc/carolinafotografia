@@ -13,8 +13,7 @@ import contactData from '../data/contact.json';
   <div class="container">
     <!-- Header with elegant styling -->
     <div class="section-header">
-      <div class="header-decoration">✨</div>
-      <h2 class="section-title">{contactData.title}</h2>
+<h2 class="section-title">{contactData.title}</h2>
       <div class="title-underline"></div>
       <p class="section-subtitle">
         {contactData.subtitle}
@@ -22,105 +21,26 @@ import contactData from '../data/contact.json';
     </div>
     
     <!-- Main contact layout -->
-    <div class="contact-wrapper">
-      <!-- Left side: Contact cards in elegant layout -->
-      <div class="contact-sidebar">
-        <div class="contact-cards-grid">
-          {contactData.contact_cards.map(card => (
-            <div class="contact-card-modern">
-              <div class="card-glow"></div>
-              <div class="contact-icon-modern">{card.icon}</div>
-              <h3 class="card-title">{card.title}</h3>
+    <div class="contact-content">
+      <!-- Contact cards in elegant layout -->
+      <div class="contact-cards-grid">
+        {contactData.contact_cards.map(card => (
+          <div class="contact-card-modern">
+            <div class="card-glow"></div>
+            <h3 class="card-title">{card.title}</h3>
+            {card.icon === '📧' ? (
+              <a href={`mailto:${card.value}`} class="card-value">{card.value}</a>
+            ) : card.icon === '📱' ? (
+              <a href={`tel:${card.value.replace(/\s+/g, '')}`} class="card-value">{card.value}</a>
+            ) : (
               <p class="card-value">{card.value}</p>
-              {card.link && <a href={card.link} class="card-action">{card.link_text}</a>}
-              {card.note && <span class="card-note">{card.note}</span>}
-            </div>
-          ))}
-        </div>
-        
-        <!-- Social section with new design -->
-        <div class="social-section">
-          <h3 class="social-title">{contactData.social.title}</h3>
-          <div class="social-grid">
-            {contactData.social.links.map(link => (
-              <a href={link.url} aria-label={link.label} class="social-item">
-                <div class="social-icon-wrapper">
-                  {link.platform === 'instagram' && (
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                    </svg>
-                  )}
-                  {link.platform === 'facebook' && (
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                    </svg>
-                  )}
-                  {link.platform === 'pinterest' && (
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24.009 12.017 24c6.624 0 11.99-5.367 11.99-12.013C24.007 5.367 18.641.001 12.017.001z"/>
-                    </svg>
-                  )}
-                </div>
-                <span class="social-label">{link.label}</span>
-              </a>
-            ))}
+            )}
+            {card.link && <a href={card.link} class="card-action">{card.link_text}</a>}
+            {card.note && <span class="card-note">{card.note}</span>}
           </div>
-        </div>
+        ))}
       </div>
-      
-      <!-- Right side: Enhanced form -->
-      <div class="form-container">
-        <div class="form-header">
-          <h3 class="form-title">Napisz do mnie</h3>
-          <p class="form-subtitle">Opowiedz mi o swojej wizji</p>
-        </div>
-        
-        <form class="modern-form" id="contact-form">
-          {contactData.form.fields.map(field => (
-            <div class="input-group">
-              <label for={field.name} class="input-label">{field.label}</label>
-              <div class="input-wrapper">
-                {field.type === 'select' ? (
-                  <select id={field.name} name={field.name} required={field.required} class="form-input">
-                    {field.options.map(option => (
-                      <option value={option.value}>{option.label}</option>
-                    ))}
-                  </select>
-                ) : field.type === 'textarea' ? (
-                  <textarea 
-                    id={field.name} 
-                    name={field.name} 
-                    rows="4" 
-                    placeholder={field.placeholder}
-                    required={field.required}
-                    class="form-input form-textarea"
-                  ></textarea>
-                ) : (
-                  <input 
-                    type={field.type} 
-                    id={field.name} 
-                    name={field.name} 
-                    required={field.required}
-                    class="form-input"
-                  />
-                )}
-                <div class="input-focus-line"></div>
-              </div>
-            </div>
-          ))}
-          
-          <button type="submit" class="submit-button">
-            <span class="button-content">
-              <span class="btn-text">{contactData.form.button_text}</span>
-              <span class="btn-icon">💌</span>
-            </span>
-            <span class="btn-loading" style="display: none;">
-              <span class="loading-spinner"></span>
-              {contactData.form.button_loading}
-            </span>
-          </button>
-        </form>
-      </div>
+
     </div>
   </div>
 </section>
@@ -130,6 +50,8 @@ import contactData from '../data/contact.json';
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 245, 250, 0.8) 50%, rgba(255, 250, 245, 0.9) 100%);
     position: relative;
     overflow: hidden;
+    padding: 5rem 0;
+    color: #4a4a4a;
   }
 
   .contact-background {
@@ -201,24 +123,24 @@ import contactData from '../data/contact.json';
   }
 
   .section-title {
-    font-size: 3.2rem;
-    font-weight: 700;
-    margin-bottom: 20px;
+    font-size: 2.5rem;
+    margin-bottom: 15px;
     color: var(--color-primary);
-    font-family: var(--font-elegant);
+    font-family: var(--font-heading);
+    font-weight: 500;
     position: relative;
   }
 
   .title-underline {
     width: 80px;
     height: 3px;
-    background: linear-gradient(90deg, var(--color-accent), var(--color-rose-gold));
+    background: linear-gradient(90deg, var(--color-gold), var(--color-light-gold));
     margin: 0 auto 25px;
     border-radius: 2px;
   }
 
   .section-subtitle {
-    font-size: 1.3rem;
+    font-size: 0.95rem;
     color: var(--color-gray);
     max-width: 700px;
     margin: 0 auto;
@@ -226,42 +148,34 @@ import contactData from '../data/contact.json';
     font-weight: 400;
   }
 
-  .contact-wrapper {
-    display: grid;
-    grid-template-columns: 400px 1fr;
-    gap: 80px;
-    align-items: start;
-    max-width: 1400px;
-    margin: 0 auto;
-  }
-
-  .contact-sidebar {
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
+  .contact-content {
+    max-width: 1000px;
+    margin: 3rem auto 0;
+    padding: 0 1.5rem;
   }
 
   .contact-cards-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
   }
 
   .contact-card-modern {
     background: rgba(255, 255, 255, 0.9);
     backdrop-filter: blur(10px);
-    padding: 35px 25px;
-    border-radius: 25px;
+    padding: 20px;
+    border-radius: 15px;
     border: 1px solid rgba(255, 255, 255, 0.3);
     position: relative;
     overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.3s ease;
     text-align: center;
   }
 
   .contact-card-modern:hover {
     transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 20px 40px rgba(212, 165, 165, 0.2), 0 10px 20px rgba(230, 215, 255, 0.1);
+    box-shadow: 0 20px 40px rgba(192, 161, 107, 0.2), 0 10px 20px rgba(255, 248, 237, 0.1);
   }
 
   .card-glow {
@@ -270,7 +184,7 @@ import contactData from '../data/contact.json';
     left: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(circle, rgba(212, 165, 165, 0.1) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(192, 161, 107, 0.1) 0%, transparent 70%);
     opacity: 0;
     transition: opacity 0.4s ease;
   }
@@ -279,304 +193,107 @@ import contactData from '../data/contact.json';
     opacity: 1;
   }
 
-  .contact-icon-modern {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-    filter: drop-shadow(0 4px 8px rgba(212, 165, 165, 0.3));
-  }
-
   .card-title {
-    font-size: 1.4rem;
-    font-weight: 600;
-    margin-bottom: 12px;
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: 500;
     color: var(--color-primary);
-    font-family: var(--font-elegant);
+    margin-bottom: 12px;
+    letter-spacing: 0.5px;
   }
 
   .card-value {
-    color: var(--color-gray);
-    margin-bottom: 18px;
-    font-size: 1.1rem;
-    line-height: 1.5;
+    color: var(--color-text);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 10px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  a.card-value {
+    color: var(--color-text);
+    transition: color 0.3s ease;
+  }
+  
+  a.card-value:hover {
+    color: var(--color-gold);
   }
 
   .card-action {
-    color: var(--color-accent);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px;
+    padding: 12px 30px;
+    background: var(--color-gold);
+    color: white;
     text-decoration: none;
-    font-weight: 600;
+    border-radius: 25px;
+    font-family: var(--font-body);
     font-size: 0.95rem;
-    padding: 8px 16px;
-    border-radius: 20px;
-    background: rgba(212, 165, 165, 0.1);
+    font-weight: 500;
+    letter-spacing: 0.5px;
     transition: all 0.3s ease;
-    display: inline-block;
+    box-shadow: 0 4px 15px rgba(192, 161, 107, 0.3);
+    border: none;
+    min-width: 180px;
   }
 
   .card-action:hover {
-    background: var(--color-accent);
-    color: white;
-    transform: translateY(-2px);
+    background: var(--color-dark-gold);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(192, 161, 107, 0.4);
+    letter-spacing: 0.7px;
   }
 
   .card-note {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: var(--color-gray);
     font-style: italic;
-    margin-top: 10px;
+    margin-top: 8px;
     display: block;
   }
 
-  .social-section {
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(15px);
-    padding: 35px;
-    border-radius: 25px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    text-align: center;
-  }
-
-  .social-title {
-    font-size: 1.4rem;
-    font-weight: 600;
-    margin-bottom: 25px;
-    color: var(--color-primary);
-    font-family: var(--font-elegant);
-  }
-
-  .social-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
-
-  .social-item {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    padding: 15px 20px;
-    background: rgba(255, 255, 255, 0.6);
-    border-radius: 15px;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    border: 1px solid rgba(212, 165, 165, 0.2);
-  }
-
-  .social-item:hover {
-    background: var(--color-accent-light);
-    transform: translateX(5px);
-    box-shadow: 0 8px 25px rgba(212, 165, 165, 0.3);
-  }
-
-  .social-icon-wrapper {
-    width: 40px;
-    height: 40px;
-    background: linear-gradient(135deg, var(--color-accent), var(--color-rose-gold));
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    flex-shrink: 0;
-  }
-
-  .social-label {
-    color: var(--color-primary);
-    font-weight: 500;
-    font-size: 1rem;
-  }
-
-  .form-container {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(20px);
-    padding: 50px;
-    border-radius: 30px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 25px 50px rgba(212, 165, 165, 0.15);
-  }
-
-  .form-header {
-    text-align: center;
-    margin-bottom: 40px;
-  }
-
-  .form-title {
-    font-size: 2.2rem;
-    font-weight: 700;
-    color: var(--color-primary);
-    margin-bottom: 10px;
-    font-family: var(--font-elegant);
-  }
-
-  .form-subtitle {
-    color: var(--color-gray);
-    font-size: 1.1rem;
-    font-family: var(--font-script);
-  }
-
-  .modern-form {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-  }
-
-  .input-group {
-    position: relative;
-  }
-
-  .input-label {
-    display: block;
-    margin-bottom: 12px;
-    font-weight: 600;
-    color: var(--color-primary);
-    font-size: 1rem;
-  }
-
-  .input-wrapper {
-    position: relative;
-  }
-
-  .form-input {
-    width: 100%;
-    padding: 18px 20px;
-    border: 2px solid rgba(212, 165, 165, 0.3);
-    border-radius: 15px;
-    font-family: var(--font-body);
-    font-size: 1rem;
-    background: rgba(255, 255, 255, 0.8);
-    transition: all 0.3s ease;
-    box-sizing: border-box;
-  }
-
-  .form-input:focus {
-    outline: none;
-    border-color: var(--color-accent);
-    background: rgba(255, 255, 255, 1);
-    box-shadow: 0 0 0 4px rgba(212, 165, 165, 0.1);
-  }
-
-  .form-textarea {
-    resize: vertical;
-    min-height: 120px;
-    font-family: var(--font-body);
-  }
-
-  .input-focus-line {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    width: 0;
-    height: 2px;
-    background: linear-gradient(90deg, var(--color-accent), var(--color-rose-gold));
-    transition: all 0.3s ease;
-    transform: translateX(-50%);
-  }
-
-  .form-input:focus + .input-focus-line {
-    width: 100%;
-  }
-
-  .submit-button {
-    background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-rose-gold) 100%);
-    color: white;
-    border: none;
-    padding: 20px 40px;
-    border-radius: 25px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.4s ease;
-    margin-top: 20px;
-  }
-
-  .submit-button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 35px rgba(212, 165, 165, 0.4);
-  }
-
-  .submit-button:active {
-    transform: translateY(-1px);
-  }
-
-  .button-content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-  }
-
-  .btn-icon {
-    font-size: 1.2rem;
-  }
-
-  .btn-loading {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .loading-spinner {
-    width: 20px;
-    height: 20px;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    border-top: 2px solid white;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-  }
-
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-
-  @media (max-width: 1200px) {
-    .contact-wrapper {
-      grid-template-columns: 350px 1fr;
-      gap: 60px;
-    }
-  }
-
-  @media (max-width: 968px) {
-    .contact-wrapper {
-      grid-template-columns: 1fr;
-      gap: 50px;
-    }
-
-    .section-title {
-      font-size: 2.5rem;
-    }
-
-    .form-container {
-      padding: 40px 30px;
-    }
-
-    .social-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 15px;
-    }
-  }
-
-  @media (max-width: 640px) {
+  @media (max-width: 480px) {
     .section-header {
-      margin-bottom: 60px;
+      margin-bottom: 30px;
     }
-
     .section-title {
-      font-size: 2rem;
+      font-size: 1.6rem;
     }
-
-    .form-container {
-      padding: 30px 20px;
+    .section-subtitle {
+      font-size: 1rem;
     }
+    .social-subtitle {
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .contact-content {
+      padding: 2rem 1.25rem;
+    }
+  }
 
+  @media (max-width: 768px) {
+    .contact-content {
+      padding: 0 1.25rem;
+    }
+    
     .contact-cards-grid {
-      gap: 20px;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    
+    .social-grid {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .social-item {
+      width: 100%;
+      max-width: 280px;
+      padding: 0.9rem 1.5rem;
     }
 
     .social-grid {
@@ -584,7 +301,8 @@ import contactData from '../data/contact.json';
     }
 
     .submit-button {
-      padding: 18px 35px;
+      width: 100%;
+      padding: 14px 20px;
       font-size: 1rem;
     }
   }
