@@ -6,18 +6,18 @@
     {
       "image": "/images/uploads/12.webp",
       "category": "Rodzina",
-      "title": "Sesja rodzinna",
+      "title": "Sesja Rodzinna",
       "description": "Rodzinne momenty, które zostają na zawsze – prawdziwe, pełne ciepła i emocji."
     },
     {
       "image": "/images/uploads/10.webp",
-      "title": "Sesja ciążowa",
+      "title": "Sesja Ciążowa",
       "description": "Subtelna sesja ciążowa – tak, jak czujesz. Prawdziwie i bez presji.",
       "category": "Ciąża"
     },
     {
       "image": "/images/uploads/9.webp",
-      "title": "Sesja portretowa",
+      "title": "Sesja Portretowa",
       "description": "Czas tylko dla Ciebie – portret w świetle, emocjach i spokoju.",
       "category": "Portrety"
     },
@@ -29,9 +29,15 @@
     },
     {
       "image": "/images/uploads/4.webp",
-      "title": "Sesja kobieca",
+      "title": "Sesja Kobieca",
       "description": "Pozwól sobie zabłysnąć i odkryj swoją wyjątkową zmysłowość w pełnych emocji kadrach.",
       "category": "Kobiecość"
+    },
+    {
+      "title": "Sesja Rodzinna",
+      "image": "/images/uploads/14.webp",
+      "category": "Sesja Rodzinna",
+      "description": "Rodzinne momenty, które zostają na zawsze – prawdziwe, pełne ciepła i emocji."
     }
   ],
   "cta": {
